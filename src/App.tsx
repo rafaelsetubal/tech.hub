@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { NotFound } from '@/pages/NotFound';
+import { LoadingScreen } from '@/components/ui/LoadingScreen';
 
 // Start the primary route's chunk as the app boots so the hero does not wait
 // for React's first render to discover it. Other routes stay on demand.
@@ -31,7 +32,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <Suspense fallback={<div className="app-route-loading" role="status" aria-live="polite">Carregando página…</div>}>
+    <Suspense fallback={<LoadingScreen />}>
       {currentPath === '/design-system' ? (
         <DesignSystemPlayground />
       ) : currentPath.replace(/\/$/, '') === '/sites' ? <Sites />
