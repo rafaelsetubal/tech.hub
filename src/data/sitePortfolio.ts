@@ -142,15 +142,6 @@ export const siteProjects: SiteProject[] = [
     placeholderVariant: 2,
     theme: 'coral',
   },
-  {
-    id: 'widestep',
-    title: 'WideStep',
-    description: 'Uma página de oferta apresenta a proposta, seus benefícios e o caminho para conhecer ou contratar.',
-    videoSrc: '/portfolio/videos-techub/widestep.mp4',
-    posterSrc: '/portfolio/videos-techub/widestep.webp',
-    placeholderVariant: 0,
-    theme: 'lime',
-  },
 ];
 
 /** Returns a day key shared by all visitors, aligned to the audience's local calendar. */
