@@ -1,0 +1,10 @@
+import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
+
+/** Fictional design studies, intentionally not presented as client projects. */
+export const WebsiteConcept: React.FC<{ variant: number; compact?: boolean }> = ({variant, compact=false}) => <div className={'concept-window concept-'+variant+(compact?' concept-compact':'')} aria-hidden="true">
+  <div className="concept-chrome"><i/><i/><i/><span>{['forma.studio','aura.essencial','proximo.guia'][variant]}</span><ArrowUpRight size={10}/></div>
+  {variant===0 && <div className="concept-interior"><div className="concept-nav"><b>forma.</b><span>ESTÚDIO &nbsp; PROJETOS &nbsp; CONTATO ↗</span></div><div className="interior-copy"><span>Arquitetura para a vida real.</span><h3>Um espaço.<br/>Infinitas<br/><em>possibilidades.</em></h3><div className="concept-action">Explore nossos projetos <ArrowUpRight size={12}/></div></div><div className="interior-room"><div className="room-arch"/><div className="room-sun"/><div className="room-plinth"/><div className="room-vase"/><div className="room-shadow"/></div><div className="concept-foot">MENOS EXCESSO. MAIS ESSÊNCIA.<span>01 / 03</span></div></div>}
+  {variant===1 && <div className="concept-product"><div className="concept-nav"><b>aura®</b><span>ESSÊNCIA EM CADA DETALHE</span></div><h3>O seu tempo.<br/><em>Em outro ritmo.</em></h3><div className="perfume-scene"><div className="perfume-halo"/><div className="perfume-bottle"><div className="perfume-cap"/><span>aura<small>EAU DE PARFUM<br/>50 ML</small></span></div></div><div className="concept-action">Encontre sua essência <ArrowUpRight size={12}/></div></div>}
+  {variant===2 && <div className="concept-guide"><div className="concept-nav"><b>próximo↗</b><span>IDEIAS EM MOVIMENTO</span></div><h3>Uma boa ideia<br/>merece sair<br/><em>do papel.</em></h3><div className="guide-orbit"><i/><i/><i/></div><div className="guide-form"><span>Seu melhor e-mail</span><strong>Receber o guia <ArrowUpRight size={13}/></strong></div><div className="concept-foot">UM GUIA PARA COMEÇAR.<span>GRATUITO ↗</span></div></div>}
+</div>;

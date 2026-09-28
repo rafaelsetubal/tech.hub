@@ -1,0 +1,60 @@
+/* Size illustrations against their own stage, not the viewport width. */
+.journey-composition{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr)}
+.journey-canvas{container-type:size;width:100%}
+.journey-story,.process-caption,.process-experience,.process-pin>div,.journey-sticky>div{min-width:0}
+.journey-canvas .journey-design{padding:0;display:grid;place-items:center}
+.journey-preview-art{display:block;width:100%;height:100%;min-height:0;max-height:100%;font-family:inherit}
+.journey-canvas .journey-palette{bottom:0;right:2%;padding:9px 12px;gap:7px;max-width:90%}
+.journey-canvas .journey-palette i{width:20px;height:23px}
+.journey-canvas .journey-palette span{font-size:10px}
+.journey-state-2 .journey-pointer{transform:none;left:43%;top:70%}
+.journey-canvas .journey-design-nav{font-size:clamp(10px,3.3cqw,16px)}
+.journey-canvas .journey-design-content{margin-top:4cqh;width:72%}
+.journey-canvas .journey-design-content>strong{font-size:clamp(17px,min(7cqw,11cqh),40px);margin-top:2cqh;line-height:1.03}
+.journey-canvas .journey-design-content>p{margin-top:3cqh;font-size:clamp(6px,2cqw,9px)}
+.journey-canvas .journey-design-button{margin-top:3cqh;padding:2cqh 3cqw;font-size:clamp(6px,1.8cqw,9px)}
+.journey-canvas .journey-published{right:2%;bottom:0;max-width:90%;padding:10px 12px;gap:8px}
+.journey-published>div{min-width:0;overflow-wrap:anywhere}
+.journey-canvas .journey-published>div{font-size:clamp(10px,2.7cqw,14px)}
+.journey-canvas .journey-published small{font-size:clamp(8px,2cqw,10px)}
+.journey-canvas .journey-published>span{flex-shrink:0;padding:6px}
+.journey-canvas .journey-browser{inset:5% 2% 17%}
+.journey-canvas .journey-design-footer{bottom:3cqh;left:5cqw;right:5cqw}
+@container(max-height:280px){.journey-design-footer{display:none}.journey-design-content>p{display:none}.journey-palette{padding:7px}.journey-design-nav>span{display:none}}
+
+/* Four cards stay in flow: their text can no longer collide between rows. */
+.process-panel{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.process-scene,.process-scroll .process-scene{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(min-content,1fr));gap:44px 15%;padding:18px 0 26px;aspect-ratio:auto;max-height:none;min-height:290px}
+.process-scene .work-tile{position:relative;inset:auto;width:100%;height:auto;min-height:0;align-self:stretch;overflow-wrap:anywhere}
+.process-scene .tile-one{grid-area:1/1}.process-scene .tile-two{grid-area:1/2}.process-scene .tile-three{grid-area:2/1}.process-scene .tile-four{grid-area:2/2}
+.process-scene .process-success{bottom:-12px;max-width:94%;white-space:normal;text-align:left}
+.process-scroll .process-caption p{line-height:1.5}
+@media(min-width:768px) and (max-height:800px){
+ .process-scroll .process-pin,.journey-scroll .journey-sticky{padding-top:88px;padding-bottom:14px}
+ .process-scroll .process-intro .editorial-title{font-size:30px}
+ .process-scroll .process-intro{margin-bottom:14px}
+ .process-scroll .process-scene{margin:16px 22px;width:calc(100% - 44px);min-height:260px;gap:34px 13%;padding:8px 0 16px}
+ .process-scroll .work-tile{padding:12px}
+ .process-scroll .work-tile>svg,.process-scroll .tile-check,.process-scroll .tile-bars,.process-scroll .tile-people{margin-bottom:7px}
+ .process-scroll .process-caption{padding:18px}
+ .process-scroll .process-caption h3{font-size:27px}
+ .journey-scroll .journey-heading h2{font-size:34px}
+ .journey-scroll .journey-copy h3{font-size:27px}
+ .journey-scroll .journey-copy p{font-size:15px;margin-top:12px}
+}
+@media(max-width:1023px){.journey-composition{grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr)}.process-panel{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
+@media(max-width:767px){
+ .process-scene,.process-scroll .process-scene{height:auto;min-height:228px;gap:30px 12%;padding:10px 0 22px;width:calc(100% - 32px);margin:16px 16px 22px}
+ .process-scene .work-tile{padding:10px;min-height:87px}
+ .process-scene .work-tile strong{font-size:11px;line-height:1.25}
+ .process-scene .work-tile>span{font-size:9px;line-height:1.3}
+ .process-state-0 .tile-one,.process-state-0 .tile-three{transform:rotate(-4deg)}
+ .process-state-0 .tile-two,.process-state-0 .tile-four{transform:rotate(4deg)}
+ .process-scroll .process-caption h3{font-size:22px}
+ .process-scroll .process-caption p{font-size:13px}
+ .process-scroll .process-caption{padding:8px 18px 16px}
+ .journey-canvas .journey-palette{right:2%;max-width:94%}
+ .journey-scroll .journey-canvas{height:clamp(200px,30svh,270px)}
+ .journey-scroll .journey-copy h3{font-size:21px}
+ .journey-scroll .journey-copy p{font-size:13px;line-height:1.45}
+}

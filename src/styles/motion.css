@@ -1,0 +1,84 @@
+/**
+ * TECH HUB MOTION STYLES V1.0
+ * GSAP + CSS Transitions & Ambient Keyframes
+ */
+
+@keyframes techhub-ambient-float {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(30px, -25px) rotate(6deg) scale(1.04);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(-4deg) scale(0.96);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes techhub-ambient-pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes techhub-ambient-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes techhub-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-ambient-float {
+  animation: techhub-ambient-float var(--duration-ambient) var(--ease-smooth) infinite;
+  will-change: transform;
+}
+
+.animate-ambient-pulse {
+  animation: techhub-ambient-pulse calc(var(--duration-ambient) * 0.6) var(--ease-smooth) infinite;
+  will-change: transform, opacity;
+}
+
+.animate-ambient-spin {
+  animation: techhub-ambient-spin 40s linear infinite;
+  will-change: transform;
+}
+
+/* ==========================================================================
+   19. ACCESSIBILITY & PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-ambient-float,
+  .animate-ambient-pulse,
+  .animate-ambient-spin {
+    animation: none !important;
+    transform: none !important;
+  }
+}

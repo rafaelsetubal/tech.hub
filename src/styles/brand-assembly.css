@@ -1,0 +1,15 @@
+.brand-assembly{position:relative;background:#071326;color:#f4f7ff}
+.assembly-stage{overflow:hidden;padding:100px 0;background:radial-gradient(ellipse at 80% 50%,#263c713d,transparent 65%)}
+.assembly-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:5%;align-items:center}
+.assembly-copy{display:grid}.assembly-phase{grid-area:1/1;align-self:center}.assembly-phase:not(:last-child){visibility:hidden}
+.assembly-phase h2{font-size:clamp(43px,5.5vw,80px);letter-spacing:-.055em;line-height:1.03;font-weight:500;color:#f8faff}.assembly-phase h2 span{color:#9eafff}
+.assembly-phase p{font-size:19px;line-height:1.65;color:#9dacca;max-width:375px;margin-top:28px}
+.assembly-art{position:relative;min-width:0}.assembly-art>svg{display:block;width:100%;max-height:70svh;overflow:visible}
+.assembly-mark{filter:drop-shadow(0 20px 35px #204ddb40)}.assembly-pieces,.assembly-label,.assembly-guide{opacity:0}
+.assembly-signature{text-align:center;font-size:26px;letter-spacing:.16em;font-weight:650;margin-top:-32px;position:relative}.assembly-signature span{display:block;font-size:13px;font-weight:400;letter-spacing:0;color:#93a6d1;margin-top:10px}
+.assembly-animated{height:320svh}.assembly-animated .assembly-stage{position:sticky;top:0;height:100svh;display:flex;align-items:center;padding:95px 0 35px}
+.portrait-composition{position:relative;isolation:isolate}.portrait-brand-outline{position:absolute;width:110%;height:110%;right:-12%;top:-6%;color:#7896ff;transform:rotate(18deg);z-index:-1}.portrait-brand-float{position:absolute;z-index:3;right:-7%;bottom:12%;width:29%;filter:drop-shadow(0 15px 16px #264f8640);transform:rotate(-13deg)}
+.visual-about .portrait-frame{background:linear-gradient(145deg,#eef3ff,#bfcdff);border-radius:220px 220px 32px 32px}.visual-about .portrait-orbit{display:none}.visual-about{overflow:hidden}
+@media(max-width:767px){.assembly-layout{grid-template-columns:1fr;gap:20px}.assembly-copy{min-height:210px}.assembly-phase h2{font-size:clamp(36px,9vw,47px)}.assembly-phase p{font-size:16px;margin-top:20px}.assembly-art>svg{height:min(calc(100svh - 400px),390px)}.assembly-signature{font-size:20px;margin-top:-14px}.assembly-signature span{font-size:12px}.assembly-animated .assembly-stage{padding:100px 0 25px}.assembly-animated{height:300svh}.portrait-brand-float{right:-3%;width:25%}.portrait-brand-outline{right:-7%}}
+@media(max-height:559px){.assembly-stage{padding:90px 0 65px}.assembly-art>svg{max-height:none;height:auto}}
+@media(prefers-reduced-motion:reduce){.assembly-mark{filter:none}}
