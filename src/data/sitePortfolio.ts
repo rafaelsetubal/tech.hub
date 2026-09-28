@@ -62,15 +62,6 @@ export const siteProjects: SiteProject[] = [
     theme: 'coral',
   },
   {
-    id: 'glemo-construtoras',
-    title: 'Glemo para construtoras',
-    description: 'Uma página para apresentar a solução Glemo a construtoras e abrir uma conversa sobre vendas perdidas.',
-    videoSrc: '/portfolio/videos-techub/glemo-construtoras.mp4',
-    posterSrc: '/portfolio/videos-techub/glemo-construtoras.webp',
-    placeholderVariant: 0,
-    theme: 'lime',
-  },
-  {
     id: 'arena-training',
     title: 'Arena Training',
     description: 'Uma academia apresenta modalidades, horários e estrutura para quem quer começar a treinar.',
@@ -96,15 +87,6 @@ export const siteProjects: SiteProject[] = [
     posterSrc: '/portfolio/videos-techub/linhas-e-formas.webp',
     placeholderVariant: 0,
     theme: 'coral',
-  },
-  {
-    id: 'oxford-cove',
-    title: 'Oxford Cove',
-    description: 'Uma página de empreendimento imobiliário reúne apresentação, localização e informações para interessados.',
-    videoSrc: '/portfolio/videos-techub/oxford-cove.mp4',
-    posterSrc: '/portfolio/videos-techub/oxford-cove.webp',
-    placeholderVariant: 1,
-    theme: 'lime',
   },
   {
     id: 'clinica-nassri',
@@ -141,15 +123,6 @@ export const siteProjects: SiteProject[] = [
     posterSrc: '/portfolio/videos-techub/vital.webp',
     placeholderVariant: 2,
     theme: 'lime',
-  },
-  {
-    id: 'glemo-real-estate',
-    title: 'Glemo Real Estate',
-    description: 'Uma apresentação global de soluções imobiliárias com tecnologia Web2, Web3 e inteligência artificial.',
-    videoSrc: '/portfolio/videos-techub/glemo-real-estate.mp4',
-    posterSrc: '/portfolio/videos-techub/glemo-real-estate.webp',
-    placeholderVariant: 0,
-    theme: 'blue',
   },
   {
     id: 'dayanne-costa',
