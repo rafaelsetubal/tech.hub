@@ -78,55 +78,64 @@ export const Brand: React.FC = () => {
     setTimeout(() => setCopiedColor(null), 2000);
   };
 
-  const colors = [
+  const figmaSolidColors = [
+    { name: 'night', hex: '#081220', token: '--color-primitive-night', desc: 'Fundo principal Dark, tipografia em fundos claros e cabeçalhos.' },
+    { name: 'blue', hex: '#2563EB', token: '--color-primitive-blue', desc: 'Cor primária institucional, botões de ação e links.' },
+    { name: 'sky', hex: '#00BAFF', token: '--color-primitive-sky', desc: 'Azul ciano vibrante para realces, auras e gradientes elétricos.' },
+    { name: 'violet', hex: '#7C3AED', token: '--color-primitive-violet', desc: 'Violeta digital para transições e cartões analíticos.' },
+    { name: 'lilac', hex: '#C4B5FD', token: '--color-primitive-lilac', desc: 'Lilás suave para destaques e acentos luminosos.' },
+    { name: 'ice', hex: '#EAF2FF', token: '--color-primitive-ice', desc: 'Fundo suave gelo, superfícies secundárias e cards.', textDark: true },
+    { name: 'white', hex: '#FFFFFF', token: '--color-primitive-white', desc: 'Branco puro para fundos limpos e superfícies.', textDark: true, border: true },
+    { name: 'coral', hex: '#FF7A5C', token: '--color-primitive-coral', desc: 'Acento quente para gráficos de dados e avisos.' },
+    { name: 'peach', hex: '#FFB08A', token: '--color-primitive-peach', desc: 'Pêssego suave para estados secundários e ilustrações.' },
+    { name: 'mint', hex: '#00FFA2', token: '--color-primitive-mint', desc: 'Verde menta de alta energia para status ativo e sucesso.', textDark: true },
+    { name: 'slate', hex: '#94A3B8', token: '--color-primitive-slate', desc: 'Cinza neutro para textos de apoio, ícones e bordas sutis.' },
+  ];
+
+  const figmaGradients = [
     {
-      name: 'Electric Blue',
-      role: 'Cor Primária / Ação',
-      hex: '#2563EB',
-      rgb: 'rgb(37, 99, 235)',
-      textDark: false,
-      desc: 'Cor de destaque principal para CTAs, links ativos e elementos luminosos.',
+      name: '01 — ELECTRIC BLUE',
+      gradient: 'linear-gradient(135deg, #071A45 0%, #0047FF 38%, #00BAFF 72%, #EAF2FF 100%)',
+      stops: '0% #071A45 • 38% #0047FF • 72% #00BAFF • 100% #EAF2FF',
+      cssVar: '--gradient-electric',
+      desc: 'Gradiente principal elétrico para Hero, banners e elementos tridimensionais.',
     },
     {
-      name: 'Gradient Brand Blue',
-      role: 'Gradiente do Símbolo',
-      hex: '#0059FF → #D8D3FF',
+      name: '02 — BLUE LILAC',
       gradient: 'linear-gradient(135deg, #0059FF 0%, #4169FF 42%, #8B7CFF 72%, #D8D3FF 100%)',
-      textDark: false,
-      desc: 'Gradiente proprietário do símbolo e elementos fluidos tridimensionais.',
+      stops: '0% #0059FF • 42% #4169FF • 72% #8B7CFF • 100% #D8D3FF',
+      cssVar: '--gradient-blue-lilac',
+      desc: 'Gradiente oficial aplicado no símbolo vetorial e identidades principais.',
     },
     {
-      name: 'Night',
-      role: 'Escuro Institucional',
-      hex: '#081220',
-      rgb: 'rgb(8, 18, 32)',
-      textDark: false,
-      desc: 'Cor para tipografia em fundos claros e backgrounds do modo noturno.',
+      name: '03 — AURORA FLUID',
+      gradient: 'linear-gradient(135deg, #00BAFF 0%, #2563EB 36%, #7C3AED 68%, #C4B5FD 100%)',
+      stops: '0% #00BAFF • 36% #2563EB • 68% #7C3AED • 100% #C4B5FD',
+      cssVar: '--gradient-aurora',
+      desc: 'Gradiente fluido com transição ciano para violeta e lilás.',
     },
     {
-      name: 'Brand Sky',
-      role: 'Gelo / Fundo Suave',
-      hex: '#EAF2FF',
-      rgb: 'rgb(234, 242, 255)',
-      textDark: true,
-      desc: 'Fundo sutil, auras e cartões em segundo plano.',
-    },
-    {
-      name: 'Slate Medium',
-      role: 'Tipografia Secundária',
-      hex: '#64748B',
-      rgb: 'rgb(100, 116, 139)',
-      textDark: false,
-      desc: 'Legendas, textos de apoio e bordas de suporte.',
-    },
-    {
-      name: 'Pure White',
-      role: 'Luz / Superfície',
-      hex: '#FFFFFF',
-      rgb: 'rgb(255, 255, 255)',
+      name: '04 — GLASS LIGHT',
+      gradient: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.72) 40%, rgba(221,231,255,0.78) 72%, rgba(0,186,255,0.35) 100%)',
+      stops: '0% #FFFFFF (100%) • 40% #FFFFFF (72%) • 72% #DDE7FF (78%) • 100% #00BAFF (35%)',
+      cssVar: '--gradient-glass',
+      desc: 'Gradiente translúcido para efeitos de vidro, frosted glass e reflexos de luz.',
       textDark: true,
       border: true,
-      desc: 'Fundo principal da interface e cartões de conteúdo.',
+    },
+    {
+      name: '05 — DEEP FLUID',
+      gradient: 'linear-gradient(135deg, #020B1C 0%, #061B4F 30%, #003DFF 70%, #151A8A 100%)',
+      stops: '0% #020B1C • 30% #061B4F • 70% #003DFF • 100% #151A8A',
+      cssVar: '--gradient-deep',
+      desc: 'Gradiente de profundidade para seções noturnas densas e fundos imersivos.',
+    },
+    {
+      name: '07 — LIGHT LILAC',
+      gradient: 'linear-gradient(135deg, #7F7FFC 0%, #9FA2FC 38%, #B8BDFC 68%, #D3DDFC 100%)',
+      stops: '0% #7F7FFC • 38% #9FA2FC • 68% #B8BDFC • 100% #D3DDFC',
+      cssVar: '--gradient-light-lilac',
+      desc: 'Gradiente suave para o sub-elemento do símbolo e badges claras.',
     },
   ];
 
@@ -484,65 +493,135 @@ export const Brand: React.FC = () => {
         </section>
 
         {/* Colors & Tokens Section */}
-        <section id="cores" className="space-y-8 pt-8 border-t border-slate-200">
+        <section id="cores" className="space-y-12 pt-8 border-t border-slate-200">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold tracking-wider uppercase text-blue-600 bg-blue-50/80 px-3 py-1 rounded-full border border-blue-200/50 mb-2">
               <Palette className="w-3.5 h-3.5" />
-              <span>Cores Oficiais & Tokens</span>
+              <span>Design Tokens & Paleta Oficial Figma</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-display text-slate-900 tracking-tight">
-              Paleta Cromática
+              Paleta Cromática & Gradientes
             </h2>
             <p className="text-sm text-slate-500 mt-1">
-              Clique em qualquer amostra para copiar o código HEX para a área de transferência.
+              Valores oficiais extraídos diretamente do Figma (<strong>tech-hub-figma-native-colors-v2</strong>). Clique em qualquer amostra para copiar o HEX ou CSS Token.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {colors.map((c) => (
-              <div
-                key={c.name}
-                onClick={() => handleCopyColor(c.hex)}
-                className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md transition-all cursor-pointer group space-y-4"
-              >
-                {/* Color Swatch */}
-                <div
-                  className={`h-28 rounded-xl relative flex items-end justify-between p-3 ${
-                    c.border ? 'border border-slate-200' : ''
-                  }`}
-                  style={{
-                    background: c.gradient || c.hex,
-                    backgroundColor: c.hex,
-                  }}
-                >
-                  <span
-                    className={`text-[11px] font-mono px-2 py-0.5 rounded-md backdrop-blur-md ${
-                      c.textDark ? 'bg-black/10 text-slate-900' : 'bg-black/40 text-white'
-                    }`}
-                  >
-                    {c.hex}
-                  </span>
-
-                  <span
-                    className={`text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 ${
-                      c.textDark ? 'text-slate-900' : 'text-white'
-                    }`}
-                  >
-                    {copiedColor === c.hex ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedColor === c.hex ? 'Copiado!' : 'Copiar'}</span>
-                  </span>
-                </div>
-
-                {/* Details */}
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-slate-900 text-base">{c.name}</h3>
-                    <span className="text-[11px] font-mono text-slate-400">{c.role}</span>
-                  </div>
-                  <p className="text-xs text-slate-500 leading-relaxed">{c.desc}</p>
-                </div>
+          {/* 1. Official Figma System Gradients */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div>
+                <h3 className="text-lg font-bold font-display text-slate-900">Gradientes de Sistema</h3>
+                <p className="text-xs text-slate-500">Gradientes lineares multi-stop para Hero, 3D, símbolos e auras luminosas.</p>
               </div>
-            ))}
+              <span className="text-xs font-mono text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md font-semibold">
+                6 Estilos de Gradiente
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {figmaGradients.map((g) => (
+                <div
+                  key={g.name}
+                  onClick={() => handleCopyColor(g.gradient)}
+                  className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md transition-all cursor-pointer group space-y-4"
+                >
+                  {/* Swatch */}
+                  <div
+                    className={`h-32 rounded-xl relative flex flex-col justify-between p-3.5 overflow-hidden ${
+                      g.border ? 'border border-slate-200 shadow-inner' : ''
+                    }`}
+                    style={{ background: g.gradient }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded-md backdrop-blur-md ${
+                          g.textDark ? 'bg-black/10 text-slate-900 font-semibold' : 'bg-black/40 text-white font-medium'
+                        }`}
+                      >
+                        {g.cssVar}
+                      </span>
+
+                      <span
+                        className={`text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 ${
+                          g.textDark ? 'text-slate-900' : 'text-white'
+                        }`}
+                      >
+                        {copiedColor === g.gradient ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedColor === g.gradient ? 'Copiado!' : 'Copiar CSS'}</span>
+                      </span>
+                    </div>
+
+                    <p
+                      className={`text-[10px] font-mono leading-tight ${
+                        g.textDark ? 'text-slate-800' : 'text-white/90'
+                      }`}
+                    >
+                      {g.stops}
+                    </p>
+                  </div>
+
+                  {/* Info */}
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-slate-900 text-sm">{g.name}</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">{g.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 2. Official Figma Native Solid Colors */}
+          <div className="space-y-6 pt-6">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div>
+                <h3 className="text-lg font-bold font-display text-slate-900">Cores Sólidas Nativas</h3>
+                <p className="text-xs text-slate-500">Conjunto primitivo completo do design system (tech-hub-figma-native-colors-v2).</p>
+              </div>
+              <span className="text-xs font-mono text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md font-semibold">
+                11 Cores Nativas
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {figmaSolidColors.map((c) => (
+                <div
+                  key={c.name}
+                  onClick={() => handleCopyColor(c.hex)}
+                  className="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md transition-all cursor-pointer group space-y-3"
+                >
+                  <div
+                    className={`h-20 rounded-xl relative flex items-end justify-between p-2 ${
+                      c.border ? 'border border-slate-200' : ''
+                    }`}
+                    style={{ backgroundColor: c.hex }}
+                  >
+                    <span
+                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                        c.textDark ? 'bg-black/10 text-slate-900 font-bold' : 'bg-black/40 text-white font-medium'
+                      }`}
+                    >
+                      {c.hex}
+                    </span>
+
+                    <span
+                      className={`text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ${
+                        c.textDark ? 'text-slate-900' : 'text-white'
+                      }`}
+                    >
+                      {copiedColor === c.hex ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    </span>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-slate-900 text-xs uppercase tracking-tight">{c.name}</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5 leading-snug">{c.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
