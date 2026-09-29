@@ -13,6 +13,7 @@ const sitesEntry = typeof window !== 'undefined' && window.location.pathname.rep
   : undefined;
 const Sites = lazy(() => (sitesEntry ?? import('@/pages/Sites')).then(module => ({ default: module.Sites })));
 const DesignSystemPlayground = lazy(() => import('@/pages/DesignSystemPlayground').then(module => ({ default: module.DesignSystemPlayground })));
+const Brand = lazy(() => import('@/pages/Brand').then(module => ({ default: module.Brand })));
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -35,9 +36,15 @@ export const App: React.FC = () => {
     <Suspense fallback={<LoadingScreen />}>
       {currentPath === '/design-system' ? (
         <DesignSystemPlayground />
-      ) : currentPath.replace(/\/$/, '') === '/sites' ? <Sites />
-        : currentPath === '/' ? <Home />
-          : <NotFound />}
+      ) : currentPath.replace(/\/$/, '') === '/brand' ? (
+        <Brand />
+      ) : currentPath.replace(/\/$/, '') === '/sites' ? (
+        <Sites />
+      ) : currentPath === '/' ? (
+        <Home />
+      ) : (
+        <NotFound />
+      )}
     </Suspense>
   );
 };
