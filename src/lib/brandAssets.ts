@@ -68,7 +68,7 @@ function buildHorizontalLogoSvg(opts: {
   const hub = PATH_HUB_HORIZONTAL.replace(/FILL_HUB/g, opts.hubFill);
   const defs = opts.defs ? `<defs>${opts.defs}</defs>` : '';
 
-  return `<svg width="804" height="341" viewBox="0 0 804 341" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg width="804" height="341" viewBox="-12 -12 828 365" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
 ${defs}
 <path d="${SYMBOL_PATH_MAIN}" fill="${opts.symbolFillMain}"/>
 <path d="${SYMBOL_PATH_SUB}" fill="${opts.symbolFillSub}"/>
@@ -88,7 +88,7 @@ function buildVerticalLogoSvg(opts: {
   const hub = PATH_HUB_VERTICAL.replace(/FILL_HUB/g, opts.hubFill);
   const defs = opts.defs ? `<defs>${opts.defs}</defs>` : '';
 
-  return `<svg width="225" height="372" viewBox="0 0 225 372" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg width="225" height="372" viewBox="-8 -8 241 388" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
 ${defs}
 <path d="${PATH_VERTICAL_SYMBOL_MAIN}" fill="${opts.symbolFillMain}"/>
 <path d="${PATH_VERTICAL_SYMBOL_SUB}" fill="${opts.symbolFillSub}"/>
@@ -103,7 +103,7 @@ function buildSymbolSvg(opts: {
   defs?: string;
 }): string {
   const defs = opts.defs ? `<defs>${opts.defs}</defs>` : '';
-  return `<svg width="225" height="230" viewBox="0 0 225 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg width="225" height="230" viewBox="-10 -10 245 250" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
 ${defs}
 <path d="${PATH_VERTICAL_SYMBOL_MAIN}" fill="${opts.fillMain}"/>
 <path d="${PATH_VERTICAL_SYMBOL_SUB}" fill="${opts.fillSub}"/>
@@ -116,7 +116,7 @@ function buildWordmarkSvg(opts: {
 }): string {
   const tech = PATH_TECH_HORIZONTAL.replace(/FILL_TECH/g, opts.techFill);
   const hub = PATH_HUB_HORIZONTAL.replace(/FILL_HUB/g, opts.hubFill);
-  return `<svg width="460" height="341" viewBox="350 0 460 341" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg width="460" height="341" viewBox="340 -10 480 361" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
 ${tech}
 ${hub}
 </svg>`;

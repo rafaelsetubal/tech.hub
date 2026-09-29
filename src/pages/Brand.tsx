@@ -267,7 +267,7 @@ export const Brand: React.FC = () => {
                 >
                   {/* Top Preview Canvas */}
                   <div
-                    className={`relative p-8 h-64 flex items-center justify-center transition-colors duration-300 ${
+                    className={`relative p-6 h-64 flex items-center justify-center overflow-hidden transition-colors duration-300 ${
                       cardBg === 'dark'
                         ? 'bg-[#081220]'
                         : cardBg === 'blue'
@@ -311,7 +311,7 @@ export const Brand: React.FC = () => {
 
                     {/* SVG Render */}
                     <div
-                      className="w-full h-full max-w-[220px] max-h-[160px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105 overflow-hidden [&>svg]:max-w-[85%] [&>svg]:max-h-[85%] [&>svg]:w-auto [&>svg]:h-auto [&>svg]:object-contain"
                       dangerouslySetInnerHTML={{ __html: asset.svgContent }}
                     />
                   </div>
@@ -611,3 +611,5 @@ export const Brand: React.FC = () => {
     </div>
   );
 };
+
+export default Brand;
