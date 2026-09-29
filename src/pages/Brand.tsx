@@ -125,8 +125,8 @@ export const Brand: React.FC = () => {
     },
     {
       name: '05 — DEEP FLUID',
-      gradient: 'linear-gradient(135deg, #020B1C 0%, #061B4F 30%, #003DFF 70%, #151A8A 100%)',
-      stops: '0% #020B1C • 30% #061B4F • 70% #003DFF • 100% #151A8A',
+      gradient: 'linear-gradient(135deg, #020B1C 0%, #061B4F 38%, #003DFF 68%, #151A8A 100%)',
+      stops: '0% #020B1C • 38% #061B4F • 68% #003DFF • 100% #151A8A',
       cssVar: '--gradient-deep',
       desc: 'Gradiente de profundidade para seções noturnas densas e fundos imersivos.',
     },
