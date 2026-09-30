@@ -211,14 +211,30 @@ main > section { scroll-margin-top: 100px; }
 .simple-steps article > span { font:11px monospace; color:#4967d5; }
 .simple-steps h3 { color:#12243f; font-size:23px; font-weight:600; margin:24px 0 14px; letter-spacing:-.03em; }
 .simple-steps p { font-size:14px; line-height:1.75; color:#65748c; }
-.faq-section { background:#f4f7fb; }
-.faq-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:8%; }
-.faq-grid details { border-bottom:1px solid #dbe3ef; padding:22px 0; }
-.faq-grid summary { display:flex; justify-content:space-between; align-items:center; gap:22px; cursor:pointer; list-style:none; font-size:16px; font-weight:500; color:#1c2f4b; }
-.faq-grid summary > .faq-icon, .faq-grid summary > span:last-child { color:#4163e9; font-size:24px; line-height:1; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .2s ease; transform-origin:center; }
-.faq-grid details[open] summary > .faq-icon, .faq-grid details[open] summary > span:last-child { transform:rotate(45deg); }
-.faq-grid summary .faq-question { color:#1c2f4b; font-size:17px; font-weight:600; line-height:1.4; flex:1; text-align:left; }
-.faq-grid details p { font-size:15px; line-height:1.75; color:#617189; margin-top:14px; }
+.studio-faq { padding: 90px 0; background: white; }
+.studio-faq .studio-section-heading { display: flex; justify-content: space-between; align-items: start; gap: 50px; margin: 0; }
+.studio-faq h2 { flex: 1; font-size: clamp(38px, 4.5vw, 68px); font-weight: 500; letter-spacing: -.06em; line-height: 1.04; color: #18253e; margin: 12px 0 0; }
+.studio-faq h2 span { color: #76859d; }
+.studio-faq .studio-section-heading > div:last-child { flex: 1.2; min-width: 0; }
+.studio-faq details { border-bottom: 1px solid #d7deeb; padding: 23px 0; }
+.studio-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 25px; list-style: none; cursor: pointer; font-size: 17px; font-weight: 500; color: #273852; }
+.studio-faq summary::-webkit-details-marker { display: none; }
+.studio-faq summary svg { flex-shrink: 0; color: #2854f4; transition: transform .2s ease; }
+.studio-faq details[open] summary svg { transform: rotate(45deg); }
+.studio-faq details p { font-size: 15px; line-height: 1.7; color: #647590; margin-top: 18px; }
+
+@media (max-width: 1023px) {
+  .studio-faq .studio-section-heading { gap: 35px; }
+}
+@media (max-width: 767px) {
+  .studio-faq { padding: 65px 0; }
+  .studio-faq .studio-section-heading { display: block; margin-bottom: 0; }
+  .studio-faq .studio-section-heading > div:last-child { margin-top: 35px; }
+  .studio-faq summary { font-size: 16px; gap: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-faq summary svg { transition: none; }
+}
 .sites-footer { padding:35px 0; background:white; }
 .sites-footer span, .sites-footer > div > a:last-child { font-size:12px; color:#63728a; }
 .sites-footer > div > a:last-child { display:flex; align-items:center; gap:8px; }

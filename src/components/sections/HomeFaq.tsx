@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@/components/layout/Container';
 import { MotionReveal } from '@/components/motion/MotionReveal';
-import { ArrowUpRight, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, MessageCircle, Plus } from 'lucide-react';
 import { whatsappLink } from '@/lib/whatsapp';
 
 export interface FaqItem {
@@ -52,27 +52,25 @@ export const HomeFaq: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="editorial-section faq-section">
+    <section id="faq" className="studio-faq">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Container>
         <MotionReveal>
-          <div className="faq-grid">
-            {/* Coluna da Esquerda: Chamada e Suporte */}
-            <div className="faq-intro">
+          <div className="studio-section-heading">
+            <div>
               <span className="case-client">Tire suas dúvidas</span>
-              <h2 className="editorial-title">
-                Perguntas<br />
-                <span>frequentes.</span>
+              <h2>
+                Sem dúvidas<br />
+                <span>pelo caminho.</span>
               </h2>
-              <p className="mt-4 text-[#65738a] text-[15px] leading-relaxed">
+              <p className="mt-4 text-[#647590] text-[16px] leading-relaxed max-w-sm">
                 Respostas diretas sobre como trabalhamos, prazos, integração de ferramentas e investimento para PMEs.
               </p>
-
-              <div className="mt-8 pt-6 border-t border-[#dbe3ef]">
-                <p className="text-xs uppercase font-semibold tracking-wider text-[#65738a] mb-3">
+              <div className="mt-8 pt-6 border-t border-[#d7deeb]">
+                <p className="text-xs uppercase font-semibold tracking-wider text-[#647590] mb-3">
                   Ainda tem alguma dúvida específica?
                 </p>
                 <a
@@ -82,21 +80,17 @@ export const HomeFaq: React.FC = () => {
                   rel="noopener noreferrer"
                   aria-label="Tirar dúvidas diretamente pelo WhatsApp"
                 >
-                  <MessageCircle size={16} className="text-[#2563EB]" />
+                  <MessageCircle size={16} className="text-[#2854f4]" />
                   Falar direto no WhatsApp <ArrowUpRight size={17} />
                 </a>
               </div>
             </div>
-
-            {/* Coluna da Direita: Accordion */}
-            <div className="faq-list">
-              {HOME_FAQS.map((faq, index) => (
-                <details key={faq.question} open={index === 0}>
+            <div>
+              {HOME_FAQS.map((faq) => (
+                <details key={faq.question}>
                   <summary>
-                    <span className="faq-question">{faq.question}</span>
-                    <span aria-hidden="true" className="faq-icon">
-                      +
-                    </span>
+                    {faq.question}
+                    <Plus size={19} />
                   </summary>
                   <p>{faq.answer}</p>
                 </details>
