@@ -1,7 +1,6 @@
 import { ArrowRight, ChartNoAxesColumnIncreasing, Users, MousePointer2, Sparkles } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 import { NativeHeroScene } from '@/components/ui/NativeHeroScene';
-import { whatsappLink } from '@/lib/whatsapp';
 
 const benefits = [
   { icon: Sparkles, title: 'Sua marca em destaque', text: 'Uma presença com a identidade do seu negócio.' },
@@ -25,16 +24,11 @@ export function SitesHero() {
               Criamos sites institucionais, páginas de venda e páginas de captura para empresas que querem ser encontradas, compreendidas e escolhidas. Do conteúdo à publicação, você fala direto com quem faz.
             </p>
             <div className="sites-hero-actions">
-              <a
-                className="studio-button"
-                href={whatsappLink('sites')}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Conversar no WhatsApp <ArrowRight size={19} />
+              <a className="studio-button" href="#seu-projeto">
+                Conversar agora <ArrowRight size={19} />
               </a>
               <a className="sites-hero-secondary" href="#portfolio">
-                Ver projetos
+                Ver portfólio
               </a>
             </div>
           </div>

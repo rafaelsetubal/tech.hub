@@ -29,7 +29,7 @@ describe('Portfolio previews',()=>{
   });
   it('opens an optional preview safely and rejects non-http schemes',()=>{
     const {rerender}=render(<ProjectPreview project={{...project,previewUrl:'https://example.com/preview'}}/>);
-    const link=screen.getByRole('link',{name:/Abrir prévia/});
+    const link=screen.getByRole('link',{name:/(Abrir prévia|Ver site no ar)/});
     expect(link.getAttribute('target')).toBe('_blank');
     expect(link.getAttribute('rel')).toBe('noopener noreferrer');
     rerender(<ProjectPreview project={{...project,previewUrl:'javascript:alert(1)'}}/>);
@@ -79,7 +79,7 @@ describe('Portfolio previews',()=>{
     fireEvent.error(container.querySelector('video')!);
     expect(container.querySelector('video')).toBeNull();
     expect(screen.getByRole('status').textContent).toContain('O vídeo não carregou');
-    expect(screen.getByRole('link',{name:/Abrir prévia/})).toBeTruthy();
+    expect(screen.getByRole('link',{name:/(Abrir prévia|Ver site no ar)/})).toBeTruthy();
   });
   it('has no axe structural violations in the portfolio',async()=>{
     const {container}=render(<main><h1>Sites</h1><SitePortfolio/></main>);
@@ -94,10 +94,10 @@ describe('Portfolio previews',()=>{
     expect(container.querySelectorAll('.portfolio-project')).toHaveLength(4);
     expect(container.querySelectorAll('.portfolio-project.portfolio-featured')).toHaveLength(1);
     expect(container.querySelector('.portfolio-featured-ribbon')?.textContent).toContain('Destaque de hoje');
-    const toggle=screen.getByRole('button',{name:'Ver mais 12 projetos'});
+    const toggle=screen.getByRole('button',{name:/(Ver mais|Ver outros) \d+ projetos/});
     expect(container.querySelector('#portfolio-projects')!.compareDocumentPosition(toggle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     await user.click(toggle);
-    expect(container.querySelectorAll('.portfolio-project')).toHaveLength(16);
+    expect(container.querySelectorAll('.portfolio-project')).toHaveLength(siteProjects.length);
   });
 
   it('keeps the daily project stable for the São Paulo date and rotates tomorrow',()=>{

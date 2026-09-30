@@ -6,7 +6,9 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
   digital = false,
   requestedGoal,
 }) => {
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [goal, setGoal] = useState(
     requestedGoal ?? (digital ? 'Apresentar minha empresa na internet' : 'Organizar minha operação')
   );
@@ -23,15 +25,46 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
     }
   }, [requestedGoal]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSendError(null);
     const data = new FormData(event.currentTarget);
-    const business = String(data.get('business') ?? '');
-    const contact = String(data.get('contact') ?? '');
-    const challenge = String(data.get('challenge') ?? '');
+    const business = String(data.get('business') ?? '').trim();
+    const contact = String(data.get('contact') ?? '').trim();
+    const challenge = String(data.get('challenge') ?? '').trim();
 
     setFormData({ business, contact, challenge });
-    setSubmitted(true);
+    setSubmitting(true);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          business,
+          contact,
+          goal,
+          challenge,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Falha ao processar envio.');
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error('Erro ao enviar contato:', err);
+      setSendError(
+        'Não foi possível completar o envio por e-mail no momento. Você pode enviar sua mensagem diretamente pelo WhatsApp.'
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const whatsappMessage = `Olá, Tech Hub! Gostaria de conversar sobre um projeto.\n\n*Nome/Negócio:* ${formData.business}\n*Contato:* ${formData.contact}\n*Objetivo:* ${goal}\n*Desafio:* ${formData.challenge}`;
@@ -120,13 +153,38 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
             />
           </div>
 
+          {sendError && (
+            <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs text-left space-y-1.5">
+              <p className="font-semibold text-amber-950">Aviso sobre o envio:</p>
+              <p>{sendError}</p>
+              <a
+                href={whatsappLink('orcamento', whatsappMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-semibold text-blue-700 hover:underline pt-1"
+              >
+                <span>Enviar pelo WhatsApp agora ({WHATSAPP_DISPLAY}) ↗</span>
+              </a>
+            </div>
+          )}
+
           <div className="pt-2">
             <button
               type="submit"
-              className="solid-link w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:py-4 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium text-sm sm:text-base shadow-lg shadow-blue-600/25 transition-all group cursor-pointer"
+              disabled={submitting}
+              className="solid-link w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:py-4 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:opacity-75 disabled:cursor-not-allowed text-white font-medium text-sm sm:text-base shadow-lg shadow-blue-600/25 transition-all group cursor-pointer"
             >
-              <span>Enviar mensagem</span>
-              <Send className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5" />
+              {submitting ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Enviando solicitação...</span>
+                </>
+              ) : (
+                <>
+                  <span>Enviar mensagem</span>
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5" />
+                </>
+              )}
             </button>
 
             <div className="flex flex-col items-center justify-center gap-1.5 pt-3 text-xs text-slate-500 font-medium">

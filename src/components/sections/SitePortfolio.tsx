@@ -149,7 +149,7 @@ export const ProjectPreview: React.FC<{ project: SiteProject }> = ({ project }) 
         <p>{project.description}</p>
         {playError && <p role="status">Não foi possível iniciar o vídeo. Tente novamente ou abra a prévia.</p>}
       </div>
-      {link && project.status === 'live' && (
+      {link && (project.status === 'live' || !project.status) && (
         <a
           className="portfolio-preview-link"
           href={link}

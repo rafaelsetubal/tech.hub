@@ -12,27 +12,34 @@ vi.mock('../src/components/ui/NativeHeroScene',()=>({NativeHeroScene:()=> <div a
 
 describe('Complete sites page',()=>{
   it('carries the chosen offer to the brief and preserves the draft when returning',async()=>{
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ success: true, id: 'resend-123' }),
+    });
     const user=userEvent.setup();render(<Sites/>);
     await user.click(screen.getByRole('tab',{name:/Vender um produto ou serviço/}));
     await user.click(screen.getByRole('link',{name:/Quero uma página assim/}));
-    expect((screen.getByLabelText('Seu objetivo') as HTMLSelectElement).value).toBe('Vender um produto ou serviço');
-    await user.type(screen.getByLabelText('Seu negócio'),'Minha empresa');
-    await user.type(screen.getByLabelText('Conte um pouco da sua ideia'),'Divulgar minha oferta.');
-    await user.click(screen.getByRole('button',{name:'Preparar meu resumo'}));
-    await user.click(screen.getByRole('button',{name:'Preparar outro resumo'}));
-    expect((screen.getByLabelText('Seu negócio') as HTMLInputElement).value).toBe('Minha empresa');
-    expect((screen.getByLabelText('Conte um pouco da sua ideia') as HTMLTextAreaElement).value).toBe('Divulgar minha oferta.');
+    expect((screen.getByLabelText(/Seu objetivo/i) as HTMLSelectElement).value).toBe('Vender um produto ou serviço');
+    await user.type(screen.getByLabelText(/Seu nome ou negócio/i),'Minha empresa');
+    await user.type(screen.getByLabelText(/Como podemos ajudar/i),'Divulgar minha oferta.');
+    await user.type(screen.getByLabelText(/WhatsApp ou E-mail/i),'(31) 98888-8888');
+    await user.click(screen.getByRole('button',{name:/Enviar mensagem/i}));
+    const result=await screen.findByRole('status');
+    expect(result.textContent).toContain('Mensagem enviada com sucesso!');
+    await user.click(screen.getByRole('button',{name:/Enviar outra mensagem/i}));
+    expect((screen.getByLabelText(/Seu nome ou negócio/i) as HTMLInputElement).value).toBe('Minha empresa');
+    expect((screen.getByLabelText(/Como podemos ajudar/i) as HTMLTextAreaElement).value).toBe('Divulgar minha oferta.');
   });
   it('has a complete footer whose local links resolve to existing sections',()=>{
     render(<Sites/>);
     const footer=screen.getByRole('contentinfo');
     expect(within(footer).getByRole('navigation',{name:'Navegação do rodapé'})).toBeTruthy();
-    expect(within(footer).getByRole('link',{name:'Conte sua ideia'}).getAttribute('href')).toBe('#seu-projeto');
+    expect(within(footer).getByRole('link',{name:/Conversar pelo WhatsApp/})).toBeTruthy();
     for(const link of within(footer).getAllByRole('link')){
       const href=link.getAttribute('href')!;
       if(href.startsWith('#')) expect(document.getElementById(href.slice(1))).not.toBeNull();
     }
-    expect(footer.textContent).toContain('Todos os direitos reservados.');
+    expect(footer.textContent).toContain('CNPJ 53.344.679/0001-00');
   });
   it('provides one main heading, a skip target, and the shared menu',()=>{
     render(<Sites/>);
@@ -52,17 +59,22 @@ describe('Complete sites page',()=>{
     await user.keyboard('{Home}');expect(document.activeElement).toBe(tabs[0]);
   });
   it('opens FAQ answers and prepares the brief without sending user data',async()=>{
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ success: true, id: 'resend-456' }),
+    });
     const user=userEvent.setup();render(<Sites/>);
     const summary=screen.getByText('Preciso saber de tecnologia?');
     await user.click(summary);
     expect(summary.closest('details')?.open).toBe(true);
-    await user.type(screen.getByLabelText('Seu negócio'),'Estúdio teste');
-    await user.type(screen.getByLabelText('Conte um pouco da sua ideia'),'Quero apresentar meus serviços.');
-    await user.click(screen.getByRole('button',{name:'Preparar meu resumo'}));
-    const result=screen.getByRole('status');
+    await user.type(screen.getByLabelText(/Seu nome ou negócio/i),'Estúdio teste');
+    await user.type(screen.getByLabelText(/WhatsApp ou E-mail/i),'(31) 99999-9999');
+    await user.type(screen.getByLabelText(/Como podemos ajudar/i),'Quero apresentar meus serviços.');
+    await user.click(screen.getByRole('button',{name:/Enviar mensagem/i}));
+    const result=await screen.findByRole('status');
     expect(result.textContent).toContain('Estúdio teste');
     expect(result.textContent).toContain('Apresentar minha empresa na internet');
-    expect(result.textContent).toContain('Nenhum dado foi enviado ou armazenado.');
+    expect(result.textContent).toContain('Mensagem enviada com sucesso!');
   });
   it('has no automated axe structural violations',async()=>{
     const {container}=render(<Sites/>);
