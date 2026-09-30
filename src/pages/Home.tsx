@@ -10,9 +10,10 @@ import { HeroSection } from '@/components/sections/HeroSection';
 import { ManifestoSection } from '@/components/sections/ManifestoSection';
 import { ProblemSection } from '@/components/sections/ProblemSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
-import { ProcessSection } from '@/components/sections/ProcessSection';
 import { CasesSection } from '@/components/sections/CasesSection';
+import { ProcessSection } from '@/components/sections/ProcessSection';
 import { AboutSection } from '@/components/sections/AboutSection';
+import { HomeFaq } from '@/components/sections/HomeFaq';
 import { CtaSection } from '@/components/sections/CtaSection';
 import { Footer } from '@/components/layout/Footer';
 
@@ -36,16 +37,19 @@ export const Home: React.FC = () => {
         {/* 4. O Que Fazemos (Serviços) */}
         <ServicesSection />
 
-        {/* 5. Como Funciona (Processo) */}
-        <ProcessSection />
-
-        {/* 6. Na Prática (Cases & Resultados) */}
+        {/* 5. Na Prática (Case & Prova Social Four Prints) */}
         <CasesSection />
 
-        {/* 7. Quem Está Por Trás (Sobre Michelli) */}
+        {/* 6. Como Funciona (Processo) */}
+        <ProcessSection />
+
+        {/* 7. Quem Está Por Trás (Sobre Michelli e time) */}
         <AboutSection />
 
-        {/* 8. Diagnóstico Tech Hub (CTA Final) */}
+        {/* 8. Dúvidas Frequentes (FAQ) */}
+        <HomeFaq />
+
+        {/* 9. Diagnóstico Tech Hub (CTA Final) */}
         <CtaSection />
       </main>
 

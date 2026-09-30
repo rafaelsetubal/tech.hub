@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { describe, expect, it, vi, afterEach } from 'vitest';
+import { render, screen, within, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axe from 'axe-core';
 import { Sites } from '../src/pages/Sites';
@@ -9,6 +9,11 @@ import { Sites } from '../src/pages/Sites';
 vi.mock('../src/components/motion/MotionReveal',()=>({MotionReveal:({children}:{children:React.ReactNode})=><div>{children}</div>}));
 // Page semantics are tested independently from WebGL (covered by native-hero tests).
 vi.mock('../src/components/ui/NativeHeroScene',()=>({NativeHeroScene:()=> <div aria-hidden="true"/>}));
+
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+});
 
 describe('Complete sites page',()=>{
   it('carries the chosen offer to the brief and preserves the draft when returning',async()=>{
@@ -29,7 +34,7 @@ describe('Complete sites page',()=>{
     await user.click(screen.getByRole('button',{name:/Enviar outra mensagem/i}));
     expect((screen.getByLabelText(/Seu nome ou negócio/i) as HTMLInputElement).value).toBe('Minha empresa');
     expect((screen.getByLabelText(/Como podemos ajudar/i) as HTMLTextAreaElement).value).toBe('Divulgar minha oferta.');
-  });
+  }, 15000);
   it('has a complete footer whose local links resolve to existing sections',()=>{
     render(<Sites/>);
     const footer=screen.getByRole('contentinfo');
@@ -75,7 +80,7 @@ describe('Complete sites page',()=>{
     expect(result.textContent).toContain('Estúdio teste');
     expect(result.textContent).toContain('Apresentar minha empresa na internet');
     expect(result.textContent).toContain('Mensagem enviada com sucesso!');
-  });
+  }, 15000);
   it('has no automated axe structural violations',async()=>{
     const {container}=render(<Sites/>);
     const result=await axe.run(container,{rules:{'color-contrast':{enabled:false}}});

@@ -19,15 +19,15 @@ export const Navbar: React.FC<{ page?: 'home' | 'sites' | 'notFound' }> = ({ pag
   ] : page === 'notFound' ? [
     { id:'hero', label:'Início', href:'/#hero' },
     { id:'servicos', label:'Soluções', href:'/#servicos' },
-    { id:'conteudo', label:'Como funciona', href:'/#conteudo' },
     { id:'projetos', label:'Projetos', href:'/#projetos' },
+    { id:'conteudo', label:'Como funciona', href:'/#conteudo' },
     { id:'sobre', label:'Sobre', href:'/#sobre' },
     { id:'sites', label:'Sites & páginas', href:'/sites' },
   ] : [
     { id:'hero', label:'Início', href:'#hero' },
     { id:'servicos', label:'Soluções', href:'#servicos' },
-    { id:'conteudo', label:'Como funciona', href:'#conteudo' },
     { id:'projetos', label:'Projetos', href:'#projetos' },
+    { id:'conteudo', label:'Como funciona', href:'#conteudo' },
     { id:'sobre', label:'Sobre', href:'#sobre' },
     { id:'sites', label:'Sites & páginas', href:'/sites' },
   ];
