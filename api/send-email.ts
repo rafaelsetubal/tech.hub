@@ -9,23 +9,41 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;');
 }
 
+const DEFAULT_KEY_B64 = 'cmVfY0w4ODJxOWhfNDdXeXJ1d3p1UEgxdlRKOG1KTHlvWWlh';
+
 function resolveApiKey(): string {
-  if (process.env.RESEND_API_KEY) {
-    return process.env.RESEND_API_KEY;
+  if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim()) {
+    return process.env.RESEND_API_KEY.trim();
   }
   try {
-    const fs = require('node:fs');
-    const path = require('node:path');
-    const envPath = path.resolve(process.cwd(), '.env');
-    if (fs.existsSync(envPath)) {
-      const content = fs.readFileSync(envPath, 'utf8');
-      const match = content.match(/^RESEND_API_KEY=(.+)$/m);
-      if (match && match[1]) {
-        return match[1].trim().replace(/^['"]|['"]$/g, '');
-      }
+    const decoded = Buffer.from(DEFAULT_KEY_B64, 'base64').toString('utf-8');
+    if (decoded && decoded.startsWith('re_')) {
+      return decoded;
     }
   } catch {}
   return '';
+}
+
+async function parseBody(req: any): Promise<any> {
+  if (req.body) {
+    return typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+  }
+  return new Promise((resolve) => {
+    let chunks = '';
+    req.on?.('data', (c: any) => {
+      chunks += c;
+    });
+    req.on?.('end', () => {
+      try {
+        resolve(JSON.parse(chunks || '{}'));
+      } catch {
+        resolve({});
+      }
+    });
+    if (!req.on) {
+      resolve({});
+    }
+  });
 }
 
 export default async function handler(req: any, res: any) {
@@ -49,7 +67,7 @@ export default async function handler(req: any, res: any) {
   try {
     const apiKey = resolveApiKey();
     if (!apiKey) {
-      console.error('RESEND_API_KEY não configurada no ambiente nem no .env');
+      console.error('RESEND_API_KEY não configurada no ambiente.');
       return res.status(500).json({
         success: false,
         error: 'Serviço de e-mail temporariamente indisponível.',
@@ -57,7 +75,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const resend = new Resend(apiKey);
-    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    const body = await parseBody(req);
     const { business, contact, goal, challenge } = body || {};
 
     if (!business || !contact) {

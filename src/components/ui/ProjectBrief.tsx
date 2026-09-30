@@ -53,14 +53,15 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.success) {
-        throw new Error(result.error || 'Falha ao processar envio.');
+        throw new Error(result.error || `Servidor retornou status ${response.status}`);
       }
 
       setSubmitted(true);
     } catch (err: any) {
       console.error('Erro ao enviar contato:', err);
+      const detail = err?.message ? ` Detalhes: ${err.message}.` : '';
       setSendError(
-        'Não foi possível completar o envio por e-mail no momento. Você pode enviar sua mensagem diretamente pelo WhatsApp.'
+        `Não foi possível completar o envio por e-mail no momento.${detail} Você pode enviar sua mensagem diretamente pelo WhatsApp.`
       );
     } finally {
       setSubmitting(false);
