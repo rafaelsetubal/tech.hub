@@ -20,15 +20,15 @@ import { Footer } from '@/components/layout/Footer';
 
 const formats = [
   {title:'Um endereço que explica seu negócio.',tab:'Apresentar minha empresa',name:'Site institucional',copy:'Apresente em um só lugar o que sua empresa faz, para quem trabalha e como contratar. Uma referência clara para quem chega por indicação, busca ou redes sociais.',items:['Empresa e diferenciais em destaque','Serviços e projetos organizados','Contato fácil de encontrar']},
-  {title:'Uma oferta. Um próximo passo.',tab:'Vender um produto ou serviço',name:'Página de venda',copy:'Apresente uma oferta sem dispersar a atenção: explique benefícios, responda às dúvidas mais comuns e conduza a pessoa ao pedido, orçamento ou compra.',items:['Oferta e benefícios em destaque','Respostas às dúvidas de decisão','Ação final alinhada ao seu processo']},
-  {title:'Uma campanha. Um objetivo.',tab:'Receber novos contatos',name:'Página de captura',copy:'Convide a pessoa a fazer uma coisa: pedir contato, baixar um material ou entrar em uma lista. Uma mensagem direta, sem caminhos concorrentes.',items:['Um motivo claro para responder','Formulário simples e objetivo','Destino dos contatos combinado no escopo']},
+  {title:'Uma oferta. Uma decisão clara.',tab:'Vender um produto ou serviço',name:'Página de venda',copy:'Apresente uma oferta sem dispersar a atenção: explique benefícios, responda às dúvidas mais comuns e conduza a pessoa ao pedido, orçamento ou compra.',items:['Oferta e benefícios em destaque','Respostas às dúvidas de decisão','Ação final alinhada ao seu processo']},
+  {title:'Uma campanha. Um objetivo.',tab:'Receber novos contatos',name:'Página de captura',copy:'Convide a pessoa a fazer uma coisa: pedir contato, baixar um material ou entrar em uma lista. Uma mensagem direta, sem caminhos concorrentes.',items:['Um motivo claro para responder','Formulário simples e objetivo','Destino dos contatos direto para seu WhatsApp ou e-mail']},
 ];
 const faqs = [
-  ['Preciso saber de tecnologia?','Não. Você conhece seu negócio; nós explicamos as decisões e conduzimos a parte técnica com você.'],
-  ['E se eu ainda não tiver textos e imagens?','Levantamos o que já existe e o que precisa ser produzido. Textos, imagens e outros conteúdos são combinados no escopo antes de começar.'],
+  ['Preciso saber de tecnologia?','Não. Você conhece seu negócio; nós explicamos as decisões e conduzimos toda a parte técnica com você.'],
+  ['E se eu ainda não tiver textos e imagens?','Levantamos o que já existe e orientamos ou criamos o conteúdo necessário junto com você.'],
   ['Quanto custa e quanto tempo leva?','Depende do conteúdo, da quantidade de páginas e das funcionalidades. A proposta apresenta escopo, prazo e investimento antes de qualquer compromisso.'],
-  ['Domínio, hospedagem e manutenção estão incluídos?','Os serviços incluídos e os custos recorrentes são definidos na proposta. Você sabe o que está contratando e o que será necessário para manter o site.'],
-  ['Vocês garantem vendas?','Não. Uma boa página ajuda a comunicar sua oferta e facilitar a ação. Os resultados também dependem da divulgação, do público, da oferta e do atendimento.'],
+  ['Domínio, hospedagem e manutenção estão incluídos?','Explicamos todas as opções de domínio e hospedagem com custos 100% transparentes, sem taxas ocultas.'],
+  ['Vocês garantem vendas?','Não. Uma boa página ajuda a comunicar seu valor e facilitar o contato. Os resultados também dependem do público, da oferta e do atendimento.'],
 ];
 export const Sites: React.FC = () => {
   const [active,setActive]=useState(0);
@@ -75,12 +75,12 @@ export const Sites: React.FC = () => {
       <section className="studio-craft"><Container><div className="studio-section-heading"><h2>Da mensagem ao clique.<br/><span>O que sua página precisa fazer.</span></h2></div><div className="studio-craft-grid">
         <article className="craft-mobile"><div className="craft-device" aria-hidden="true"><div/><b>Seu negócio,<br/>na palma<br/>da mão.</b><span>Vamos conversar ↗</span></div><Smartphone size={23}/><h3>Funcionar em qualquer tela.</h3><p>Texto legível, navegação simples e botões fáceis de usar. Testamos no celular e no computador antes de publicar.</p></article>
         <article className="craft-message"><div className="craft-type" aria-hidden="true">Aa<span>O que você faz.<br/>Por que escolher você.</span></div><Layout size={23}/><h3>Deixar seu valor claro.</h3><p>Organizamos com você serviços, diferenciais, trabalhos e respostas às dúvidas que costumam travar a decisão.</p></article>
-        <article className="craft-action"><div className="craft-click" aria-hidden="true"><span>Pedir um orçamento <ArrowUpRight size={25}/></span><MousePointer2 size={42}/><i/><i/></div><MousePointer2 size={23}/><h3>Levar à ação certa.</h3><p>WhatsApp, formulário ou link de compra: definimos o caminho de acordo com o objetivo. Integrações e destino dos contatos ficam combinados na proposta.</p></article>
+        <article className="craft-action"><div className="craft-click" aria-hidden="true"><span>Pedir um orçamento <ArrowUpRight size={25}/></span><MousePointer2 size={42}/><i/><i/></div><MousePointer2 size={23}/><h3>Levar à ação certa.</h3><p>WhatsApp direto, formulário ou link de compra: definimos o caminho mais eficiente para o seu cliente entrar em contato e ser atendido rápido.</p></article>
       </div></Container></section>
       <SiteJourney/>
       <SiteInsights/>
       <section className="studio-faq"><Container><div className="studio-section-heading"><h2>Sem dúvidas<br/><span>pelo caminho.</span></h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<Plus size={19}/></summary><p>{a}</p></details>)}</div></div></Container></section>
-      <section id="seu-projeto" className="studio-contact"><Container><div className="studio-contact-copy"><BrandSymbol/><h2>Vamos colocar<br/>sua ideia<br/><span>no mundo?</span></h2><p>Você não precisa chegar com textos, referências e decisões prontas. Conte seu objetivo e começamos pelo que o seu negócio precisa.</p><div className="studio-agreement"><strong>Clareza antes de começar.</strong><p>Escopo, prazo, investimento, custos recorrentes e etapas de aprovação definidos na proposta.</p></div></div><ProjectBrief digital requestedGoal={requestedGoal}/></Container></section>
+      <section id="seu-projeto" className="studio-contact"><Container><div className="studio-contact-copy"><BrandSymbol/><h2>Vamos colocar<br/>sua ideia<br/><span>no mundo?</span></h2><p>Você não precisa chegar com textos, referências e decisões prontas. Conte seu objetivo e começamos pelo que o seu negócio precisa.</p><div className="studio-agreement"><strong>Clareza antes de começar.</strong><p>Escopo, prazo, investimento e etapas de aprovação combinados de forma transparente antes de qualquer início.</p></div></div><ProjectBrief digital requestedGoal={requestedGoal}/></Container></section>
     </main><Footer page="sites"/>
   </div>;
 };

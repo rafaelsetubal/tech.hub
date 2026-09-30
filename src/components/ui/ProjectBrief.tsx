@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Send, CheckCircle2, ChevronDown, MessageSquare, ArrowRight } from 'lucide-react';
+import { WHATSAPP_DISPLAY, whatsappLink } from '@/lib/whatsapp';
 
 export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string }> = ({
   digital = false,
@@ -33,9 +34,7 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
     setSubmitted(true);
   };
 
-  const whatsappMessage = encodeURIComponent(
-    `Olá Tech Hub! Gostaria de conversar sobre um projeto.\n\n*Nome/Negócio:* ${formData.business}\n*Contato:* ${formData.contact}\n*Objetivo:* ${goal}\n*Ideia:* ${formData.challenge}`
-  );
+  const whatsappMessage = `Olá, Tech Hub! Gostaria de conversar sobre um projeto.\n\n*Nome/Negócio:* ${formData.business}\n*Contato:* ${formData.contact}\n*Objetivo:* ${goal}\n*Desafio:* ${formData.challenge}`;
 
   return (
     <div className="brief-box w-full max-w-xl mx-auto bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-9 shadow-2xl shadow-blue-950/20 border border-slate-100 text-slate-900 transition-all">
@@ -130,9 +129,19 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
               <Send className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5" />
             </button>
 
-            <div className="flex items-center justify-center gap-2 pt-3 text-xs text-slate-500 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Respondemos em até 24 horas</span>
+            <div className="flex flex-col items-center justify-center gap-1.5 pt-3 text-xs text-slate-500 font-medium">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Respondemos em até 24 horas</span>
+              </div>
+              <a
+                href={whatsappLink('geral')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline pt-1 inline-flex items-center gap-1"
+              >
+                <span>Ou fale direto pelo WhatsApp: {WHATSAPP_DISPLAY} ↗</span>
+              </a>
             </div>
           </div>
         </form>
@@ -159,13 +168,13 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
 
           <div className="space-y-3 pt-2 max-w-md mx-auto">
             <a
-              href={`https://api.whatsapp.com/send?text=${whatsappMessage}`}
+              href={whatsappLink('geral', whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
               className="solid-link w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm sm:text-base shadow-lg shadow-emerald-600/25 transition-all"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>Conversar pelo WhatsApp agora</span>
+              <span>Continuar conversa no WhatsApp ({WHATSAPP_DISPLAY})</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 

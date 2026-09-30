@@ -9,6 +9,7 @@ import {
   Check,
 } from 'lucide-react';
 import heroBg from '@/assets/hero-bg.webp';
+import { whatsappLink } from '@/lib/whatsapp';
 
 export const HeroSection: React.FC = () => {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -70,42 +71,48 @@ export const HeroSection: React.FC = () => {
             {/* Subtitle em Inter Tight */}
             <MotionReveal variant="slideUp" delay={0.3}>
               <p className="text-base sm:text-lg text-slate-600 max-w-lg font-body font-normal leading-relaxed">
-                Soluções digitais para empresas que querem trabalhar melhor.
+                Organizamos processos, conectamos ferramentas e criamos sites para pequenas e médias empresas trabalharem melhor. Sem jargão.
               </p>
             </MotionReveal>
 
             {/* Chic CTAs */}
             <MotionReveal variant="slideUp" delay={0.4}>
-              <div className="flex flex-wrap items-center gap-4 pt-1">
-                <a
-                  href="#cta-diagnostico"
-                  onClick={(e) => handleScrollTo(e, 'cta-diagnostico')}
-                  className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#0052FF] via-[#0066FF] to-[#00BAFF] hover:from-[#0042D9] hover:to-[#00A3E0] shadow-[0_6px_20px_rgba(0,82,255,0.28)] hover:shadow-[0_8px_28px_rgba(0,82,255,0.42)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-normal group cursor-pointer"
-                >
-                  <span>Conversar sobre meu projeto</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-normal group-hover:translate-x-1" />
-                </a>
+              <div className="space-y-3 pt-1">
+                <div className="flex flex-wrap items-center gap-4">
+                  <a
+                    href={whatsappLink('consultoria')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#0052FF] via-[#0066FF] to-[#00BAFF] hover:from-[#0042D9] hover:to-[#00A3E0] shadow-[0_6px_20px_rgba(0,82,255,0.28)] hover:shadow-[0_8px_28px_rgba(0,82,255,0.42)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-normal group cursor-pointer"
+                  >
+                    <span>Conversar sobre meu projeto</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-normal group-hover:translate-x-1" />
+                  </a>
 
-                <a
-                  href="#servicos"
-                  onClick={(e) => handleScrollTo(e, 'servicos')}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-[#081220] bg-white/85 hover:bg-white backdrop-blur-sm border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:border-slate-300 transition-all duration-normal cursor-pointer"
-                >
-                  <span>Conhecer os serviços</span>
-                </a>
+                  <a
+                    href="#servicos"
+                    onClick={(e) => handleScrollTo(e, 'servicos')}
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-[#081220] bg-white/85 hover:bg-white backdrop-blur-sm border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:border-slate-300 transition-all duration-normal cursor-pointer"
+                  >
+                    <span>Conhecer os serviços</span>
+                  </a>
+                </div>
+                <p className="text-xs text-slate-500 font-body">
+                  Mais de 8 anos em tecnologia, gestão e dados · Belo Horizonte, atendimento em todo o Brasil
+                </p>
               </div>
             </MotionReveal>
 
             {/* Keyword Bar */}
             <MotionReveal variant="fade" delay={0.5}>
               <div className="pt-2 flex flex-wrap items-center gap-2.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-                <span className="hover:text-slate-600 transition-colors">CONSULTORIA</span>
+                <span className="hover:text-slate-600 transition-colors">PROCESSOS</span>
                 <span className="text-slate-300">•</span>
-                <span className="hover:text-slate-600 transition-colors">ORGANIZAÇÃO</span>
+                <span className="hover:text-slate-600 transition-colors">GESTÃO DE PROJETOS</span>
                 <span className="text-slate-300">•</span>
                 <span className="hover:text-slate-600 transition-colors">AUTOMAÇÃO</span>
                 <span className="text-slate-300">•</span>
-                <span className="hover:text-slate-600 transition-colors">SOLUÇÕES DIGITAIS</span>
+                <span className="hover:text-slate-600 transition-colors">SITES</span>
               </div>
             </MotionReveal>
           </div>

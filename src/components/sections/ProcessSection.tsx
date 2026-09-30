@@ -6,13 +6,13 @@ const steps = [
   { title: 'Entender', copy: 'Pedidos perdidos, dúvidas e tarefas que voltam. Ouvimos a equipe para descobrir onde o trabalho trava — antes de propor uma solução.', result: 'Primeiro, entender o que trava.' },
   { title: 'Desenhar', copy: 'Definimos o que vem primeiro, quem cuida de cada etapa e como reconhecer o avanço.', result: 'Cada coisa encontra seu lugar.' },
   { title: 'Construir', copy: 'Colocamos o fluxo em prática e conectamos as ferramentas combinadas. A equipe testa antes da mudança virar rotina.', result: 'As partes começam a conversar.' },
-  { title: 'Evoluir', copy: 'Acompanhamos a adoção e revisamos o processo com a equipe. Frequência e suporte ficam definidos no projeto.', result: 'A mudança entra na rotina.' },
+  { title: 'Evoluir', copy: 'Acompanhamos a adoção com a equipe e tiramos dúvidas no dia a dia para garantir que a mudança dure.', result: 'A mudança entra na rotina.' },
 ];
 const cards = [
   [['Quem cuida disso?', 'O pedido ficou sem dono.'], ['Por onde começar?', 'Tudo parece urgente.'], ['Qual é o dado certo?', 'Cada lugar diz uma coisa.'], ['De novo esse trabalho?', 'A equipe refaz o que já fez.']],
-  [['Cada tarefa tem um dono.', 'Responsabilidades definidas.'], ['Uma prioridade por vez.', 'O próximo passo está claro.'], ['Uma fonte de referência.', 'Informação organizada.'], ['Um fluxo para seguir.', 'Menos idas e vindas.']],
+  [['Cada tarefa tem um dono.', 'Responsabilidades definidas.'], ['Uma prioridade por vez.', 'O caminho está claro.'], ['Uma fonte de referência.', 'Informação organizada.'], ['Um fluxo para seguir.', 'Menos idas e vindas.']],
   [['O pedido chega a quem faz.', 'Pessoas e etapas conectadas.'], ['Uma etapa puxa a próxima.', 'O trabalho começa a fluir.'], ['O dado chega onde precisa.', 'Ferramentas trocando informação.'], ['Fazer uma vez. Fazer bem.', 'A equipe testa o novo fluxo.']],
-  [['Cada um sabe como seguir.', 'Equipe orientada.'], ['O próximo passo aparece.', 'Rotina acompanhada.'], ['Informação que dá confiança.', 'Ajustes a partir do uso real.'], ['Mais tempo para avançar.', 'Menos esforço repetido.']],
+  [['Cada um sabe como seguir.', 'Equipe orientada.'], ['Sem surpresas no caminho.', 'Rotina acompanhada.'], ['Informação que dá confiança.', 'Ajustes a partir do uso real.'], ['Mais tempo para avançar.', 'Menos esforço repetido.']],
 ];
 export const ProcessSection: React.FC = () => {
   const {root,active,choose,scrollEnabled} = useScrollSteps(4,'process-scroll');

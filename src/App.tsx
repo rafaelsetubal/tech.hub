@@ -13,7 +13,10 @@ const sitesEntry = typeof window !== 'undefined' && window.location.pathname.rep
   : undefined;
 const Sites = lazy(() => (sitesEntry ?? import('@/pages/Sites')).then(module => ({ default: module.Sites })));
 const DesignSystemPlayground = lazy(() => import('@/pages/DesignSystemPlayground').then(module => ({ default: module.DesignSystemPlayground })));
-const Brand = lazy(() => import('@/pages/Brand').then(module => ({ default: module.Brand })));
+const brandEntry = typeof window !== 'undefined' && window.location.pathname.toLowerCase().replace(/\/$/, '') === '/brand'
+  ? import('@/pages/Brand')
+  : undefined;
+const Brand = lazy(() => (brandEntry ?? import('@/pages/Brand')).then(module => ({ default: module.Brand })));
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -32,15 +35,21 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  const normalizedPath = (currentPath || '/')
+    .toLowerCase()
+    .split('?')[0]
+    .split('#')[0]
+    .replace(/\/+$/, '') || '/';
+
   return (
     <Suspense fallback={<LoadingScreen />}>
-      {currentPath === '/design-system' ? (
+      {normalizedPath === '/design-system' ? (
         <DesignSystemPlayground />
-      ) : currentPath.replace(/\/$/, '') === '/brand' ? (
+      ) : normalizedPath === '/brand' ? (
         <Brand />
-      ) : currentPath.replace(/\/$/, '') === '/sites' ? (
+      ) : normalizedPath === '/sites' ? (
         <Sites />
-      ) : currentPath === '/' ? (
+      ) : normalizedPath === '/' ? (
         <Home />
       ) : (
         <NotFound />

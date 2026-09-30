@@ -1,3 +1,5 @@
+export type ProjectStatus = 'live' | 'in-production' | 'concept';
+
 export interface PortfolioCategory {
   id: string;
   label: string;
@@ -6,38 +8,38 @@ export interface PortfolioCategory {
 export interface SiteProject {
   id: string;
   title: string;
+  formatLine?: string;
   description: string;
-  /** Direct MP4/WebM file URL or a path inside public/. Not a YouTube page. */
+  status: ProjectStatus;
+  statusLabel?: string;
+  /** Direct MP4/WebM file URL or path inside public/. */
   videoSrc?: string;
   posterSrc?: string;
   previewUrl?: string;
   categoryId?: string;
   /** UI-only flag, set to the project selected for the current day. */
   featured?: boolean;
-  /** Explicitly identify illustrative studies until real projects are added. */
+  /** Explicitly identify illustrative studies. */
   isConcept?: boolean;
   placeholderVariant: 0 | 1 | 2;
   theme: 'sand' | 'coral' | 'lime' | 'blue';
 }
 
-// Reserved for future filtering. Categories are not displayed in the UI yet.
 export const portfolioCategories: PortfolioCategory[] = [
   { id: 'institutional', label: 'Sites institucionais' },
   { id: 'sales', label: 'Páginas de venda' },
   { id: 'capture', label: 'Páginas de captura' },
 ];
 
-// Add optimized media to public/portfolio/videos-techub/ and edit the paths here.
-// Example: videoSrc: '/portfolio/videos-techub/meu-projeto.mp4',
-//          posterSrc: '/portfolio/videos-techub/meu-projeto.webp',
-//          previewUrl: 'https://preview.example.com'
-// Use one project record per preview. Categories remain optional until you decide
-// how visitors should browse the portfolio.
 export const siteProjects: SiteProject[] = [
   {
     id: 'academia-da-fala',
     title: 'Academia da Fala',
-    description: 'Uma página para apresentar aulas de inglês e convidar quem quer se comunicar com mais confiança.',
+    formatLine: 'Página de venda · aula experimental',
+    description: 'Página para escola de inglês: apresenta as aulas e convida para uma aula experimental.',
+    status: 'live',
+    statusLabel: 'Site no ar',
+    previewUrl: 'https://academiadafalaonline.com.br',
     videoSrc: '/portfolio/videos-techub/academia-da-fala.mp4',
     posterSrc: '/portfolio/videos-techub/academia-da-fala.webp',
     placeholderVariant: 0,
@@ -46,7 +48,10 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'barbaros-tattoo',
     title: 'Barbaros Tattoo',
-    description: 'Um estúdio de tatuagem apresentado pelo trabalho, pelos artistas e por um caminho direto para agendar.',
+    formatLine: 'Site institucional · agendamento pelo WhatsApp',
+    description: 'Site para estúdio de tatuagem: portfólio por artista e um caminho direto para agendar.',
+    status: 'in-production',
+    statusLabel: 'Em produção',
     videoSrc: '/portfolio/videos-techub/barbaros-tattoo.mp4',
     posterSrc: '/portfolio/videos-techub/barbaros-tattoo.webp',
     placeholderVariant: 1,
@@ -55,7 +60,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'credit-black',
     title: 'CreditBlack',
-    description: 'Uma plataforma financeira com foco em transações digitais, recursos do produto e acesso à solução.',
+    formatLine: 'Página de produto · cadastro',
+    description: 'Conceito de página para fintech: explica os recursos da plataforma e leva direto ao cadastro.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/credit-black.mp4',
     posterSrc: '/portfolio/videos-techub/credit-black.webp',
     placeholderVariant: 2,
@@ -64,7 +73,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'arena-training',
     title: 'Arena Training',
-    description: 'Uma academia apresenta modalidades, horários e estrutura para quem quer começar a treinar.',
+    formatLine: 'Site institucional · primeira aula',
+    description: 'Conceito de site para academia: modalidades, horários e estrutura em um só lugar, com convite para a primeira aula.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/arena-training.mp4',
     posterSrc: '/portfolio/videos-techub/arena-training.webp',
     placeholderVariant: 1,
@@ -73,7 +86,10 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'hollywood-wg',
     title: 'Hollywood WG',
-    description: 'Uma barbearia destaca serviços e profissionais e facilita o agendamento de um horário.',
+    formatLine: 'Site institucional · agendamento',
+    description: 'Site para barbearia: destaca serviços e profissionais e facilita o agendamento de um horário.',
+    status: 'in-production',
+    statusLabel: 'Em produção',
     videoSrc: '/portfolio/videos-techub/hollywood-wg.mp4',
     posterSrc: '/portfolio/videos-techub/hollywood-wg.webp',
     placeholderVariant: 2,
@@ -82,7 +98,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'linhas-e-formas',
     title: 'Linhas e Formas',
-    description: 'Um escritório de arquitetura apresenta projetos, ambientes e seu processo de trabalho.',
+    formatLine: 'Site institucional · portfólio',
+    description: 'Conceito de site para escritório de arquitetura: projetos, ambientes e seu processo de trabalho.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/linhas-e-formas.mp4',
     posterSrc: '/portfolio/videos-techub/linhas-e-formas.webp',
     placeholderVariant: 0,
@@ -91,7 +111,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'clinica-nassri',
     title: 'Clínica Nassri',
-    description: 'Uma clínica apresenta suas áreas de atendimento e ajuda pacientes a encontrar o próximo passo.',
+    formatLine: 'Site institucional · marcação de consulta',
+    description: 'Conceito de site para clínica: áreas de atendimento e um caminho claro para marcar consulta.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/clinica-nassri.mp4',
     posterSrc: '/portfolio/videos-techub/clinica-nassri.webp',
     placeholderVariant: 2,
@@ -100,7 +124,10 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'pilates-ana',
     title: 'Pilates Ana',
-    description: 'Um estúdio de pilates apresenta a prática, sua profissional e formas de conhecer as aulas.',
+    formatLine: 'Site institucional · aula experimental',
+    description: 'Site para estúdio de pilates: apresenta a prática, sua profissional e formas de conhecer as aulas.',
+    status: 'in-production',
+    statusLabel: 'Em produção',
     videoSrc: '/portfolio/videos-techub/pilates-ana.mp4',
     posterSrc: '/portfolio/videos-techub/pilates-ana.webp',
     placeholderVariant: 0,
@@ -109,7 +136,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'prime-fitness',
     title: 'Prime Fitness',
-    description: 'Uma academia apresenta sua proposta de treino e convida novos alunos a conhecer o espaço.',
+    formatLine: 'Página de captura · visita ao espaço',
+    description: 'Conceito de página para academia: proposta de treino e convite para conhecer o espaço.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/prime-fitness.mp4',
     posterSrc: '/portfolio/videos-techub/prime-fitness.webp',
     placeholderVariant: 1,
@@ -118,7 +149,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'vital',
     title: 'Vital',
-    description: 'Uma página de saúde apresenta os atendimentos e informações para diferentes fases da vida.',
+    formatLine: 'Site institucional · saúde',
+    description: 'Conceito de site de saúde: atendimentos e informações para diferentes fases da vida.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/vital.mp4',
     posterSrc: '/portfolio/videos-techub/vital.webp',
     placeholderVariant: 2,
@@ -127,7 +162,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'dayanne-costa',
     title: 'Dayanne Costa',
-    description: 'Uma presença profissional para apresentar o trabalho de Dayanne e seus conteúdos de treino e bem-estar.',
+    formatLine: 'Site pessoal · conteúdo',
+    description: 'Conceito de site profissional para personal trainer: trabalho, conteúdos de treino e bem-estar.',
+    status: 'concept',
+    statusLabel: 'Conceito',
+    isConcept: true,
     videoSrc: '/portfolio/videos-techub/dayanne-costa.mp4',
     posterSrc: '/portfolio/videos-techub/dayanne-costa.webp',
     placeholderVariant: 1,
@@ -136,7 +175,11 @@ export const siteProjects: SiteProject[] = [
   {
     id: 'rafael-setubal',
     title: 'Rafael Setúbal',
-    description: 'Um site profissional com apresentação pessoal e espaço para destacar projetos selecionados.',
+    formatLine: 'Site pessoal · portfólio criativo',
+    description: 'Site pessoal para profissional criativo: apresentação e projetos selecionados.',
+    status: 'live',
+    statusLabel: 'Site no ar',
+    previewUrl: 'https://marzcreativedesign.com',
     videoSrc: '/portfolio/videos-techub/rafael-setubal.mp4',
     posterSrc: '/portfolio/videos-techub/rafael-setubal.webp',
     placeholderVariant: 2,

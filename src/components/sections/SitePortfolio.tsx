@@ -122,7 +122,46 @@ export const ProjectPreview: React.FC<{ project: SiteProject }> = ({ project }) 
       </div>
       <div className="portfolio-monitor-base" aria-hidden="true" />
     </div>
-    <div className="portfolio-project-info"><div>{project.isConcept && <span className="portfolio-concept-label">Estudo visual · marca fictícia</span>}<h3>{project.title}</h3><p>{project.description}</p>{playError && <p role="status">Não foi possível iniciar o vídeo. Tente novamente ou abra a prévia.</p>}</div>{link && <a className="portfolio-preview-link" href={link} target="_blank" rel="noopener noreferrer" aria-label={'Abrir prévia de ' + project.title + ' em nova aba'}><span>Abrir prévia</span><ArrowUpRight size={23}/></a>}</div>
+    <div className="portfolio-project-info">
+      <div>
+        <div className="portfolio-meta">
+          {project.status === 'live' && (
+            <span className="portfolio-status-badge status-live">
+              <span className="status-dot-live" aria-hidden="true" />
+              Site no ar
+            </span>
+          )}
+          {project.status === 'in-production' && (
+            <span className="portfolio-status-badge status-prod">
+              <span className="status-dot-prod" aria-hidden="true" />
+              Em produção
+            </span>
+          )}
+          {project.status === 'concept' && (
+            <span className="portfolio-status-badge status-concept">
+              <span className="status-dot-concept" aria-hidden="true" />
+              Conceito
+            </span>
+          )}
+        </div>
+        {project.formatLine && <span className="portfolio-format-line">{project.formatLine}</span>}
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+        {playError && <p role="status">Não foi possível iniciar o vídeo. Tente novamente ou abra a prévia.</p>}
+      </div>
+      {link && project.status === 'live' && (
+        <a
+          className="portfolio-preview-link"
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={'Ver site no ar: ' + project.title + ' (abre em nova aba)'}
+        >
+          <span>Ver site no ar</span>
+          <ArrowUpRight size={18} />
+        </a>
+      )}
+    </div>
   </article>;
 };
 
@@ -134,7 +173,7 @@ export const SitePortfolio: React.FC = () => {
     ? [featuredProject, ...siteProjects.filter(project => project.id !== featuredProject.id)]
     : [...siteProjects];
   const visibleProjects = showAll ? orderedProjects : orderedProjects.slice(0, 4);
-  const remainingCount = orderedProjects.length - visibleProjects.length;
+  const remainingCount = orderedProjects.length - 4;
 
   useEffect(() => {
     const updateDay = () => setCurrentDay(getPortfolioDayKey());
@@ -147,9 +186,45 @@ export const SitePortfolio: React.FC = () => {
   }, []);
 
   if (!siteProjects.length) return null;
-  return <section id="portfolio" className="site-portfolio" aria-labelledby="portfolio-title"><Container>
-    <div className="portfolio-heading"><h2 id="portfolio-title">Projetos para ver<br/><span>em movimento.</span></h2></div>
-    <div className="portfolio-grid" id="portfolio-projects">{visibleProjects.map(project => <ProjectPreview key={project.id} project={{...project, featured:project.id===featuredProject?.id}}/>)}</div>
-    {(remainingCount > 0 || showAll) && <div className="portfolio-more"><button className="portfolio-toggle" type="button" aria-expanded={showAll} aria-controls="portfolio-projects" onClick={() => setShowAll(current => !current)}>{showAll ? 'Mostrar menos projetos' : `Ver mais ${remainingCount} projetos`}<ArrowDown size={17} aria-hidden="true" className={showAll ? 'portfolio-toggle-icon is-expanded' : 'portfolio-toggle-icon'}/></button></div>}
-  </Container></section>;
+  return (
+    <section id="portfolio" className="site-portfolio" aria-labelledby="portfolio-title">
+      <Container>
+        <div className="portfolio-heading">
+          <div>
+            <span className="portfolio-eyebrow">Projetos & Estudos</span>
+            <h2 id="portfolio-title">Projetos para ver<br /><span>em movimento.</span></h2>
+          </div>
+          <p className="portfolio-header-copy">
+            Criamos projetos reais e estudos conceituais para mostrar como pensamos cada tipo de negócio, do conteúdo à navegação.
+          </p>
+        </div>
+        <div className="portfolio-grid" id="portfolio-projects">
+          {visibleProjects.map(project => (
+            <ProjectPreview
+              key={project.id}
+              project={{ ...project, featured: project.id === featuredProject?.id }}
+            />
+          ))}
+        </div>
+        {(orderedProjects.length > 4) && (
+          <div className="portfolio-more">
+            <button
+              className="portfolio-toggle"
+              type="button"
+              aria-expanded={showAll}
+              aria-controls="portfolio-projects"
+              onClick={() => setShowAll(current => !current)}
+            >
+              {showAll ? 'Mostrar menos projetos' : `Ver outros ${remainingCount} projetos`}
+              <ArrowDown
+                size={17}
+                aria-hidden="true"
+                className={showAll ? 'portfolio-toggle-icon is-expanded' : 'portfolio-toggle-icon'}
+              />
+            </button>
+          </div>
+        )}
+      </Container>
+    </section>
+  );
 };
