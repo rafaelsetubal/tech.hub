@@ -1,7 +1,26 @@
 import { defineConfig, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
+import fs from 'node:fs';
+import path from 'node:path';
 import { Resend } from 'resend';
+
+function resolveResendKey(): string {
+  if (process.env.RESEND_API_KEY) {
+    return process.env.RESEND_API_KEY;
+  }
+  try {
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf8');
+      const match = content.match(/^RESEND_API_KEY=(.+)$/m);
+      if (match && match[1]) {
+        return match[1].trim().replace(/^['"]|['"]$/g, '');
+      }
+    }
+  } catch {}
+  return '';
+}
 
 function apiDevPlugin(): Plugin {
   return {
@@ -25,7 +44,16 @@ function apiDevPlugin(): Plugin {
                 return;
               }
 
-              const resend = new Resend(process.env.RESEND_API_KEY);
+              const apiKey = resolveResendKey();
+              if (!apiKey) {
+                console.error('[DEV API] RESEND_API_KEY não configurada no ambiente nem no .env');
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: false, error: 'Chave RESEND_API_KEY não encontrada no .env' }));
+                return;
+              }
+
+              const resend = new Resend(apiKey);
               const emailMatch = String(contact).match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
               const replyTo = emailMatch ? emailMatch[0] : undefined;
 
@@ -54,7 +82,7 @@ function apiDevPlugin(): Plugin {
                     </tr>
                   </table>
                   <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;">
-                    <span>Recebido através do formulário do site <strong>techhubvision.com.br</strong> (Ambiente de Desenvolvimento)</span>
+                    <span>Recebido através do formulário do site <strong>techhubvision.com.br</strong></span>
                   </div>
                 </div>
               `;
@@ -63,19 +91,22 @@ function apiDevPlugin(): Plugin {
                 from: 'onboarding@resend.dev',
                 to: 'orcamentos@techhubvision.com.br',
                 replyTo: replyTo,
-                subject: `[Novo Orçamento - Dev] ${business} - ${goal || 'Contato'}`,
+                subject: `[Novo Orçamento] ${business} - ${goal || 'Contato'}`,
                 html,
               });
 
               res.setHeader('Content-Type', 'application/json');
               if (result.error) {
+                console.error('[DEV API] Erro Resend:', result.error);
                 res.statusCode = 500;
                 res.end(JSON.stringify({ success: false, error: result.error.message }));
               } else {
+                console.log('[DEV API] E-mail enviado com sucesso via Resend! ID:', result.data?.id);
                 res.statusCode = 200;
                 res.end(JSON.stringify({ success: true, id: result.data?.id }));
               }
             } catch (err: any) {
+              console.error('[DEV API] Erro no processamento:', err);
               res.setHeader('Content-Type', 'application/json');
               res.statusCode = 500;
               res.end(JSON.stringify({ success: false, error: err?.message || 'Erro interno.' }));

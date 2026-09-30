@@ -37,7 +37,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
+import fs from 'node:fs';
+import path from 'node:path';
 import { Resend } from 'resend';
+function resolveResendKey() {
+    if (process.env.RESEND_API_KEY) {
+        return process.env.RESEND_API_KEY;
+    }
+    try {
+        var envPath = path.resolve(process.cwd(), '.env');
+        if (fs.existsSync(envPath)) {
+            var content = fs.readFileSync(envPath, 'utf8');
+            var match = content.match(/^RESEND_API_KEY=(.+)$/m);
+            if (match && match[1]) {
+                return match[1].trim().replace(/^['"]|['"]$/g, '');
+            }
+        }
+    }
+    catch (_a) { }
+    return '';
+}
 function apiDevPlugin() {
     return {
         name: 'api-dev-server',
@@ -53,12 +72,12 @@ function apiDevPlugin() {
                             body_1 += chunk;
                         });
                         req.on('end', function () { return __awaiter(_this, void 0, void 0, function () {
-                            var data, business, contact, goal, challenge, resend, emailMatch, replyTo, html, result, err_1;
-                            var _a;
-                            return __generator(this, function (_b) {
-                                switch (_b.label) {
+                            var data, business, contact, goal, challenge, apiKey, resend, emailMatch, replyTo, html, result, err_1;
+                            var _a, _b;
+                            return __generator(this, function (_c) {
+                                switch (_c.label) {
                                     case 0:
-                                        _b.trys.push([0, 2, , 3]);
+                                        _c.trys.push([0, 2, , 3]);
                                         data = JSON.parse(body_1 || '{}');
                                         business = data.business, contact = data.contact, goal = data.goal, challenge = data.challenge;
                                         if (!business || !contact) {
@@ -67,31 +86,42 @@ function apiDevPlugin() {
                                             res.end(JSON.stringify({ success: false, error: 'Campos obrigatórios ausentes.' }));
                                             return [2 /*return*/];
                                         }
-                                        resend = new Resend(process.env.RESEND_API_KEY);
+                                        apiKey = resolveResendKey();
+                                        if (!apiKey) {
+                                            console.error('[DEV API] RESEND_API_KEY não configurada no ambiente nem no .env');
+                                            res.statusCode = 500;
+                                            res.setHeader('Content-Type', 'application/json');
+                                            res.end(JSON.stringify({ success: false, error: 'Chave RESEND_API_KEY não encontrada no .env' }));
+                                            return [2 /*return*/];
+                                        }
+                                        resend = new Resend(apiKey);
                                         emailMatch = String(contact).match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
                                         replyTo = emailMatch ? emailMatch[0] : undefined;
-                                        html = "\n                <div style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 28px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; color: #0f172a;\">\n                  <div style=\"margin-bottom: 22px; border-bottom: 2px solid #0052FF; padding-bottom: 14px;\">\n                    <span style=\"font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #0052FF; text-transform: uppercase;\">Tech Hub \u00B7 Novo Contato</span>\n                    <h1 style=\"font-size: 22px; color: #0f172a; margin: 6px 0 0 0; font-weight: 600;\">Nova solicita\u00E7\u00E3o de or\u00E7amento</h1>\n                  </div>\n                  <table style=\"width: 100%; border-collapse: collapse; margin-top: 16px;\">\n                    <tr>\n                      <td style=\"padding: 10px 0; color: #64748b; font-size: 13px; width: 140px; border-bottom: 1px solid #f1f5f9;\"><strong>Nome / Empresa:</strong></td>\n                      <td style=\"padding: 10px 0; color: #0f172a; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f1f5f9;\">".concat(business, "</td>\n                    </tr>\n                    <tr>\n                      <td style=\"padding: 10px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #f1f5f9;\"><strong>Contato:</strong></td>\n                      <td style=\"padding: 10px 0; color: #0f172a; font-size: 14px; border-bottom: 1px solid #f1f5f9;\">").concat(contact, "</td>\n                    </tr>\n                    <tr>\n                      <td style=\"padding: 10px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #f1f5f9;\"><strong>Objetivo Principal:</strong></td>\n                      <td style=\"padding: 10px 0; color: #0052FF; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f1f5f9;\">").concat(goal || 'Não informado', "</td>\n                    </tr>\n                    <tr>\n                      <td style=\"padding: 12px 0; color: #64748b; font-size: 13px; vertical-align: top;\"><strong>Desafio / Mensagem:</strong></td>\n                      <td style=\"padding: 12px 0; color: #334155; font-size: 14px; line-height: 1.6; white-space: pre-wrap;\">").concat(challenge || 'Não detalhado', "</td>\n                    </tr>\n                  </table>\n                  <div style=\"margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;\">\n                    <span>Recebido atrav\u00E9s do formul\u00E1rio do site <strong>techhubvision.com.br</strong> (Ambiente de Desenvolvimento)</span>\n                  </div>\n                </div>\n              ");
+                                        html = "\n                <div style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 28px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; color: #0f172a;\">\n                  <div style=\"margin-bottom: 22px; border-bottom: 2px solid #0052FF; padding-bottom: 14px;\">\n                    <span style=\"font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #0052FF; text-transform: uppercase;\">Tech Hub \u00B7 Novo Contato</span>\n                    <h1 style=\"font-size: 22px; color: #0f172a; margin: 6px 0 0 0; font-weight: 600;\">Nova solicita\u00E7\u00E3o de or\u00E7amento</h1>\n                  </div>\n                  <table style=\"width: 100%; border-collapse: collapse; margin-top: 16px;\">\n                    <tr>\n                      <td style=\"padding: 10px 0; color: #64748b; font-size: 13px; width: 140px; border-bottom: 1px solid #f1f5f9;\"><strong>Nome / Empresa:</strong></td>\n                      <td style=\"padding: 10px 0; color: #0f172a; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f1f5f9;\">".concat(business, "</td>\n                    </tr>\n                    <tr>\n                      <td style=\"padding: 10px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #f1f5f9;\"><strong>Contato:</strong></td>\n                      <td style=\"padding: 10px 0; color: #0f172a; font-size: 14px; border-bottom: 1px solid #f1f5f9;\">").concat(contact, "</td>\n                    </tr>\n                    <tr>\n                      <td style=\"padding: 10px 0; color: #64748b; font-size: 13px; border-bottom: 1px solid #f1f5f9;\"><strong>Objetivo Principal:</strong></td>\n                      <td style=\"padding: 10px 0; color: #0052FF; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f1f5f9;\">").concat(goal || 'Não informado', "</td>\n                    </tr>\n                    <tr>\n                      <td style=\"padding: 12px 0; color: #64748b; font-size: 13px; vertical-align: top;\"><strong>Desafio / Mensagem:</strong></td>\n                      <td style=\"padding: 12px 0; color: #334155; font-size: 14px; line-height: 1.6; white-space: pre-wrap;\">").concat(challenge || 'Não detalhado', "</td>\n                    </tr>\n                  </table>\n                  <div style=\"margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;\">\n                    <span>Recebido atrav\u00E9s do formul\u00E1rio do site <strong>techhubvision.com.br</strong></span>\n                  </div>\n                </div>\n              ");
                                         return [4 /*yield*/, resend.emails.send({
                                                 from: 'onboarding@resend.dev',
                                                 to: 'orcamentos@techhubvision.com.br',
                                                 replyTo: replyTo,
-                                                subject: "[Novo Or\u00E7amento - Dev] ".concat(business, " - ").concat(goal || 'Contato'),
+                                                subject: "[Novo Or\u00E7amento] ".concat(business, " - ").concat(goal || 'Contato'),
                                                 html: html,
                                             })];
                                     case 1:
-                                        result = _b.sent();
+                                        result = _c.sent();
                                         res.setHeader('Content-Type', 'application/json');
                                         if (result.error) {
+                                            console.error('[DEV API] Erro Resend:', result.error);
                                             res.statusCode = 500;
                                             res.end(JSON.stringify({ success: false, error: result.error.message }));
                                         }
                                         else {
+                                            console.log('[DEV API] E-mail enviado com sucesso via Resend! ID:', (_a = result.data) === null || _a === void 0 ? void 0 : _a.id);
                                             res.statusCode = 200;
-                                            res.end(JSON.stringify({ success: true, id: (_a = result.data) === null || _a === void 0 ? void 0 : _a.id }));
+                                            res.end(JSON.stringify({ success: true, id: (_b = result.data) === null || _b === void 0 ? void 0 : _b.id }));
                                         }
                                         return [3 /*break*/, 3];
                                     case 2:
-                                        err_1 = _b.sent();
+                                        err_1 = _c.sent();
+                                        console.error('[DEV API] Erro no processamento:', err_1);
                                         res.setHeader('Content-Type', 'application/json');
                                         res.statusCode = 500;
                                         res.end(JSON.stringify({ success: false, error: (err_1 === null || err_1 === void 0 ? void 0 : err_1.message) || 'Erro interno.' }));

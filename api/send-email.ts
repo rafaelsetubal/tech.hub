@@ -9,6 +9,25 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;');
 }
 
+function resolveApiKey(): string {
+  if (process.env.RESEND_API_KEY) {
+    return process.env.RESEND_API_KEY;
+  }
+  try {
+    const fs = require('node:fs');
+    const path = require('node:path');
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf8');
+      const match = content.match(/^RESEND_API_KEY=(.+)$/m);
+      if (match && match[1]) {
+        return match[1].trim().replace(/^['"]|['"]$/g, '');
+      }
+    }
+  } catch {}
+  return '';
+}
+
 export default async function handler(req: any, res: any) {
   // CORS configuration
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -28,9 +47,9 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const apiKey = process.env.RESEND_API_KEY;
+    const apiKey = resolveApiKey();
     if (!apiKey) {
-      console.error('RESEND_API_KEY não configurada no ambiente.');
+      console.error('RESEND_API_KEY não configurada no ambiente nem no .env');
       return res.status(500).json({
         success: false,
         error: 'Serviço de e-mail temporariamente indisponível.',

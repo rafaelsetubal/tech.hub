@@ -204,44 +204,60 @@ export const ProjectBrief: React.FC<{ digital?: boolean; requestedGoal?: string 
           </div>
         </form>
       ) : (
-        <div className="brief-result text-center py-4 space-y-5" role="status">
-          <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center shadow-sm">
-            <CheckCircle2 className="w-8 h-8" />
+        <div className="brief-result text-center py-5 space-y-6" role="status">
+          {/* Animated Success Badge */}
+          <div className="relative mx-auto w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-md shadow-emerald-500/10 border border-emerald-100">
+            <span className="absolute inset-0 rounded-full bg-emerald-400 opacity-20 animate-ping" />
+            <CheckCircle2 className="w-9 h-9 relative z-10" />
           </div>
 
-          <div>
-            <h3 className="text-2xl font-semibold text-slate-900 tracking-tight mb-1">
-              Mensagem enviada com sucesso!
+          <div className="space-y-2">
+            <span className="inline-block text-xs font-mono font-semibold uppercase tracking-[0.16em] text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+              Solicitação Confirmada
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+              Muito obrigado! Mensagem enviada com sucesso!
             </h3>
-            <p className="text-sm text-slate-600 max-w-md mx-auto">
-              Recebemos suas informações. Nossa equipe entrará em contato em até <strong>24 horas</strong>.
+            <p className="text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
+              {formData.business ? <strong>{formData.business}</strong> : 'Recebemos seu contato'}. Já estamos analisando seu cenário e retornaremos em até <strong>24 horas úteis</strong>.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-left text-xs sm:text-sm text-slate-700 space-y-1 max-w-md mx-auto">
-            <p><strong>Negócio:</strong> {formData.business}</p>
+          {/* Dados enviados */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 text-left text-xs sm:text-sm text-slate-700 space-y-2 max-w-md mx-auto shadow-sm">
+            <div className="flex justify-between items-center pb-2 border-b border-slate-200/60 text-[11px] font-mono uppercase tracking-wider text-slate-500">
+              <span>Resumo do envio</span>
+              <span className="text-emerald-600 font-semibold">● Entregue</span>
+            </div>
+            <p><strong>Nome / Negócio:</strong> {formData.business}</p>
             <p><strong>Contato:</strong> {formData.contact}</p>
             <p><strong>Objetivo:</strong> {goal}</p>
           </div>
 
           <div className="space-y-3 pt-2 max-w-md mx-auto">
+            <p className="text-xs text-slate-500">
+              Quer uma resposta ainda mais rápida ou mandar mais detalhes?
+            </p>
             <a
               href={whatsappLink('geral', whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="solid-link w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm sm:text-base shadow-lg shadow-emerald-600/25 transition-all"
+              className="solid-link w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm sm:text-base shadow-lg shadow-emerald-600/25 transition-all group"
             >
-              <MessageSquare className="w-4 h-4" />
-              <span>Continuar conversa no WhatsApp ({WHATSAPP_DISPLAY})</span>
-              <ArrowRight className="w-4 h-4" />
+              <MessageSquare className="w-5 h-5" />
+              <span>Falar agora no WhatsApp ({WHATSAPP_DISPLAY})</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
 
             <button
               type="button"
-              className="text-link w-full py-2 text-xs sm:text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors text-center block cursor-pointer"
-              onClick={() => setSubmitted(false)}
+              className="text-link w-full py-2.5 text-xs sm:text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors text-center block cursor-pointer"
+              onClick={() => {
+                setSubmitted(false);
+                setSendError(null);
+              }}
             >
-              Enviar outra mensagem
+              ← Enviar outra mensagem ou alterar dados
             </button>
           </div>
         </div>
