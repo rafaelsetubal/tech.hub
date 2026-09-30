@@ -93,8 +93,10 @@ export const HomeFaq: React.FC = () => {
               {HOME_FAQS.map((faq, index) => (
                 <details key={faq.question} open={index === 0}>
                   <summary>
-                    <span>{faq.question}</span>
-                    <span aria-hidden="true">+</span>
+                    <span className="faq-question">{faq.question}</span>
+                    <span aria-hidden="true" className="faq-icon">
+                      +
+                    </span>
                   </summary>
                   <p>{faq.answer}</p>
                 </details>

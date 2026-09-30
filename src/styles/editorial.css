@@ -215,10 +215,10 @@ main > section { scroll-margin-top: 100px; }
 .faq-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:8%; }
 .faq-grid details { border-bottom:1px solid #dbe3ef; padding:22px 0; }
 .faq-grid summary { display:flex; justify-content:space-between; align-items:center; gap:22px; cursor:pointer; list-style:none; font-size:16px; font-weight:500; color:#1c2f4b; }
-.faq-grid summary::-webkit-details-marker { display:none; }
-.faq-grid summary > span { color:#4163e9; font-size:22px; }
-.faq-grid details[open] summary > span { transform:rotate(45deg); }
-.faq-grid details p { font-size:14px; line-height:1.8; color:#617189; margin-top:16px; }
+.faq-grid summary > .faq-icon, .faq-grid summary > span:last-child { color:#4163e9; font-size:24px; line-height:1; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .2s ease; transform-origin:center; }
+.faq-grid details[open] summary > .faq-icon, .faq-grid details[open] summary > span:last-child { transform:rotate(45deg); }
+.faq-grid summary .faq-question { color:#1c2f4b; font-size:17px; font-weight:600; line-height:1.4; flex:1; text-align:left; }
+.faq-grid details p { font-size:15px; line-height:1.75; color:#617189; margin-top:14px; }
 .sites-footer { padding:35px 0; background:white; }
 .sites-footer span, .sites-footer > div > a:last-child { font-size:12px; color:#63728a; }
 .sites-footer > div > a:last-child { display:flex; align-items:center; gap:8px; }
