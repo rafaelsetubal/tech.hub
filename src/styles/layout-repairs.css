@@ -343,4 +343,8 @@
   .services-section .service-description { font-size: 16px; }
   .visual-case .case-copy .editorial-title,
   .visual-about .editorial-title { font-size: clamp(34px, 8vw, 44px); }
+  .web-studio .sites-hero-benefits { grid-template-columns: 1fr; gap: 14px; margin-top: 28px; }
+  .web-studio .sites-hero-benefits li { border: 0; padding: 0; display: flex; gap: 14px; align-items: flex-start; }
+  .web-studio .sites-hero-benefits strong { font-size: 15px; line-height: 1.35; margin: 0 0 3px; }
+  .web-studio .sites-hero-benefits p { font-size: 14px; line-height: 1.5; max-width: none; margin: 0; }
 }
