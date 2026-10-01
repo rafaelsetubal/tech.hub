@@ -100,7 +100,7 @@ export const Footer: React.FC<{ page?: 'home' | 'sites' }> = ({ page = 'home' })
 
         <div className="footer-bottom">
           <p>
-            © {new Date().getFullYear()} Tech Hub · CNPJ 53.344.679/0001-00 · Belo Horizonte, MG · Atendimento em todo o Brasil
+            © {new Date().getFullYear()} Tech Hub · CNPJ 53.344.679/0001-00 · Belo Horizonte, MG · Atendimento em todo o Brasil · <a href="/privacidade" style={{ textDecoration: 'underline', color: 'inherit' }}>Política de privacidade</a>
           </p>
           <a href={sites ? '#sites-inicio' : '#hero'}>
             Voltar ao início <ArrowUp size={15} />

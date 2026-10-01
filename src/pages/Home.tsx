@@ -16,6 +16,7 @@ import { AboutSection } from '@/components/sections/AboutSection';
 import { HomeFaq } from '@/components/sections/HomeFaq';
 import { CtaSection } from '@/components/sections/CtaSection';
 import { Footer } from '@/components/layout/Footer';
+import { FloatingWhatsApp } from '@/components/ui/FloatingWhatsApp';
 
 export const Home: React.FC = () => {
   return (
@@ -52,6 +53,9 @@ export const Home: React.FC = () => {
         {/* 9. Diagnóstico Tech Hub (CTA Final) */}
         <CtaSection />
       </main>
+
+      {/* Mobile Floating WhatsApp Button */}
+      <FloatingWhatsApp page="home" />
 
       {/* Footer */}
       <Footer />

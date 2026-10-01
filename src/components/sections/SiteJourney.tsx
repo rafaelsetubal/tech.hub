@@ -6,16 +6,16 @@ import { useScrollSteps } from '@/hooks/useScrollSteps';
 
 const stages = [
   { title: 'Primeiro, a sua ideia.', name: 'Conversa', copy: 'O que você oferece? Quem precisa entender isso? Começamos pelo objetivo da página, não por um template.' },
-  { title: 'Cada coisa encontra seu lugar.', name: 'Direção', copy: 'Definimos mensagem, conteúdo e estrutura. Você aprova a direção antes de começar a construção.' },
+  { title: 'A direção antes do design.', name: 'Direção', copy: 'Definimos mensagem, conteúdo e estrutura. Você aprova a direção antes de começar a construção.' },
   { title: 'Agora tem a sua cara.', name: 'Construção', copy: 'Com a direção aprovada, montamos a página e testamos em celular e computador. Você revisa antes de publicar.' },
-  { title: 'Do “e se?” ao endereço no ar.', name: 'Publicação', copy: 'Publicamos depois da sua aprovação. Em seguida, acompanhamos acessos e navegação para orientar melhorias, conforme o escopo combinado.' },
+  { title: 'Do “e se?” ao endereço no ar.', name: 'Publicação', copy: 'Publicamos depois da sua aprovação. Em seguida, acompanhamos acessos e navegação para orientar melhorias.' },
 ];
 
 export const SiteJourney: React.FC = () => {
   const {root,active,choose,scrollEnabled} = useScrollSteps(4,'journey-scroll','--journey-progress');
   return <section id="como-criamos" ref={root} className={'site-journey journey-state-'+active+(scrollEnabled?' journey-scroll':'')} aria-labelledby="journey-heading">
     <div className="journey-sticky"><Container>
-      <div className="journey-heading"><h2 id="journey-heading">Da sua ideia.<br/><span>Para o mundo.</span></h2><p>Você não precisa imaginar tudo pronto.<br/>A gente dá forma, junto.</p></div>
+      <div className="journey-heading"><h2 id="journey-heading">Da sua ideia<br/><span>para o mundo.</span></h2><p>Você não precisa imaginar tudo pronto.<br/>A gente dá forma junto com você.</p></div>
       <div className="journey-composition">
         <div className="journey-story"><div className="journey-step-count" aria-hidden="true">0{active+1}<span>/ 04</span></div><div className="journey-copy" key={active}><h3>{stages[active].title}</h3><p>{stages[active].copy}</p></div></div>
         <div className="journey-canvas" aria-hidden="true">

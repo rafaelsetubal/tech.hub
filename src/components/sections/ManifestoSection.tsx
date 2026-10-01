@@ -71,7 +71,7 @@ export const ManifestoSection: React.FC = () => {
     <div className="assembly-stage"><Container><div className="assembly-layout">
       <div className="assembly-copy">
         <div className="assembly-phase"><h2>Boas peças.<br /><span>Ainda soltas.</span></h2><p>Pessoas, dados, processos e ferramentas. O potencial existe. Falta fazer tudo trabalhar junto.</p></div>
-        <div className="assembly-phase"><h2>É aqui que<br /><span>a Tech Hub entra.</span></h2><p>Mapeamos como a operação acontece e onde ela trava — antes de propor qualquer ferramenta.</p></div>
+        <div className="assembly-phase"><h2>É aqui que<br /><span>a Tech Hub entra.</span></h2><p>Mapeamos como a operação acontece e onde ela trava.</p></div>
         <div className="assembly-phase"><h2>Quando tudo se conecta,<br /><span>faz sentido.</span></h2><p>Pessoas, processos e ferramentas na mesma direção. Tecnologia a serviço do trabalho real.</p></div>
       </div>
       <div className="assembly-art">

@@ -3,7 +3,7 @@ import { useScrollSteps } from '@/hooks/useScrollSteps';
 import { Container } from '@/components/layout/Container';
 import { Check, ArrowRight, MessageCircle, MousePointer2, X, CircleHelp, Unplug } from 'lucide-react';
 const steps = [
-  { title: 'Entender', copy: 'Pedidos perdidos, dúvidas e tarefas que voltam. Ouvimos a equipe para descobrir onde o trabalho trava — antes de propor uma solução.', result: 'Primeiro, entender o que trava.' },
+  { title: 'Entender', copy: 'Pedidos perdidos, dúvidas e tarefas que voltam. Ouvimos a equipe para descobrir onde o trabalho emperra, antes de propor uma solução.', result: 'Primeiro, entender o que trava.' },
   { title: 'Desenhar', copy: 'Definimos o que vem primeiro, quem cuida de cada etapa e como reconhecer o avanço.', result: 'Cada coisa encontra seu lugar.' },
   { title: 'Construir', copy: 'Colocamos o fluxo em prática e conectamos as ferramentas combinadas. A equipe testa antes da mudança virar rotina.', result: 'As partes começam a conversar.' },
   { title: 'Evoluir', copy: 'Acompanhamos a adoção com a equipe e tiramos dúvidas no dia a dia para garantir que a mudança dure.', result: 'A mudança entra na rotina.' },

@@ -17,6 +17,7 @@ const brandEntry = typeof window !== 'undefined' && window.location.pathname.toL
   ? import('@/pages/Brand')
   : undefined;
 const Brand = lazy(() => (brandEntry ?? import('@/pages/Brand')).then(module => ({ default: module.Brand })));
+const Privacy = lazy(() => import('@/pages/Privacy').then(module => ({ default: module.Privacy })));
 
 export const App: React.FC = () => {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -49,6 +50,8 @@ export const App: React.FC = () => {
         <Brand />
       ) : normalizedPath === '/sites' ? (
         <Sites />
+      ) : normalizedPath === '/privacidade' ? (
+        <Privacy />
       ) : normalizedPath === '/' ? (
         <Home />
       ) : (

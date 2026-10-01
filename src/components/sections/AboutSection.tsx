@@ -37,10 +37,10 @@ export const AboutSection: React.FC = () => (
             <span className="manifesto-accent">pessoas.</span>
           </h2>
           <p className="editorial-copy">
-            Sou Michelli Bonatelli. Há mais de 8 anos em tecnologia, gestão e dados, ajudo empresas a transformar processos confusos em um jeito claro e produtivo de trabalhar.
+            Sou Michelli Bonatelli. Há mais de 8 anos, ajudo empresas a transformar processos complexos em rotinas simples, com foco em gestão de projetos, personalização digital, testes A/B e análise de dados.
           </p>
           <p className="editorial-copy">
-            Ao lado do Rafael (Design e Desenvolvimento), formamos um time enxuto de propósito: você fala direto com quem planeja e com quem constrói suas soluções, do diagnóstico à publicação.
+            Ao lado do Rafael (Design e Desenvolvimento), formamos um time pequeno de propósito: você fala direto com quem planeja e com quem constrói suas soluções, do diagnóstico à publicação.
           </p>
           <div
             className="about-actions"

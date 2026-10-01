@@ -26,7 +26,7 @@ export const CasesSection: React.FC = () => (
           </div>
 
           <div className="case-copy">
-            <span className="case-client">Na prática · Four Prints</span>
+            <span className="case-client">Na prática · experiência da fundadora</span>
             <h2 className="editorial-title">
               Um projeto.<br />
               <span>
@@ -35,7 +35,7 @@ export const CasesSection: React.FC = () => (
               </span>
             </h2>
             <p>
-              No Four Prints, organizamos a gestão do projeto e os processos internos,
+              Na Four Prints, a Michelli organizou a gestão do projeto e os processos internos,
               acompanhando a equipe de desenvolvimento do planejamento às entregas.
             </p>
 

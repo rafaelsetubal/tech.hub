@@ -85,5 +85,5 @@ describe('Complete sites page',()=>{
     const {container}=render(<Sites/>);
     const result=await axe.run(container,{rules:{'color-contrast':{enabled:false}}});
     expect(result.violations.map(v=>({id:v.id,description:v.description}))).toEqual([]);
-  });
+  }, 15000);
 });

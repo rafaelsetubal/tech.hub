@@ -5,7 +5,7 @@ import { Container } from '@/components/layout/Container';
 const answers = [
   { question: '“O que essa empresa faz?”', answer: 'Uma explicação clara da oferta.', href: '#formatos', icon: BriefcaseBusiness },
   { question: '“Serve para o que eu preciso?”', answer: 'Serviços, projetos e diferenciais no mesmo lugar.', href: '#portfolio', icon: Images },
-  { question: '“Como posso começar?”', answer: 'Um próximo passo fácil de encontrar.', href: '#seu-projeto', icon: MessageCircle },
+  { question: '“Como posso começar?”', answer: 'Um jeito fácil de entrar em contato.', href: '#seu-projeto', icon: MessageCircle },
 ];
 
 export const SiteValue: React.FC = () => <section className="site-answers"><Container>
