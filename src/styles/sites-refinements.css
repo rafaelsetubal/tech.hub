@@ -1,0 +1,111 @@
+/* Keep the old studio grid from constraining the shared contact form. */
+.web-studio .studio-contact.contact-layout > .studio-contact-container {
+  display: block;
+}
+.web-studio .studio-contact.contact-layout {
+  padding-block: clamp(64px, 7vw, 104px);
+}
+.web-studio .studio-contact.contact-layout .contact-heading {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.web-studio .studio-contact.contact-layout .contact-heading h2 {
+  font-size: clamp(36px, 4.2vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+.web-studio .studio-contact.contact-layout .contact-heading > p {
+  max-width: 580px;
+  margin: 20px auto 0;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.web-studio .studio-contact.contact-layout .contact-heading > .contact-agreement {
+  max-width: 540px;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #e0eaff;
+}
+.web-studio .studio-contact .brief-section-wrapper { max-width: 1152px; }
+
+/* Team cards share the same reading scale as the rest of the page. */
+.web-studio .studio-team-strip {
+  background: #f4f7fc;
+  border-block: 1px solid #e2e8f0;
+  padding-block: clamp(64px, 7vw, 96px);
+}
+.studio-team-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.65fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+.studio-team-label {
+  display: block;
+  margin-bottom: 14px;
+  color: #2451c4;
+  font-size: 13px;
+  font-weight: 600;
+}
+.web-studio .studio-team-heading h2 {
+  margin: 0;
+  font-size: clamp(34px, 3.4vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -.04em;
+  color: #172840;
+  text-wrap: balance;
+}
+.web-studio .studio-team-heading > p {
+  margin-top: 20px;
+  max-width: 34ch;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #475569;
+}
+.studio-team-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.studio-team-card {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid #dce5f2;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 8px 24px #17284008;
+}
+.studio-team-person { display: flex; align-items: center; gap: 16px; }
+.studio-team-person > div { min-width: 0; }
+.studio-team-avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: #eaf1ff;
+  color: #2451c4;
+  font-size: 24px;
+  font-weight: 700;
+}
+.studio-team-avatar-dark { background: #172840; color: #fff; }
+.web-studio .studio-team-card h3 { margin: 0; color: #172840; font-size: 20px; line-height: 1.25; font-weight: 650; }
+.studio-team-role { display: block; margin-top: 6px; font-size: 14px; line-height: 1.45; color: #2451c4; }
+.web-studio .studio-team-card > p { margin: 24px 0 0; font-size: 16px; line-height: 1.65; color: #475569; }
+
+@media (min-width: 1024px) {
+  .web-studio .studio-faq .studio-faq-title {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+}
+@media (max-width: 1023px) {
+  .studio-team-layout { grid-template-columns: minmax(0, 1fr); }
+  .studio-team-heading { max-width: 620px; }
+  .web-studio .studio-team-heading > p { max-width: 48ch; }
+}
+@media (max-width: 767px) {
+  .studio-team-cards { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .studio-team-card { padding: 24px; }
+  .web-studio .studio-contact.contact-layout .contact-heading { margin-bottom: 32px; }
+}

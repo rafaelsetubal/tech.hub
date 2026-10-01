@@ -1,6 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import '@/styles/project-brief.css';
 import { Send, CheckCircle2, ChevronDown, MessageSquare, ArrowRight, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { WHATSAPP_DISPLAY, whatsappLink } from '@/lib/whatsapp';
+
+const shortServiceLabels: Record<string, string> = {
+  'Apresentar minha empresa na internet': 'Apresentar minha empresa',
+  'Vender um produto ou serviço': 'Vender um produto ou serviço',
+  'Receber contatos de interessados': 'Receber novos contatos',
+};
 
 function formatPhone(value: string): string {
   const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -64,11 +71,20 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [step, setStep] = useState<1 | 2>(1);
+  const stepHeading = useRef<HTMLHeadingElement>(null);
+  const previousStep = useRef(step);
+
+  useEffect(() => {
+    if (previousStep.current !== step) stepHeading.current?.focus();
+    previousStep.current = step;
+  }, [step]);
 
   useEffect(() => {
     if (requestedGoal) {
       setServico(requestedGoal);
       setSubmitted(false);
+      setStep(1);
     }
   }, [requestedGoal]);
 
@@ -80,9 +96,19 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
     setSendError(null);
 
     const form = event.currentTarget;
+    const fields = form.querySelector('[data-brief-step]:not([hidden])')?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');
+    for (const field of fields || []) {
+      field.setCustomValidity(field.required && !field.value.trim() ? 'Preencha este campo para continuar.' : '');
+      if (!field.reportValidity()) return;
+    }
+    if (step === 1) {
+      setStep(2);
+      return;
+    }
     const data = new FormData(form);
     const nomeVal = String(data.get('nome') || data.get('business') || '').trim();
     const empresaVal = String(data.get('empresa') || '').trim();
@@ -160,7 +186,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
         {/* Main Budget Form (Col 1-8 on desktop) */}
         <div className="lg:col-span-8 brief-box w-full bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-9 shadow-2xl shadow-blue-950/15 border border-slate-200/90 text-slate-900 transition-all">
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} onInput={event => { const field = event.target as HTMLInputElement; if (typeof field.setCustomValidity === 'function') field.setCustomValidity(''); }} noValidate aria-label={isSites ? 'Pedido de orçamento' : 'Diagnóstico e orçamento'} className="space-y-5">
               {/* Anti-spam honeypot */}
               <div style={{ display: 'none' }} aria-hidden="true">
                 <label htmlFor="empresa_site_hp">Deixe em branco</label>
@@ -173,7 +199,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               </div>
 
               {/* Form Heading & Subtitle */}
-              <div className="border-b border-slate-100 pb-4">
+              <div className="brief-form-heading border-b border-slate-100 pb-4">
                 <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-600 block mb-1">
                   {isSites ? 'PROPOSTA SOB MEDIDA' : 'DIAGNÓSTICO & ORÇAMENTO'}
                 </span>
@@ -187,82 +213,19 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                 </p>
               </div>
 
-              {/* 1. Nome & 2. Empresa */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div className="space-y-1.5 text-left">
-                  <label htmlFor="brief-nome" className="block text-xs font-semibold text-slate-700">
-                    Seu nome ou negócio <span className="text-blue-600">*</span>
-                  </label>
-                  <input
-                    id="brief-nome"
-                    name="nome"
-                    defaultValue={formData.nome}
-                    placeholder="Ex.: Ana Souza / Estúdio XYZ"
-                    required
-                    maxLength={100}
-                    autoComplete="name"
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
-                  />
-                </div>
+              <ol className="brief-steps" aria-label="Etapas do formulário">
+                <li aria-current={step === 1 ? 'step' : undefined}><span aria-hidden="true">1</span>Seu projeto</li>
+                <li aria-current={step === 2 ? 'step' : undefined}><span aria-hidden="true">2</span>Seu contato</li>
+              </ol>
+              <h4 ref={stepHeading} tabIndex={-1} className="brief-step-title">
+                {step === 1 ? 'Etapa 1 de 2: conte o que você precisa' : 'Etapa 2 de 2: como podemos falar com você?'}
+              </h4>
 
-                <div className="space-y-1.5 text-left">
-                  <label htmlFor="brief-empresa" className="block text-xs font-semibold text-slate-700">
-                    Empresa ou negócio <span className="text-slate-600 font-normal">(opcional)</span>
-                  </label>
-                  <input
-                    id="brief-empresa"
-                    name="empresa"
-                    defaultValue={formData.empresa}
-                    placeholder="Ex.: Estúdio Aurora"
-                    maxLength={120}
-                    autoComplete="organization"
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* 3. WhatsApp & 4. E-mail */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div className="space-y-1.5 text-left">
-                  <label htmlFor="brief-whatsapp" className="block text-xs font-semibold text-slate-700">
-                    WhatsApp ou E-mail <span className="text-blue-600">*</span>
-                  </label>
-                  <input
-                    id="brief-whatsapp"
-                    name="whatsapp"
-                    defaultValue={formData.whatsapp}
-                    onChange={(e) => {
-                      if (/^[\d\s()+-]*$/.test(e.target.value)) {
-                        e.target.value = formatPhone(e.target.value);
-                      }
-                    }}
-                    placeholder="(31) 99999-9999 ou email@exemplo.com"
-                    required
-                    maxLength={120}
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
-                  />
-                </div>
-
-                <div className="space-y-1.5 text-left">
-                  <label htmlFor="brief-email" className="block text-xs font-semibold text-slate-700">
-                    E-mail alternativo <span className="text-slate-600 font-normal">(opcional)</span>
-                  </label>
-                  <input
-                    id="brief-email"
-                    name="email"
-                    type="email"
-                    defaultValue={formData.email}
-                    placeholder="ana@empresa.com.br"
-                    maxLength={120}
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
-                  />
-                </div>
-              </div>
-
+<fieldset data-brief-step="1" hidden={step !== 1} className="brief-stage space-y-5"><legend className="sr-only">Seu projeto</legend>
               {/* 5. Chips de escolha única: O que você precisa? */}
               <div className="space-y-2 text-left pt-1">
                 <label htmlFor="brief-servico-select" className="block text-xs font-semibold text-slate-700">
-                  Seu objetivo principal / O que você precisa <span className="text-blue-600">*</span>
+                  Seu objetivo principal <span className="text-blue-600">*</span>
                 </label>
                 <select
                   id="brief-servico-select"
@@ -281,40 +244,36 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     'Automatizar tarefas',
                   ])).map((opt) => (
                     <option key={opt} value={opt}>
-                      {opt}
+                      {shortServiceLabels[opt] || opt}
                     </option>
                   ))}
                 </select>
 
-                <div className="flex flex-wrap gap-2 pt-1" role="radiogroup" aria-label="O que você precisa">
-                  {serviceOptions.map((opt) => {
-                    const isSelected =
-                      servico === opt ||
-                      (opt === 'Site institucional' && servico.includes('Apresentar minha empresa')) ||
-                      (opt === 'Página de venda' && servico.includes('Vender um produto')) ||
-                      (opt === 'Página de captura' && servico.includes('Receber contatos')) ||
-                      (opt === 'Organizar processos' && servico.includes('Organizar minha operação')) ||
-                      (opt === 'Automação e integração' && servico.includes('Automatizar tarefas'));
-                    return (
-                      <button
-                        key={opt}
-                        type="button"
-                        role="radio"
-                        aria-checked={isSelected}
-                        onClick={() => setServico(opt)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
-                          isSelected
-                            ? 'bg-blue-600 text-white shadow-xs font-semibold'
-                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60'
-                        }`}
-                      >
-                        {opt}
-                      </button>
-                    );
-                  })}
-                </div>
+
               </div>
 
+              {/* 9. Conte um pouco sobre o seu negócio e o que precisa */}
+              <div className="space-y-1.5 text-left">
+                <label htmlFor="brief-mensagem" className="block text-xs font-semibold text-slate-700">
+                  Como podemos ajudar? <span className="text-blue-600">*</span>
+                </label>
+                <textarea
+                  id="brief-mensagem"
+                  name="challenge"
+                  defaultValue={formData.mensagem}
+                  placeholder={
+                    isSites
+                      ? 'Ex.: Tenho um estúdio de pilates e quero um site para mostrar as aulas e receber agendamentos.'
+                      : 'Ex.: Os pedidos chegam por WhatsApp, e-mail e planilha, e a equipe perde o que é prioridade.'
+                  }
+                  rows={3}
+                  required
+                  maxLength={1500}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all resize-y min-h-[85px]"
+                />
+              </div>
+
+<details className="brief-optional"><summary>Detalhes adicionais (opcional)</summary><div className="space-y-5">
               {/* 6. Você já tem site ou domínio? (Condicional se for site/venda/captura) */}
               {isSiteType && (
                 <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-100 text-left space-y-2">
@@ -369,30 +328,84 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                 </div>
               </div>
 
-              {/* 9. Conte um pouco sobre o seu negócio e o que precisa */}
-              <div className="space-y-1.5 text-left">
-                <label htmlFor="brief-mensagem" className="block text-xs font-semibold text-slate-700">
-                  Como podemos ajudar? Conte um pouco sobre o seu negócio e o que precisa <span className="text-blue-600">*</span>
-                </label>
-                <textarea
-                  id="brief-mensagem"
-                  name="challenge"
-                  defaultValue={formData.mensagem}
-                  placeholder={
-                    isSites
-                      ? 'Ex.: Tenho um estúdio de pilates e quero um site para mostrar as aulas e receber agendamentos.'
-                      : 'Ex.: Os pedidos chegam por WhatsApp, e-mail e planilha, e a equipe perde o que é prioridade.'
-                  }
-                  rows={3}
-                  required
-                  maxLength={1500}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all resize-y min-h-[85px]"
-                />
+</div></details></fieldset>
+<fieldset data-brief-step="2" hidden={step !== 2} className="brief-stage space-y-5"><legend className="sr-only">Seu contato</legend>
+              {/* 1. Nome & 2. Empresa */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="space-y-1.5 text-left">
+                  <label htmlFor="brief-nome" className="block text-xs font-semibold text-slate-700">
+                    Seu nome ou negócio <span className="text-blue-600">*</span>
+                  </label>
+                  <input
+                    id="brief-nome"
+                    name="nome"
+                    defaultValue={formData.nome}
+                    placeholder="Ex.: Ana Souza / Estúdio XYZ"
+                    required
+                    maxLength={100}
+                    autoComplete="name"
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
+                  />
+                </div>
+
+                <div className="space-y-1.5 text-left">
+                  <label htmlFor="brief-empresa" className="block text-xs font-semibold text-slate-700">
+                    Empresa ou negócio <span className="text-slate-600 font-normal">(opcional)</span>
+                  </label>
+                  <input
+                    id="brief-empresa"
+                    name="empresa"
+                    defaultValue={formData.empresa}
+                    placeholder="Ex.: Estúdio Aurora"
+                    maxLength={120}
+                    autoComplete="organization"
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
+                  />
+                </div>
               </div>
 
+              {/* 3. WhatsApp & 4. E-mail */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="space-y-1.5 text-left">
+                  <label htmlFor="brief-whatsapp" className="block text-xs font-semibold text-slate-700">
+                    WhatsApp ou E-mail <span className="text-blue-600">*</span>
+                  </label>
+                  <input
+                    id="brief-whatsapp"
+                    name="whatsapp"
+                    defaultValue={formData.whatsapp}
+                    onChange={(e) => {
+                      if (/^[\d\s()+-]*$/.test(e.target.value)) {
+                        e.target.value = formatPhone(e.target.value);
+                      }
+                    }}
+                    placeholder="(31) 99999-9999 / seu e-mail"
+                    required
+                    maxLength={120}
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
+                  />
+                </div>
+
+                <div className="space-y-1.5 text-left">
+                  <label htmlFor="brief-email" className="block text-xs font-semibold text-slate-700">
+                    E-mail alternativo <span className="text-slate-600 font-normal">(opcional)</span>
+                  </label>
+                  <input
+                    id="brief-email"
+                    name="email"
+                    type="email"
+                    defaultValue={formData.email}
+                    placeholder="ana@empresa.com.br"
+                    maxLength={120}
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+</fieldset>
               {/* Error Alert */}
               {sendError && (
-                <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs text-left space-y-1.5">
+                <div role="alert" className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs text-left space-y-1.5">
                   <p className="font-semibold text-amber-950">Aviso sobre o envio:</p>
                   <p>{sendError}</p>
                   <div className="flex flex-wrap gap-3 pt-1">
@@ -417,6 +430,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
 
               {/* Submit Button & Policies */}
               <div className="pt-2 space-y-3">
+                {step === 2 && <button type="button" className="brief-back" disabled={submitting} onClick={() => { setSendError(null); setStep(1); }}>← Voltar ao projeto</button>}
                 <button
                   type="submit"
                   disabled={submitting}
@@ -429,8 +443,8 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     </>
                   ) : (
                     <>
-                      <span>Enviar mensagem / Enviar pedido</span>
-                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                      <span>{step === 1 ? 'Continuar para contato' : 'Enviar mensagem'}</span>
+                      {step === 1 ? <ArrowRight className="w-4 h-4" /> : <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />}
                     </>
                   )}
                 </button>
@@ -443,9 +457,9 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     </a>
                     .
                   </p>
-                  <p className="text-slate-600 font-medium pt-0.5">
+                  {step === 2 && <p className="text-slate-600 font-medium pt-0.5">
                     Você recebe uma resposta em até 2 horas em horário comercial. Se fizer sentido, marcamos uma conversa e enviamos a proposta com escopo, prazo e investimento.
-                  </p>
+                  </p>}
                 </div>
               </div>
             </form>
@@ -502,6 +516,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   onClick={() => {
                     setSubmitted(false);
                     setSendError(null);
+                    setStep(1);
                   }}
                 >
                   ← Enviar outra mensagem ou alterar dados
@@ -512,7 +527,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
         </div>
 
         {/* Secondary Column: "Prefere conversar antes?" (Col 9-12 on desktop) */}
-        <div className="lg:col-span-4 w-full space-y-4">
+        <div className="brief-aside lg:col-span-4 w-full space-y-4">
           <div className="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-xl shadow-blue-950/10 text-slate-900 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/70 text-xs font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -558,4 +573,3 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     </div>
   );
 };
-

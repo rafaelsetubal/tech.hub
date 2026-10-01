@@ -25,8 +25,9 @@ describe('Complete sites page',()=>{
     await user.click(screen.getByRole('tab',{name:/Vender um produto ou serviço/}));
     await user.click(screen.getByRole('link',{name:/Quero uma página assim/}));
     expect((screen.getByLabelText(/Seu objetivo/i) as HTMLSelectElement).value).toBe('Vender um produto ou serviço');
-    await user.type(screen.getByLabelText(/Seu nome ou negócio/i),'Minha empresa');
     await user.type(screen.getByLabelText(/Como podemos ajudar/i),'Divulgar minha oferta.');
+    await user.click(screen.getByRole('button',{name:'Continuar para contato'}));
+    await user.type(screen.getByLabelText(/Seu nome ou negócio/i),'Minha empresa');
     await user.type(screen.getByLabelText(/WhatsApp ou E-mail/i),'(31) 98888-8888');
     await user.click(screen.getByRole('button',{name:/Enviar mensagem/i}));
     const result=await screen.findByRole('status');
@@ -72,9 +73,10 @@ describe('Complete sites page',()=>{
     const summary=screen.getByText('Preciso saber de tecnologia?');
     await user.click(summary);
     expect(summary.closest('details')?.open).toBe(true);
+    await user.type(screen.getByLabelText(/Como podemos ajudar/i),'Quero apresentar meus serviços.');
+    await user.click(screen.getByRole('button',{name:'Continuar para contato'}));
     await user.type(screen.getByLabelText(/Seu nome ou negócio/i),'Estúdio teste');
     await user.type(screen.getByLabelText(/WhatsApp ou E-mail/i),'(31) 99999-9999');
-    await user.type(screen.getByLabelText(/Como podemos ajudar/i),'Quero apresentar meus serviços.');
     await user.click(screen.getByRole('button',{name:/Enviar mensagem/i}));
     const result=await screen.findByRole('status');
     expect(result.textContent).toContain('Estúdio teste');

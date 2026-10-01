@@ -313,6 +313,23 @@
 .banner-cta-link { font-size: 15px; line-height: 1.5; }
 .home-hero-copy .hero-credibility { font-size: 13px; line-height: 1.6; color: #475569; max-width: 46ch; }
 .home-hero-copy .hero-capabilities { font-size: 12px; letter-spacing: .06em; color: #475569; }
+.home-hero-copy .hero-credibility { padding: 12px 14px; border-radius: 12px; background: #fff; border: 1px solid #dce5f2; font-size: 14px; color: #334155; }
+.home-hero-copy .hero-capabilities { font-size: 13px; letter-spacing: 0; color: #334155; }
+.home-hero-copy .hero-capabilities > span { padding: 6px 10px; background: #fff; border: 1px solid #dce5f2; border-radius: 8px; line-height: 1.4; }
+.services-section.visual-services .service-art .service-art-label {
+  background: #102442;
+  color: #fff;
+  border: 1px solid #ffffff45;
+  border-radius: 8px;
+  padding: 6px 10px;
+  left: 16px;
+  bottom: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  max-width: calc(100% - 32px);
+  z-index: 3;
+}
 .home-hero-copy h1 { text-wrap: balance; }
 .web-studio .sites-hero-3d h1 { letter-spacing: -.045em; }
 .web-studio .sites-hero-benefits strong { font-size: 14px; line-height: 1.4; }

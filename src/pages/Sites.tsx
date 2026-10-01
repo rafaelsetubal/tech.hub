@@ -7,6 +7,7 @@ import '@/styles/site-value-footer.css';
 import '@/styles/sites-hero.css';
 import '@/styles/narrative-responsive.css';
 import '@/styles/layout-repairs.css';
+import '@/styles/sites-refinements.css';
 import { ArrowUpRight, Check, Plus, Smartphone, Layout, MousePointer2 } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 import { SitesHero } from '@/components/sections/SitesHero';
@@ -103,54 +104,45 @@ export const Sites: React.FC = () => {
       <SiteJourney/>
       <SiteInsights/>
 
-      {/* Quem cuida do seu site (Especificação 3.2) */}
-      <section className="studio-team-strip py-12 md:py-16 bg-slate-50/70 border-y border-slate-200/80">
+      <section id="sites-equipe" className="studio-team-strip" aria-labelledby="sites-team-title">
         <Container>
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-600 block mb-1">
-                TIME ENXUTO DE PROPÓSITO
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
-                Quem cuida do seu site
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-lg mx-auto">
+          <div className="studio-team-layout">
+            <div className="studio-team-heading">
+              <span className="studio-team-label">Time enxuto de propósito</span>
+              <h2 id="sites-team-title">Quem cuida do seu site</h2>
+              <p>
                 Você fala direto com quem faz, do primeiro contato à publicação.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 font-bold text-lg flex items-center justify-center shrink-0 border border-blue-100">
-                  M
+            <div className="studio-team-cards">
+              <article className="studio-team-card">
+                <div className="studio-team-person">
+                  <span className="studio-team-avatar" aria-hidden="true">M</span>
+                  <div>
+                    <h3>Michelli Bonatelli</h3>
+                    <span className="studio-team-role">Estratégia, conteúdo e dados</span>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 m-0">Michelli Bonatelli</h3>
-                  <span className="text-xs font-semibold text-blue-600 block mb-1.5">Estratégia, conteúdo e dados</span>
-                  <p className="text-xs text-slate-600 leading-relaxed m-0">
-                    Organiza a mensagem, acompanha o projeto e cuida da mensuração depois que o site vai ao ar.
-                  </p>
+                <p>Organiza a mensagem, acompanha o projeto e cuida da mensuração depois que o site vai ao ar.</p>
+              </article>
+              <article className="studio-team-card">
+                <div className="studio-team-person">
+                  <span className="studio-team-avatar studio-team-avatar-dark" aria-hidden="true">R</span>
+                  <div>
+                    <h3>Rafael</h3>
+                    <span className="studio-team-role">Design e desenvolvimento</span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-900 text-white font-bold text-lg flex items-center justify-center shrink-0">
-                  R
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 m-0">Rafael</h3>
-                  <span className="text-xs font-semibold text-blue-600 block mb-1.5">Design e desenvolvimento</span>
-                  <p className="text-xs text-slate-600 leading-relaxed m-0">
-                    Cria o visual, constrói as páginas e testa o funcionamento em celular e computador.
-                  </p>
-                </div>
-              </div>
+                <p>Cria o visual, constrói as páginas e testa o funcionamento em celular e computador.</p>
+              </article>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="studio-faq"><Container><div className="studio-section-heading"><h2>Sem dúvidas<br/><span>pelo caminho.</span></h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<Plus size={19}/></summary><p>{a}</p></details>)}</div></div></Container></section>
+      <section id="sites-faq" className="studio-faq" aria-labelledby="sites-faq-title"><Container><div className="studio-section-heading"><h2 id="sites-faq-title" className="studio-faq-title">Sem dúvidas<br/><span>pelo caminho.</span></h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<Plus size={19}/></summary><p>{a}</p></details>)}</div></div></Container></section>
       <section id="seu-projeto" className="studio-contact contact-layout">
-        <Container>
+        <Container className="studio-contact-container">
           <div className="contact-heading">
             <h2>Vamos colocar sua ideia<br/><span>no mundo?</span></h2>
             <p>Conte seu objetivo e começamos pelo que o seu negócio precisa.</p>

@@ -104,14 +104,8 @@ export const HeroSection: React.FC = () => {
 
             {/* Keyword Bar */}
             <div className="w-full">
-              <div className="hero-capabilities pt-2 flex flex-wrap items-center gap-2.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-                <span className="hover:text-slate-600 transition-colors">PROCESSOS</span>
-                <span className="text-slate-300">•</span>
-                <span className="hover:text-slate-600 transition-colors">GESTÃO DE PROJETOS</span>
-                <span className="text-slate-300">•</span>
-                <span className="hover:text-slate-600 transition-colors">AUTOMAÇÃO</span>
-                <span className="text-slate-300">•</span>
-                <span className="hover:text-slate-600 transition-colors">SITES</span>
+              <div className="hero-capabilities pt-2 flex flex-wrap items-center gap-2">
+                {['Processos', 'Gestão de projetos', 'Automação', 'Sites'].map(label => <span key={label}>{label}</span>)}
               </div>
             </div>
           </div>
