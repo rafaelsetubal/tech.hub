@@ -1,0 +1,32 @@
+# Tech Hub
+
+> Consultoria prática de processos, gestão de projetos, automação e criação de sites de alta conversão para pequenas e médias empresas.
+
+A Tech Hub é uma consultoria de gestão e tecnologia sediada em Belo Horizonte/MG, com atendimento a empresas de todo o Brasil. Conectamos processos, pessoas e ferramentas para que as equipes trabalhem com clareza, previsibilidade e sem jargões técnicos.
+
+## Serviços
+
+- [Processos & organização](https://techhubvision.com.br/#servicos): Mapeamento e estruturação de rotinas operacionais sem burocracia. Entregamos fluxo desenhado, papéis definidos e guia simples para o time.
+- [Gestão de projetos](https://techhubvision.com.br/#servicos): Implantação de quadros e rituais de acompanhamento da ideia à entrega, usando ferramentas que a empresa já conhece.
+- [Automação & integração](https://techhubvision.com.br/#servicos): Conexão entre ferramentas e fluxos automáticos para evitar transferência manual e retrabalho de dados.
+- [Sites & páginas de venda](https://techhubvision.com.br/sites): Desenvolvimento de sites institucionais, páginas de venda e de captura de alta conversão, testados em dispositivos móveis e com métricas de acesso.
+
+## Páginas Principais
+
+- [Página Inicial](https://techhubvision.com.br/): Visão geral de serviços, manifesto, metodologia e case Four Prints.
+- [Sites e Páginas de Venda](https://techhubvision.com.br/sites): Portfólio de estudos conceituais, formatos de páginas, acompanhamento analítico e FAQ técnico.
+- [Brand & Identidade Visual](https://techhubvision.com.br/brand): Manual da marca, assets, paleta de cores e tipografia.
+- [Política de Privacidade](https://techhubvision.com.br/privacidade): Compromisso com a privacidade e conformidade com a LGPD.
+
+## Equipe
+
+- Michelli Bonatelli: Fundadora · Estratégia, gestão de processos e análise de dados (mais de 8 anos de experiência).
+- Rafael Setúbal: Design e desenvolvimento de interfaces e sistemas web.
+
+## Contato e Atendimento
+
+- WhatsApp: +55 (31) 98699-4675
+- E-mail de Contato: contato@techhubvision.com.br
+- E-mail de Orçamento: orcamentos@techhubvision.com.br
+- CNPJ: 53.344.679/0001-00
+- Localização: Belo Horizonte, MG · Atendimento remoto para todo o Brasil

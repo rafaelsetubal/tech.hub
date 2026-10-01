@@ -1,2 +1,7 @@
 User-agent: *
 Allow: /
+
+# AI discovery and indexing
+# Specification: https://llmstxt.org/
+# Specification: https://agenticresourcediscovery.org/
+Sitemap: https://techhubvision.com.br/sitemap.xml

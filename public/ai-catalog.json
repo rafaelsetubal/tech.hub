@@ -1,0 +1,57 @@
+{
+  "specVersion": "0.91",
+  "host": {
+    "displayName": "Tech Hub",
+    "identifier": "urn:air:techhubvision.com.br:host:main"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:techhubvision.com.br:service:processos",
+      "displayName": "Processos & Organização",
+      "description": "Mapeamento e estruturação de rotinas operacionais sem burocracia, papéis claros e eliminação de gargalos para pequenas e médias empresas.",
+      "type": "text/html",
+      "url": "https://techhubvision.com.br/#servicos",
+      "representativeQueries": [
+        "como organizar processos operacionais",
+        "consultoria de processos para pequenas empresas",
+        "mapeamento de fluxo de trabalho"
+      ]
+    },
+    {
+      "identifier": "urn:air:techhubvision.com.br:service:projetos",
+      "displayName": "Gestão de Projetos",
+      "description": "Estruturação de acompanhamento, priorização de tarefas e visibilidade do plano à entrega.",
+      "type": "text/html",
+      "url": "https://techhubvision.com.br/#servicos",
+      "representativeQueries": [
+        "como organizar projetos na empresa",
+        "gestão de projetos sem burocracia",
+        "acompanhamento de prazos e entregas"
+      ]
+    },
+    {
+      "identifier": "urn:air:techhubvision.com.br:service:automacao",
+      "displayName": "Automação & Integração",
+      "description": "Conexão entre ferramentas digitais e fluxos automáticos para evitar transferência manual e retrabalho de dados.",
+      "type": "text/html",
+      "url": "https://techhubvision.com.br/#servicos",
+      "representativeQueries": [
+        "integrar ferramentas de trabalho",
+        "automatizar rotinas manuais",
+        "conectar ferramentas sem código"
+      ]
+    },
+    {
+      "identifier": "urn:air:techhubvision.com.br:service:sites",
+      "displayName": "Sites & Páginas de Venda",
+      "description": "Criação e desenvolvimento de sites institucionais, páginas de venda e landing pages de conversão de alta performance.",
+      "type": "text/html",
+      "url": "https://techhubvision.com.br/sites",
+      "representativeQueries": [
+        "criar site profissional para empresa",
+        "página de venda para produto ou serviço",
+        "desenvolvimento de landing page rápida"
+      ]
+    }
+  ]
+}

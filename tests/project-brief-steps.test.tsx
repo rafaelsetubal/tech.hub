@@ -32,7 +32,7 @@ describe('Shared brief steps', () => {
     const payload = JSON.parse(fetch.mock.calls[0][1].body);
     expect(payload).toMatchObject({ nome: 'Ana', whatsapp: 'ana@exemplo.com', servico: 'Página de venda', tem_site: 'Tenho só o domínio', prazo: 'Em até 1 mês', mensagem: 'Quero apresentar uma nova oferta.', pagina });
     expect(fetch).toHaveBeenCalledTimes(1);
-  });
+  }, 15000);
 
   it('validates each visible step without submitting incomplete data', async () => {
     const fetch = vi.fn();

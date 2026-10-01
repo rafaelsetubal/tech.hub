@@ -1,0 +1,47 @@
+# Tech Hub — Documentação Completa
+
+> Consultoria de processos, gestão de projetos, automação e desenvolvimento de sites de alta performance para pequenas e médias empresas.
+
+## Sobre a Tech Hub
+
+A Tech Hub nasceu para desmistificar a tecnologia na operação de pequenas e médias empresas. Acreditamos que a tecnologia deve servir ao negócio, e não o contrário: "Começamos pelo que você precisa melhorar. A ferramenta vem depois."
+
+Nossa abordagem une diagnóstico profundo, desenho de rotinas enxutas, implantação prática e mensuração real de resultados. Não vendemos ferramentas pré-fabricadas nem jargões vazios; construímos fluxos simples que a sua equipe realmente consegue usar.
+
+## Áreas de Atuação
+
+### 1. Processos & Organização
+- **O problema:** O trabalho depende da memória de uma pessoa, tarefas se perdem e etapas ficam sem responsável claro.
+- **Como resolvemos:** Mapeamos os fluxos atuais, eliminamos etapas redundantes e definimos papéis e responsabilidades com um guia visual e acessível para toda a equipe.
+- **O que você recebe:** Mapa do processo atual e do novo, definição de papéis e guia de rotina prático.
+
+### 2. Gestão de Projetos
+- **O problema:** Projetos começam sem direção, prazos estouram e a equipe não sabe o que é prioridade no dia a dia.
+- **Como resolvemos:** Configuramos quadros de projetos (usando as ferramentas que sua empresa já possui), com cerimônias ágeis e rotinas de acompanhamento da concepção à entrega.
+- **O que você recebe:** Quadro de projetos configurado com fluxos, regras de priorização e rotina de rituais de acompanhamento.
+
+### 3. Automação & Integração
+- **O problema:** Transferência manual de informações entre WhatsApp, planilhas, e-mails e sistemas, gerando retrabalho e erros.
+- **Como resolvemos:** Conectamos ferramentas digitais para que os dados fluam automaticamente e a equipe se dedique ao que realmente gera valor.
+- **O que você recebe:** Integrações testadas e funcionando entre as ferramentas combinadas, com documentação de apoio.
+
+### 4. Sites & Páginas de Venda
+- **O problema:** Falta de um endereço digital profissional que explique seu negócio com clareza e transforme visitantes em contatos.
+- **Como resolvemos:** Criamos sites institucionais, páginas de venda e landing pages de captura com foco em arquitetura de informação, performance mobile e mensuração com dados reais.
+- **O que você recebe:** Site publicado no seu domínio, responsivo para celular e computador, com acompanhamento de acessos e formulários integrados.
+
+## Time e Fundadores
+
+- **Michelli Bonatelli:** Fundadora · Especialista em estratégia operacional, gestão ágil e análise de dados, com mais de 8 anos de experiência liderando transformações digitais.
+- **Rafael Setúbal:** Design de interfaces, experiência do usuário (UX/UI) e desenvolvimento de aplicações web.
+
+## Identidade e Governança
+
+- **Razão Social / CNPJ:** 53.344.679/0001-00
+- **Sede:** Belo Horizonte, Minas Gerais, Brasil
+- **Atendimento:** Remoto para todo o Brasil
+- **Domínio Oficial:** https://techhubvision.com.br
+- **Contatos Oficiais:**
+  - WhatsApp: +55 (31) 98699-4675 (https://wa.me/5531986994675)
+  - E-mail: contato@techhubvision.com.br
+  - Orçamentos: orcamentos@techhubvision.com.br
