@@ -2,7 +2,11 @@ import React from 'react';
 import { Container } from '@/components/layout/Container';
 import { ProjectBrief } from '@/components/ui/ProjectBrief';
 import ctaBackground from '@/assets/cta-bg.webp';
-export const CtaSection: React.FC = () => (
+interface CtaSectionProps {
+  requestedGoal?: string;
+}
+
+export const CtaSection: React.FC<CtaSectionProps> = ({ requestedGoal }) => (
   <section id="cta-diagnostico" className="editorial-section contact-section visual-contact">
     <div id="orcamento" className="sr-only" />
     <img className="contact-background-image" src={ctaBackground} alt="" aria-hidden="true" loading="lazy" decoding="async"/>
@@ -16,7 +20,7 @@ export const CtaSection: React.FC = () => (
           Não precisa chegar com a solução pronta. Conte o que está difícil hoje — e o que você quer fazer melhor.
         </p>
       </div>
-      <ProjectBrief pagina="home" />
+      <ProjectBrief pagina="home" requestedGoal={requestedGoal} />
     </Container>
   </section>
 );

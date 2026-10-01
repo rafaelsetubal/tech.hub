@@ -1,11 +1,12 @@
 import React from 'react';
+import '@/styles/site-value-footer.css';
 import { Container } from './Container';
 import { Logo } from '@/components/ui/Logo';
 import { BrandSymbol } from '@/components/ui/BrandSymbol';
 import { ArrowUpRight, ArrowUp, MessageCircle, Mail } from 'lucide-react';
 import { WHATSAPP_DISPLAY, whatsappLink } from '@/lib/whatsapp';
 
-export const Footer: React.FC<{ page?: 'home' | 'sites' }> = ({ page = 'home' }) => {
+export const Footer: React.FC<{ page?: 'home' | 'sites' | 'privacy' }> = ({ page = 'home' }) => {
   const sites = page === 'sites';
   const links = sites
     ? [
@@ -68,7 +69,7 @@ export const Footer: React.FC<{ page?: 'home' | 'sites' }> = ({ page = 'home' })
           <nav aria-label="Navegação do rodapé">
             <h2>Explore</h2>
             {links.map(([label, href]) => (
-              <a key={href} href={href}>
+              <a key={href} href={page === 'privacy' ? '/' + href : href}>
                 {label}
               </a>
             ))}
@@ -102,7 +103,7 @@ export const Footer: React.FC<{ page?: 'home' | 'sites' }> = ({ page = 'home' })
           <p>
             © {new Date().getFullYear()} Tech Hub · CNPJ 53.344.679/0001-00 · Belo Horizonte, MG · Atendimento em todo o Brasil · <a href="/privacidade" style={{ textDecoration: 'underline', color: 'inherit' }}>Política de privacidade</a>
           </p>
-          <a href={sites ? '#sites-inicio' : '#hero'}>
+          <a href={sites ? '#sites-inicio' : page === 'privacy' ? '#main-content' : '#hero'}>
             Voltar ao início <ArrowUp size={15} />
           </a>
         </div>

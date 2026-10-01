@@ -43,7 +43,7 @@ export const FloatingWhatsApp: React.FC<{ page?: 'home' | 'sites' }> = ({ page =
   if (!visible) return null;
 
   return (
-    <aside aria-label="Contato rápido no WhatsApp" className="md:hidden fixed bottom-4 right-4 z-50">
+    <aside aria-label="Contato rápido no WhatsApp" className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
       <a
         href={whatsappLink(page === 'sites' ? 'sites' : 'geral')}
         target="_blank"
@@ -51,7 +51,7 @@ export const FloatingWhatsApp: React.FC<{ page?: 'home' | 'sites' }> = ({ page =
         aria-label="Conversar no WhatsApp"
         className="flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-emerald-950/30 active:scale-95 transition-transform"
       >
-        <MessageCircle size={28} className="fill-current" />
+        <MessageCircle size={28} />
       </a>
     </aside>
   );

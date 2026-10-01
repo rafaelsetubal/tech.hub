@@ -232,7 +232,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     name="whatsapp"
                     defaultValue={formData.whatsapp}
                     onChange={(e) => {
-                      if (!e.target.value.includes('@')) {
+                      if (/^[\d\s()+-]*$/.test(e.target.value)) {
                         e.target.value = formatPhone(e.target.value);
                       }
                     }}

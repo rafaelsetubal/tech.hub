@@ -1,10 +1,12 @@
 import React from 'react';
+import { useInitialAnchor } from '@/hooks/useInitialAnchor';
 import '@/styles/editorial.css';
 import '@/styles/visual-sections.css';
 import '@/styles/brand-assembly.css';
 import '@/styles/process-evolution.css';
 import '@/styles/narrative-responsive.css';
 import '@/styles/site-value-footer.css';
+import '@/styles/layout-repairs.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ManifestoSection } from '@/components/sections/ManifestoSection';
@@ -19,6 +21,9 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/ui/FloatingWhatsApp';
 
 export const Home: React.FC = () => {
+  useInitialAnchor();
+  const [requestedGoal, setRequestedGoal] = React.useState<string | undefined>(undefined);
+
   return (
     <div className="relative min-h-screen bg-white text-[#081220] selection:bg-brand-sky selection:text-night antialiased">
       {/* Top Fixed / Sticky Navigation Bar */}
@@ -36,7 +41,7 @@ export const Home: React.FC = () => {
         <ProblemSection />
 
         {/* 4. O Que Fazemos (Serviços) */}
-        <ServicesSection />
+        <ServicesSection onSelectService={(goal) => setRequestedGoal(goal)} />
 
         {/* 5. Na Prática (Case & Prova Social Four Prints) */}
         <CasesSection />
@@ -51,7 +56,7 @@ export const Home: React.FC = () => {
         <HomeFaq />
 
         {/* 9. Diagnóstico Tech Hub (CTA Final) */}
-        <CtaSection />
+        <CtaSection requestedGoal={requestedGoal} />
       </main>
 
       {/* Mobile Floating WhatsApp Button */}

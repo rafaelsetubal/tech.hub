@@ -9,18 +9,10 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;');
 }
 
-const DEFAULT_KEY_B64 = 'cmVfY0w4ODJxOWhfNDdXeXJ1d3p1UEgxdlRKOG1KTHlvWWlh';
-
 function resolveApiKey(): string {
   if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim()) {
     return process.env.RESEND_API_KEY.trim();
   }
-  try {
-    const decoded = Buffer.from(DEFAULT_KEY_B64, 'base64').toString('utf-8');
-    if (decoded && decoded.startsWith('re_')) {
-      return decoded;
-    }
-  } catch {}
   return '';
 }
 

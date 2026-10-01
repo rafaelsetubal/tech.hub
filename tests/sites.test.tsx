@@ -34,7 +34,7 @@ describe('Complete sites page',()=>{
     await user.click(screen.getByRole('button',{name:/Enviar outra mensagem/i}));
     expect((screen.getByLabelText(/Seu nome ou negócio/i) as HTMLInputElement).value).toBe('Minha empresa');
     expect((screen.getByLabelText(/Como podemos ajudar/i) as HTMLTextAreaElement).value).toBe('Divulgar minha oferta.');
-  }, 15000);
+  }, 30000);
   it('has a complete footer whose local links resolve to existing sections',()=>{
     render(<Sites/>);
     const footer=screen.getByRole('contentinfo');

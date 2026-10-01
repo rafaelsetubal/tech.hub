@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useInitialAnchor } from '@/hooks/useInitialAnchor';
 import '@/styles/sites-studio.css';
 import '@/styles/portfolio.css';
 import '@/styles/site-journey.css';
 import '@/styles/site-value-footer.css';
 import '@/styles/sites-hero.css';
 import '@/styles/narrative-responsive.css';
+import '@/styles/layout-repairs.css';
 import { ArrowUpRight, Check, Plus, Smartphone, Layout, MousePointer2 } from 'lucide-react';
 import { BrandSymbol } from '@/components/ui/BrandSymbol';
 import { Container } from '@/components/layout/Container';
@@ -37,6 +39,7 @@ const faqs = [
   ['Vocês garantem vendas?', 'Não. Uma boa página ajuda a comunicar seu valor e facilitar o contato. Os resultados também dependem do público, da oferta e do atendimento.'],
 ];
 export const Sites: React.FC = () => {
+  useInitialAnchor();
   const [active,setActive]=useState(0);
   const [requestedGoal,setRequestedGoal]=useState('Apresentar minha empresa na internet');
   const current=formats[active];

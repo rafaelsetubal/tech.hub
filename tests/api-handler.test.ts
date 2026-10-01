@@ -1,19 +1,9 @@
-import { describe, it, expect, beforeAll } from 'vitest';
-import fs from 'node:fs';
-import path from 'node:path';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
+vi.mock('resend', () => ({ Resend: class { emails = { send: vi.fn(async () => ({ data: { id: 'test-email-id' }, error: null })) }; } }));
 import handler from '../api/send-email';
 
 beforeAll(() => {
-  if (!process.env.RESEND_API_KEY) {
-    try {
-      const envPath = path.resolve(process.cwd(), '.env');
-      if (fs.existsSync(envPath)) {
-        const content = fs.readFileSync(envPath, 'utf8');
-        const match = content.match(/RESEND_API_KEY=(.+)/);
-        if (match) process.env.RESEND_API_KEY = match[1].trim();
-      }
-    } catch {}
-  }
+  vi.stubEnv('RESEND_API_KEY', 're_test_placeholder');
 });
 
 describe('Resend API Handler (/api/send-email)', () => {

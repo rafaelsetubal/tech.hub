@@ -21,7 +21,7 @@ export function SitesHero() {
               Fácil de escolher<span className="studio-period">.</span>
             </h1>
             <p>
-              Criamos sites institucionais, páginas de venda e páginas de captura para empresas que querem ser encontradas, compreendidas e escolhidas. Do conteúdo à publicação, você fala direto com quem faz.
+              Sites e páginas de venda para apresentar seu negócio e facilitar o contato. Do conteúdo à publicação, você fala direto com quem faz.
             </p>
             <div className="sites-hero-actions">
               <a className="studio-button" href="#seu-projeto">

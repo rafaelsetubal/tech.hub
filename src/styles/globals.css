@@ -33,6 +33,8 @@
     line-height: var(--line-height-body);
   }
 
+  main [id] { scroll-margin-top: 110px; }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: var(--font-weight-bold);

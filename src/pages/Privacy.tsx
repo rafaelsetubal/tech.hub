@@ -1,22 +1,31 @@
 import React, { useEffect } from 'react';
+import { useInitialAnchor } from '@/hooks/useInitialAnchor';
 import { Container } from '@/components/layout/Container';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ShieldCheck, Mail, ArrowLeft } from 'lucide-react';
+import '@/styles/privacy.css';
+import { FloatingWhatsApp } from '@/components/ui/FloatingWhatsApp';
+
+const topics = ['Quem somos', 'Quais dados coletamos', 'Para que usamos seus dados', 'Com quem compartilhamos', 'Por quanto tempo guardamos', 'Seus direitos (LGPD)'];
+const PrivacyLinks = () => <nav aria-label="Seções da política de privacidade">{topics.map((title, index) => <a key={title} href={`#privacidade-${index + 1}`}><span>{String(index + 1).padStart(2, '0')}</span>{title}</a>)}</nav>;
 
 export const Privacy: React.FC = () => {
+  useInitialAnchor();
   useEffect(() => {
     document.title = 'Política de Privacidade | Tech Hub';
-    window.scrollTo(0, 0);
+    if (!window.location.hash) window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="relative min-h-screen bg-white text-[#081220] selection:bg-brand-sky selection:text-night antialiased">
-      <Navbar />
+      <Navbar page="notFound" />
 
       <main id="main-content" tabIndex={-1} className="pt-28 pb-20 sm:pt-36 sm:pb-28">
         <Container size="default">
-          <div className="max-w-3xl mx-auto space-y-10">
+          <div className="privacy-layout">
+            <aside className="privacy-sidebar"><p>Nesta página</p><PrivacyLinks /></aside>
+            <article className="privacy-article space-y-10">
             {/* Header */}
             <div className="border-b border-slate-200/80 pb-8">
               <a
@@ -38,9 +47,10 @@ export const Privacy: React.FC = () => {
               </p>
             </div>
 
+            <details className="privacy-mobile-nav"><summary>Nesta página · 6 seções</summary><PrivacyLinks /></details>
             {/* Sections */}
             <div className="space-y-8 text-slate-700 text-sm sm:text-base leading-relaxed">
-              <section className="space-y-2">
+              <section id="privacidade-1" className="space-y-2">
                 <h2 className="text-lg sm:text-xl font-bold text-slate-900">1. Quem somos</h2>
                 <p>
                   A <strong>Tech Hub</strong> é operada sob o CNPJ <strong>53.344.679/0001-00</strong>, com sede em Belo Horizonte/MG e atendimento a empresas de todo o Brasil. Nosso e-mail oficial para contato e dúvidas sobre privacidade é{' '}
@@ -51,7 +61,7 @@ export const Privacy: React.FC = () => {
                 </p>
               </section>
 
-              <section className="space-y-2">
+              <section id="privacidade-2" className="space-y-2">
                 <h2 className="text-lg sm:text-xl font-bold text-slate-900">2. Quais dados coletamos</h2>
                 <p>
                   Coletamos apenas as informações que você nos fornece voluntariamente ao solicitar um orçamento ou entrar em contato pelo site:
@@ -64,7 +74,7 @@ export const Privacy: React.FC = () => {
                 </ul>
               </section>
 
-              <section className="space-y-2">
+              <section id="privacidade-3" className="space-y-2">
                 <h2 className="text-lg sm:text-xl font-bold text-slate-900">3. Para que usamos seus dados</h2>
                 <p>
                   As informações enviadas são utilizadas exclusivamente para:
@@ -76,21 +86,21 @@ export const Privacy: React.FC = () => {
                 </ul>
               </section>
 
-              <section className="space-y-2">
+              <section id="privacidade-4" className="space-y-2">
                 <h2 className="text-lg sm:text-xl font-bold text-slate-900">4. Com quem compartilhamos</h2>
                 <p>
                   <strong>Nunca vendemos, alugamos ou comercializamos seus dados com terceiros.</strong> Seus dados são processados apenas por ferramentas de infraestrutura necessárias para a prestação do serviço (como nosso provedor de entrega de e-mails transacionais e hospedagem em nuvem com criptografia).
                 </p>
               </section>
 
-              <section className="space-y-2">
+              <section id="privacidade-5" className="space-y-2">
                 <h2 className="text-lg sm:text-xl font-bold text-slate-900">5. Por quanto tempo guardamos</h2>
                 <p>
                   Mantemos os dados pelo período necessário para responder à sua solicitação, conduzir a relação comercial ou cumprir prazos legais aplicáveis. Caso você opte por não fechar projeto com a Tech Hub, seus dados cadastrais podem ser excluídos a qualquer momento mediante solicitação.
                 </p>
               </section>
 
-              <section className="space-y-2">
+              <section id="privacidade-6" className="space-y-2">
                 <h2 className="text-lg sm:text-xl font-bold text-slate-900">6. Seus direitos (LGPD)</h2>
                 <p>
                   Você tem o direito de solicitar a qualquer momento a confirmação da existência de tratamento, o acesso aos seus dados, a correção de dados incompletos ou a exclusão definitiva de seus dados de nossa base de contatos.
@@ -112,11 +122,13 @@ export const Privacy: React.FC = () => {
             <div className="pt-6 border-t border-slate-200 text-xs text-slate-400">
               Última atualização: Setembro de 2026 · Tech Hub
             </div>
+            </article>
           </div>
         </Container>
       </main>
 
-      <Footer page="home" />
+      <FloatingWhatsApp />
+      <Footer page="privacy" />
     </div>
   );
 };
