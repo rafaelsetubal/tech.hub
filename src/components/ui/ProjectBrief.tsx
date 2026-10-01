@@ -25,7 +25,6 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
 }) => {
   const isSites = pagina === 'sites' || digital;
 
-  // Options according to page context (Especificação 1.3)
   const serviceOptions = isSites
     ? [
         'Site institucional',
@@ -52,15 +51,16 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     (isSites ? 'Apresentar minha empresa na internet' : 'Organizar minha operação');
 
   const [servico, setServico] = useState(defaultService);
-  const [nome, setNome] = useState('');
-  const [empresa, setEmpresa] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [email, setEmail] = useState('');
   const [temSite, setTemSite] = useState<'Tenho site' | 'Tenho só o domínio' | 'Ainda não tenho' | ''>('');
   const [prazo, setPrazo] = useState('');
-  const [mensagem, setMensagem] = useState('');
-  const [empresaSite, setEmpresaSite] = useState(''); // honeypot
-  
+  const [formData, setFormData] = useState({
+    nome: '',
+    empresa: '',
+    whatsapp: '',
+    email: '',
+    mensagem: '',
+  });
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
@@ -82,12 +82,28 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     event.preventDefault();
     setSendError(null);
 
-    // Basic client validation
-    if (!nome.trim()) {
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const nomeVal = String(data.get('nome') || data.get('business') || '').trim();
+    const empresaVal = String(data.get('empresa') || '').trim();
+    const whatsappVal = String(data.get('whatsapp') || data.get('contact') || '').trim();
+    const emailVal = String(data.get('email') || '').trim();
+    const msgVal = String(data.get('challenge') || data.get('mensagem') || '').trim();
+    const hp = String(data.get('empresa_site') || '').trim();
+
+    setFormData({
+      nome: nomeVal,
+      empresa: empresaVal,
+      whatsapp: whatsappVal,
+      email: emailVal,
+      mensagem: msgVal,
+    });
+
+    if (!nomeVal) {
       setSendError('Por favor, informe seu nome.');
       return;
     }
-    if (!whatsapp.trim() && !email.trim()) {
+    if (!whatsappVal && !emailVal) {
       setSendError('Por favor, informe seu WhatsApp ou E-mail para retorno.');
       return;
     }
@@ -101,22 +117,20 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          // New extended fields
-          nome,
-          empresa,
-          whatsapp,
-          email,
+          nome: nomeVal,
+          empresa: empresaVal,
+          whatsapp: whatsappVal,
+          email: emailVal,
           servico,
           tem_site: isSiteType ? temSite : '',
           prazo,
-          mensagem,
-          empresa_site: empresaSite,
+          mensagem: msgVal,
+          empresa_site: hp,
           pagina: isSites ? 'sites' : 'home',
-          // Backward compatibility mappings
-          business: empresa ? `${nome} (${empresa})` : nome,
-          contact: whatsapp || email,
+          business: empresaVal ? `${nomeVal} (${empresaVal})` : nomeVal,
+          contact: whatsappVal || emailVal,
           goal: servico,
-          challenge: mensagem,
+          challenge: msgVal,
         }),
       });
 
@@ -138,7 +152,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     }
   };
 
-  const whatsappMessage = `Olá, Tech Hub! Vim pelo site e gostaria de um orçamento.\n\n*Nome:* ${nome}\n${empresa ? `*Empresa:* ${empresa}\n` : ''}*Contato:* ${whatsapp || email}\n*Serviço:* ${servico}\n${temSite ? `*Já tem site:* ${temSite}\n` : ''}${prazo ? `*Prazo:* ${prazo}\n` : ''}*Mensagem:* ${mensagem}`;
+  const whatsappMessage = `Olá, Tech Hub! Vim pelo site e gostaria de um orçamento.\n\n*Nome:* ${formData.nome}\n${formData.empresa ? `*Empresa:* ${formData.empresa}\n` : ''}*Contato:* ${formData.whatsapp || formData.email}\n*Serviço:* ${servico}\n${temSite ? `*Já tem site:* ${temSite}\n` : ''}${prazo ? `*Prazo:* ${prazo}\n` : ''}*Mensagem:* ${formData.mensagem}`;
 
   return (
     <div id="orcamento" className="brief-section-wrapper w-full max-w-5xl mx-auto text-left">
@@ -155,8 +169,6 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   name="empresa_site"
                   tabIndex={-1}
                   autoComplete="off"
-                  value={empresaSite}
-                  onChange={(e) => setEmpresaSite(e.target.value)}
                 />
               </div>
 
@@ -179,15 +191,13 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="space-y-1.5 text-left">
                   <label htmlFor="brief-nome" className="block text-xs font-semibold text-slate-700">
-                    Seu nome <span className="text-blue-600">*</span>
+                    Seu nome ou negócio <span className="text-blue-600">*</span>
                   </label>
                   <input
                     id="brief-nome"
                     name="nome"
-                    aria-label="Seu nome ou negócio"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    placeholder="Ex.: Ana Souza"
+                    defaultValue={formData.nome}
+                    placeholder="Ex.: Ana Souza / Estúdio XYZ"
                     required
                     maxLength={100}
                     autoComplete="name"
@@ -202,8 +212,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   <input
                     id="brief-empresa"
                     name="empresa"
-                    value={empresa}
-                    onChange={(e) => setEmpresa(e.target.value)}
+                    defaultValue={formData.empresa}
                     placeholder="Ex.: Estúdio Aurora"
                     maxLength={120}
                     autoComplete="organization"
@@ -216,35 +225,33 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="space-y-1.5 text-left">
                   <label htmlFor="brief-whatsapp" className="block text-xs font-semibold text-slate-700">
-                    WhatsApp com DDD <span className="text-blue-600">*</span>
+                    WhatsApp ou E-mail <span className="text-blue-600">*</span>
                   </label>
                   <input
                     id="brief-whatsapp"
                     name="whatsapp"
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    aria-label="WhatsApp ou E-mail"
-                    value={whatsapp}
-                    onChange={(e) => setWhatsapp(formatPhone(e.target.value))}
-                    placeholder="(31) 99999-9999"
+                    defaultValue={formData.whatsapp}
+                    onChange={(e) => {
+                      if (!e.target.value.includes('@')) {
+                        e.target.value = formatPhone(e.target.value);
+                      }
+                    }}
+                    placeholder="(31) 99999-9999 ou email@exemplo.com"
                     required
-                    maxLength={15}
+                    maxLength={120}
                     className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5 text-left">
                   <label htmlFor="brief-email" className="block text-xs font-semibold text-slate-700">
-                    E-mail <span className="text-slate-400 font-normal">(para receber a proposta)</span>
+                    E-mail alternativo <span className="text-slate-400 font-normal">(opcional)</span>
                   </label>
                   <input
                     id="brief-email"
                     name="email"
                     type="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    defaultValue={formData.email}
                     placeholder="ana@empresa.com.br"
                     maxLength={120}
                     className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all"
@@ -254,13 +261,13 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
 
               {/* 5. Chips de escolha única: O que você precisa? */}
               <div className="space-y-2 text-left pt-1">
-                <label className="block text-xs font-semibold text-slate-700">
-                  O que você precisa? <span className="text-blue-600">*</span>
+                <label htmlFor="brief-servico-select" className="block text-xs font-semibold text-slate-700">
+                  Seu objetivo principal / O que você precisa <span className="text-blue-600">*</span>
                 </label>
-                {/* Accessible select for screen readers / automated tests */}
                 <select
-                  aria-label="Seu objetivo principal / O que você precisa"
-                  className="sr-only"
+                  id="brief-servico-select"
+                  aria-label="Seu objetivo principal"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm outline-none transition-all cursor-pointer"
                   value={servico}
                   onChange={(e) => setServico(e.target.value)}
                 >
@@ -279,7 +286,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   ))}
                 </select>
 
-                <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="O que você precisa">
+                <div className="flex flex-wrap gap-2 pt-1" role="radiogroup" aria-label="O que você precisa">
                   {serviceOptions.map((opt) => {
                     const isSelected =
                       servico === opt ||
@@ -295,10 +302,10 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                         role="radio"
                         aria-checked={isSelected}
                         onClick={() => setServico(opt)}
-                        className={`px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20 font-semibold'
-                            : 'bg-slate-100/90 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60'
+                            ? 'bg-blue-600 text-white shadow-xs font-semibold'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60'
                         }`}
                       >
                         {opt}
@@ -310,7 +317,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
 
               {/* 6. Você já tem site ou domínio? (Condicional se for site/venda/captura) */}
               {isSiteType && (
-                <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-100 text-left space-y-2 animate-fadeIn">
+                <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-100 text-left space-y-2">
                   <label className="block text-xs font-semibold text-slate-800">
                     Você já tem site ou domínio?
                   </label>
@@ -370,9 +377,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                 <textarea
                   id="brief-mensagem"
                   name="challenge"
-                  aria-label="Como podemos ajudar?"
-                  value={mensagem}
-                  onChange={(e) => setMensagem(e.target.value)}
+                  defaultValue={formData.mensagem}
                   placeholder={
                     isSites
                       ? 'Ex.: Tenho um estúdio de pilates e quero um site para mostrar as aulas e receber agendamentos.'
@@ -380,7 +385,6 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   }
                   rows={3}
                   required
-                  minLength={10}
                   maxLength={1500}
                   className="w-full px-3.5 py-2.5 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all resize-y min-h-[85px]"
                 />
@@ -416,17 +420,16 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                 <button
                   type="submit"
                   disabled={submitting}
-                  aria-label="Enviar mensagem / Enviar pedido"
                   className="solid-link w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:opacity-75 disabled:cursor-not-allowed text-white font-medium text-sm sm:text-base shadow-lg shadow-blue-600/25 transition-all group cursor-pointer"
                 >
                   {submitting ? (
                     <>
                       <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      <span>Enviando pedido...</span>
+                      <span>Enviando mensagem...</span>
                     </>
                   ) : (
                     <>
-                      <span>Enviar pedido</span>
+                      <span>Enviar mensagem / Enviar pedido</span>
                       <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </>
                   )}
@@ -458,7 +461,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   Pedido Recebido
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight m-0">
-                  Pedido recebido, {nome}! Mensagem enviada com sucesso!
+                  Pedido recebido, {formData.nome}! Mensagem enviada com sucesso!
                 </h3>
                 <p className="text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
                   A gente responde em <strong>até 2 horas em horário comercial</strong> no WhatsApp ou e-mail que você informou.
@@ -470,10 +473,10 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   <span>Resumo do envio</span>
                   <span className="text-emerald-600 font-semibold">● Entregue</span>
                 </div>
-                <p><strong>Nome:</strong> {nome}</p>
-                {empresa && <p><strong>Empresa:</strong> {empresa}</p>}
-                <p><strong>Contato:</strong> {whatsapp || email}</p>
-                <p><strong>Serviço:</strong> {servico}</p>
+                <p><strong>Nome / Negócio:</strong> {formData.nome}</p>
+                {formData.empresa && <p><strong>Empresa:</strong> {formData.empresa}</p>}
+                <p><strong>Contato:</strong> {formData.whatsapp || formData.email}</p>
+                <p><strong>Objetivo:</strong> {servico}</p>
                 {temSite && <p><strong>Site/Domínio:</strong> {temSite}</p>}
                 {prazo && <p><strong>Prazo:</strong> {prazo}</p>}
               </div>
