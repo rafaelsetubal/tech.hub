@@ -1,56 +1,44 @@
 {
-  "specVersion": "0.91",
+  "specVersion": "1.0",
   "host": {
     "displayName": "Tech Hub",
     "identifier": "urn:air:techhubvision.com.br:host:main"
   },
   "entries": [
     {
-      "identifier": "urn:air:techhubvision.com.br:service:processos",
-      "displayName": "Processos & Organização",
-      "description": "Mapeamento e estruturação de rotinas operacionais sem burocracia, papéis claros e eliminação de gargalos para pequenas e médias empresas.",
-      "type": "text/html",
-      "url": "https://techhubvision.com.br/#servicos",
+      "identifier": "urn:air:techhubvision.com.br:skills:core",
+      "displayName": "Tech Hub Services & Skills Guide",
+      "description": "Especificações dos serviços da Tech Hub em organização de processos, gestão de projetos, automação e criação de sites para agentes de IA e modelos de linguagem.",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
+      "url": "https://techhubvision.com.br/llms.txt",
       "representativeQueries": [
-        "como organizar processos operacionais",
-        "consultoria de processos para pequenas empresas",
-        "mapeamento de fluxo de trabalho"
-      ]
-    },
-    {
-      "identifier": "urn:air:techhubvision.com.br:service:projetos",
-      "displayName": "Gestão de Projetos",
-      "description": "Estruturação de acompanhamento, priorização de tarefas e visibilidade do plano à entrega.",
-      "type": "text/html",
-      "url": "https://techhubvision.com.br/#servicos",
-      "representativeQueries": [
-        "como organizar projetos na empresa",
+        "consultoria de processos para empresas",
         "gestão de projetos sem burocracia",
-        "acompanhamento de prazos e entregas"
+        "automação e integração de ferramentas",
+        "desenvolvimento de sites e páginas de alta conversão"
       ]
     },
     {
-      "identifier": "urn:air:techhubvision.com.br:service:automacao",
-      "displayName": "Automação & Integração",
-      "description": "Conexão entre ferramentas digitais e fluxos automáticos para evitar transferência manual e retrabalho de dados.",
-      "type": "text/html",
-      "url": "https://techhubvision.com.br/#servicos",
+      "identifier": "urn:air:techhubvision.com.br:skills:extended",
+      "displayName": "Tech Hub Extended Documentation & Catalog",
+      "description": "Documentação detalhada sobre a metodologia de trabalho, formatos de projeto, catálogo de soluções e diretrizes da Tech Hub.",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
+      "url": "https://techhubvision.com.br/llms-full.txt",
       "representativeQueries": [
-        "integrar ferramentas de trabalho",
-        "automatizar rotinas manuais",
-        "conectar ferramentas sem código"
+        "metodologia de trabalho Tech Hub",
+        "organização de rotinas operacionais",
+        "criação de landing pages e sites institucionais"
       ]
     },
     {
-      "identifier": "urn:air:techhubvision.com.br:service:sites",
-      "displayName": "Sites & Páginas de Venda",
-      "description": "Criação e desenvolvimento de sites institucionais, páginas de venda e landing pages de conversão de alta performance.",
-      "type": "text/html",
-      "url": "https://techhubvision.com.br/sites",
+      "identifier": "urn:air:techhubvision.com.br:agent:consultoria",
+      "displayName": "Tech Hub Agent Card",
+      "description": "Cartão de agente com especificações de capacidades, triagem e canais de contato da Tech Hub.",
+      "type": "application/agent-card+json",
+      "url": "https://techhubvision.com.br/.well-known/agent-card.json",
       "representativeQueries": [
-        "criar site profissional para empresa",
-        "página de venda para produto ou serviço",
-        "desenvolvimento de landing page rápida"
+        "solicitar orçamento Tech Hub",
+        "contato com consultoria de gestão e tecnologia"
       ]
     }
   ]

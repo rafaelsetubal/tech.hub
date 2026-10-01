@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0",
+  "identifier": "urn:air:techhubvision.com.br:agent:consultoria",
+  "name": "Tech Hub Consultoria & Tecnologia",
+  "description": "Consultoria prática de organização de processos, gestão de projetos, automação de ferramentas e criação de sites de alta conversão para pequenas e médias empresas.",
+  "url": "https://techhubvision.com.br",
+  "provider": {
+    "name": "Tech Hub",
+    "url": "https://techhubvision.com.br"
+  },
+  "contact": {
+    "email": "contato@techhubvision.com.br",
+    "whatsapp": "+55-31-98699-4675"
+  },
+  "capabilities": [
+    {
+      "name": "Mapeamento e Organização de Processos",
+      "description": "Desenho de fluxos de trabalho operacionais, definição de papéis e eliminação de gargalos sem burocracia."
+    },
+    {
+      "name": "Gestão e Acompanhamento de Projetos",
+      "description": "Estruturação de rituais, quadros de acompanhamento e previsibilidade de entregas."
+    },
+    {
+      "name": "Automação e Integração de Ferramentas",
+      "description": "Conexão entre plataformas e redução de trabalho manual repetitivo."
+    },
+    {
+      "name": "Criação de Sites e Páginas de Alta Conversão",
+      "description": "Desenvolvimento de sites institucionais, páginas de venda e captura otimizadas para conversão e velocidade."
+    }
+  ],
+  "documentationUrl": "https://techhubvision.com.br/llms.txt"
+}

@@ -181,9 +181,8 @@ export const HeroSection: React.FC = () => {
                 height={880}
                 alt="Michelli Bonatelli - Especialista Tech Hub"
                 className="relative z-20 w-full sm:w-[110%] lg:w-[118%] max-w-none h-auto object-contain object-bottom select-none block drop-shadow-none sm:drop-shadow-[0_16px_40px_rgba(0,25,80,0.14)] pointer-events-none"
-                {...{ fetchpriority: 'low' }}
-                loading="lazy"
-
+                style={{ aspectRatio: '1024 / 880' }}
+                loading="eager"
                 decoding="async"
               />
 

@@ -49,7 +49,7 @@ export const NotFound: React.FC = () => {
             alt="Ilustração de formas quebradas representando uma página não encontrada"
             width="1280"
             height="1280"
-            fetchPriority="high"
+            loading="eager"
             decoding="async"
           />
         </div>
