@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { startTransition } from 'react';
+import { DeferredHydration } from '@/components/motion/DeferredHydration';
 import { useInitialAnchor } from '@/hooks/useInitialAnchor';
 import '@/styles/editorial.css';
 import '@/styles/visual-sections.css';
@@ -35,28 +36,28 @@ export const Home: React.FC = () => {
         <HeroSection />
 
         {/* 2. Manifesto / Scroll Experience */}
-        <ManifestoSection />
+        <DeferredHydration><ManifestoSection /></DeferredHydration>
 
         {/* 3. O Desafio */}
-        <ProblemSection />
+        <DeferredHydration><ProblemSection /></DeferredHydration>
 
         {/* 4. O Que Fazemos (Serviços) */}
-        <ServicesSection onSelectService={(goal) => setRequestedGoal(goal)} />
+        <DeferredHydration><ServicesSection onSelectService={(goal) => startTransition(() => setRequestedGoal(goal))} /></DeferredHydration>
 
         {/* 5. Na Prática (Case & Prova Social Four Prints) */}
-        <CasesSection />
+        <DeferredHydration><CasesSection /></DeferredHydration>
 
         {/* 6. Como Funciona (Processo) */}
-        <ProcessSection />
+        <DeferredHydration><ProcessSection /></DeferredHydration>
 
         {/* 7. Quem Está Por Trás (Sobre Michelli e time) */}
-        <AboutSection />
+        <DeferredHydration><AboutSection /></DeferredHydration>
 
         {/* 8. Dúvidas Frequentes (FAQ) */}
-        <HomeFaq />
+        <DeferredHydration><HomeFaq /></DeferredHydration>
 
         {/* 9. Diagnóstico Tech Hub (CTA Final) */}
-        <CtaSection requestedGoal={requestedGoal} />
+        <DeferredHydration><CtaSection requestedGoal={requestedGoal} /></DeferredHydration>
       </main>
 
       {/* Mobile Floating WhatsApp Button */}
@@ -67,3 +68,4 @@ export const Home: React.FC = () => {
     </div>
   );
 };
+

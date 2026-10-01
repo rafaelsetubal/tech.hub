@@ -8,7 +8,6 @@ interface CtaSectionProps {
 
 export const CtaSection: React.FC<CtaSectionProps> = ({ requestedGoal }) => (
   <section id="cta-diagnostico" className="editorial-section contact-section visual-contact contact-layout">
-    <div id="orcamento" className="sr-only" />
     <img className="contact-background-image" src={ctaBackground} alt="" aria-hidden="true" loading="lazy" decoding="async"/>
     <Container>
       <div className="contact-heading mb-8 sm:mb-12 text-center max-w-2xl mx-auto">

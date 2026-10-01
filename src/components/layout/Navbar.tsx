@@ -34,7 +34,9 @@ export const Navbar: React.FC<{ page?: 'home' | 'sites' | 'notFound' }> = ({ pag
   const contact = page === 'sites' ? '#seu-projeto' : page === 'notFound' ? '/#cta-diagnostico' : '#cta-diagnostico';
 
   useEffect(() => {
+    let frame = 0;
     const update = () => {
+      frame = 0;
       const current = links.filter(link => link.href.startsWith('#')).find(link => {
         const rect = document.getElementById(link.id)?.getBoundingClientRect();
         return rect && rect.top <= 180 && rect.bottom > 180;
@@ -42,8 +44,9 @@ export const Navbar: React.FC<{ page?: 'home' | 'sites' | 'notFound' }> = ({ pag
       setActive(current?.id ?? '');
     };
     update();
-    window.addEventListener('scroll', update, {passive:true});
-    return () => window.removeEventListener('scroll', update);
+    const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener('scroll', queue, {passive:true});
+    return () => { window.removeEventListener('scroll', queue); cancelAnimationFrame(frame); };
   }, [page]);
 
   useEffect(() => {

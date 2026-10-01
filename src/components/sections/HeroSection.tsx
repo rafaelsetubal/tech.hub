@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from '@/components/layout/Container';
-import { MotionReveal } from '@/components/motion/MotionReveal';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -33,7 +32,7 @@ export const HeroSection: React.FC = () => {
           height={941}
           alt=""
           aria-hidden="true"
-          fetchPriority="low"
+          {...{ fetchpriority: 'high' }}
           decoding="async"
           className="w-full h-full object-cover object-top opacity-95"
         />
@@ -45,19 +44,19 @@ export const HeroSection: React.FC = () => {
           {/* ================================================================
               LEFT COLUMN: Editorial Headline & Actions (Vertically Centered)
               ================================================================ */}
-          <div className="lg:col-span-5 xl:col-span-5 space-y-7 self-center py-8 lg:py-16 z-20">
+          <div className="home-hero-copy lg:col-span-5 xl:col-span-5 space-y-7 self-center py-8 lg:py-16 z-20">
             {/* Tag editorial */}
-            <MotionReveal variant="slideUp" delay={0.1}>
+            <div className="w-full">
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0052FF] animate-pulse" />
                 <span className="text-[11px] font-mono font-semibold uppercase tracking-[0.18em] text-slate-700">
                   TECNOLOGIA APLICADA À GESTÃO
                 </span>
               </div>
-            </MotionReveal>
+            </div>
 
             {/* Headline em Fustat */}
-            <MotionReveal variant="slideUp" delay={0.2}>
+            <div className="w-full">
               <h1 className="font-display font-extrabold text-[2.75rem] sm:text-5xl md:text-[3.5rem] lg:text-[3.8rem] xl:text-[4.25rem] leading-[1.05] tracking-[-0.035em] text-[#081220]">
                 Tecnologia<br />
                 não precisa<br />
@@ -66,17 +65,17 @@ export const HeroSection: React.FC = () => {
                   língua diferente.
                 </span>
               </h1>
-            </MotionReveal>
+            </div>
 
             {/* Subtitle em Inter Tight */}
-            <MotionReveal variant="slideUp" delay={0.3}>
+            <div className="w-full">
               <p className="text-base sm:text-lg text-slate-600 max-w-lg font-body font-normal leading-relaxed">
                 Organizamos processos, conectamos ferramentas e criamos sites para pequenas e médias empresas trabalharem melhor. Sem jargão.
               </p>
-            </MotionReveal>
+            </div>
 
             {/* Chic CTAs */}
-            <MotionReveal variant="slideUp" delay={0.4}>
+            <div className="w-full">
               <div className="space-y-3 pt-1">
                 <div className="flex flex-wrap items-center gap-4">
                   <a
@@ -97,15 +96,15 @@ export const HeroSection: React.FC = () => {
                     <span>Conhecer os serviços</span>
                   </a>
                 </div>
-                <p className="text-xs text-slate-500 font-body">
+                <p className="hero-credibility text-xs text-slate-500 font-body">
                   Mais de 8 anos em tecnologia, gestão e dados · Belo Horizonte, atendimento em todo o Brasil
                 </p>
               </div>
-            </MotionReveal>
+            </div>
 
             {/* Keyword Bar */}
-            <MotionReveal variant="fade" delay={0.5}>
-              <div className="pt-2 flex flex-wrap items-center gap-2.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+            <div className="w-full">
+              <div className="hero-capabilities pt-2 flex flex-wrap items-center gap-2.5 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
                 <span className="hover:text-slate-600 transition-colors">PROCESSOS</span>
                 <span className="text-slate-300">•</span>
                 <span className="hover:text-slate-600 transition-colors">GESTÃO DE PROJETOS</span>
@@ -114,7 +113,7 @@ export const HeroSection: React.FC = () => {
                 <span className="text-slate-300">•</span>
                 <span className="hover:text-slate-600 transition-colors">SITES</span>
               </div>
-            </MotionReveal>
+            </div>
           </div>
 
           {/* ================================================================
@@ -123,7 +122,7 @@ export const HeroSection: React.FC = () => {
           <div className="lg:col-span-7 xl:col-span-7 relative flex items-end justify-center lg:justify-end self-end pt-4 lg:pt-0">
             <div className="relative w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[740px] xl:max-w-[820px] flex items-end justify-center lg:justify-end">
               {/* Subtle ambient lighting behind expert */}
-              <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-t from-blue-400/25 via-violet-400/15 to-transparent blur-3xl pointer-events-none z-0" />
+              <div className="hidden sm:block absolute bottom-12 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-t from-blue-400/25 via-violet-400/15 to-transparent blur-3xl pointer-events-none z-0" />
 
               {/* Layer 1 (BEHIND): Floating Card 1 - Top Left: Processos mais claros */}
               <div className="absolute top-[8%] -left-4 sm:-left-6 lg:-left-10 z-10 animate-ambient-float pointer-events-auto">
@@ -181,15 +180,16 @@ export const HeroSection: React.FC = () => {
 
               {/* Layer 2 (CENTER): Expert Image firmly touching the bottom */}
               <img
-                src="/images/expert-hero-desktop.webp"
-                srcSet="/images/expert-hero-mobile.webp 768w, /images/expert-hero-desktop.webp 1024w"
+                src="/images/expert-hero-large.webp"
+                srcSet="/images/expert-hero-small.webp 480w, /images/expert-hero-medium.webp 768w, /images/expert-hero-large.webp 1024w"
                 sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) 640px, 850px"
                 width={1024}
                 height={880}
                 alt="Michelli Bonatelli - Especialista Tech Hub"
                 className="relative z-20 w-full sm:w-[110%] lg:w-[118%] max-w-none h-auto object-contain object-bottom select-none block drop-shadow-none sm:drop-shadow-[0_16px_40px_rgba(0,25,80,0.14)] pointer-events-none"
-                loading="eager"
-                fetchPriority="high"
+                {...{ fetchpriority: 'low' }}
+                loading="lazy"
+
                 decoding="async"
               />
 

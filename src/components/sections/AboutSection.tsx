@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from '@/components/layout/Container';
 import { MotionReveal } from '@/components/motion/MotionReveal';
 import { ArrowUpRight } from 'lucide-react';
-import expert from '@/assets/expert.webp';
 import { BrandSymbol } from '@/components/ui/BrandSymbol';
 import { whatsappLink } from '@/lib/whatsapp';
 
@@ -17,7 +16,11 @@ export const AboutSection: React.FC = () => (
             <div className="portrait-frame">
               <div className="portrait-orbit" />
               <img
-                src={expert}
+                src="/images/expert-hero-large.webp"
+                srcSet="/images/expert-hero-small.webp 480w, /images/expert-hero-medium.webp 768w, /images/expert-hero-large.webp 1024w"
+                sizes="(max-width: 767px) calc(100vw - 40px), 430px"
+                width={1024}
+                height={880}
                 alt="Michelli Bonatelli, fundadora da Tech Hub"
                 loading="lazy"
                 decoding="async"
@@ -75,3 +78,4 @@ export const AboutSection: React.FC = () => (
     </Container>
   </section>
 );
+

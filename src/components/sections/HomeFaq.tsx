@@ -78,7 +78,7 @@ export const HomeFaq: React.FC = () => {
                   href={whatsappLink('duvida')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Tirar dúvidas diretamente pelo WhatsApp"
+                  aria-label="Falar direto no WhatsApp (abre em nova aba)"
                 >
                   <MessageCircle size={16} className="text-[#2854f4]" />
                   Falar direto no WhatsApp <ArrowUpRight size={17} />

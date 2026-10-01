@@ -201,13 +201,13 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     required
                     maxLength={100}
                     autoComplete="name"
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5 text-left">
                   <label htmlFor="brief-empresa" className="block text-xs font-semibold text-slate-700">
-                    Empresa ou negócio <span className="text-slate-400 font-normal">(opcional)</span>
+                    Empresa ou negócio <span className="text-slate-600 font-normal">(opcional)</span>
                   </label>
                   <input
                     id="brief-empresa"
@@ -216,7 +216,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     placeholder="Ex.: Estúdio Aurora"
                     maxLength={120}
                     autoComplete="organization"
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
                   />
                 </div>
               </div>
@@ -239,13 +239,13 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     placeholder="(31) 99999-9999 ou email@exemplo.com"
                     required
                     maxLength={120}
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5 text-left">
                   <label htmlFor="brief-email" className="block text-xs font-semibold text-slate-700">
-                    E-mail alternativo <span className="text-slate-400 font-normal">(opcional)</span>
+                    E-mail alternativo <span className="text-slate-600 font-normal">(opcional)</span>
                   </label>
                   <input
                     id="brief-email"
@@ -254,7 +254,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                     defaultValue={formData.email}
                     placeholder="ana@empresa.com.br"
                     maxLength={120}
-                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all"
                   />
                 </div>
               </div>
@@ -349,7 +349,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               {/* 7. Para quando você precisa? */}
               <div className="space-y-1.5 text-left">
                 <label htmlFor="brief-prazo" className="block text-xs font-semibold text-slate-700">
-                  Para quando você precisa? <span className="text-slate-400 font-normal">(opcional)</span>
+                  Para quando você precisa? <span className="text-slate-600 font-normal">(opcional)</span>
                 </label>
                 <div className="relative">
                   <select
@@ -386,7 +386,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   rows={3}
                   required
                   maxLength={1500}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-400 text-sm outline-none transition-all resize-y min-h-[85px]"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 hover:bg-slate-50/80 focus:bg-white border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 rounded-xl text-slate-900 placeholder:text-slate-600 text-sm outline-none transition-all resize-y min-h-[85px]"
                 />
               </div>
 
@@ -436,7 +436,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                 </button>
 
                 <div className="text-center space-y-1.5 text-xs text-slate-500">
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-slate-600">
                     Usamos seus dados só para responder a este pedido. Veja nossa{' '}
                     <a href="/privacidade" className="text-slate-600 underline hover:text-blue-600">
                       política de privacidade
@@ -489,7 +489,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                   href={whatsappLink('orcamento', whatsappMessage)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="solid-link w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm sm:text-base shadow-lg shadow-emerald-600/25 transition-all group"
+                  className="solid-link w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-sm sm:text-base shadow-lg shadow-emerald-600/25 transition-all group"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Quer adiantar? Fale no WhatsApp ({WHATSAPP_DISPLAY})</span>
@@ -532,7 +532,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               href={whatsappLink(isSites ? 'sites' : 'consultoria')}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-medium text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-medium text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
             >
               <MessageCircle size={17} />
               <span>Falar no WhatsApp</span>
@@ -545,7 +545,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
             </div>
           </div>
 
-          <div className="p-5 rounded-2xl bg-blue-50/60 border border-blue-100 text-blue-950 text-xs space-y-2">
+          <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 text-blue-950 text-xs space-y-2">
             <p className="font-semibold text-blue-900">
               {isSites ? 'Como funciona nosso processo:' : 'Atendimento consultivo e direto:'}
             </p>
@@ -558,3 +558,4 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     </div>
   );
 };
+

@@ -33,3 +33,8 @@ dist-ssr
 
 # Vercel
 .vercel
+
+public/~partytown/
+audit-performance.json
+reports/
+lighthouse-mobile-*

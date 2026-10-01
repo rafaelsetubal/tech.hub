@@ -22,7 +22,7 @@ const services: ServiceItem[] = [
   {
     title: 'Uma rotina que flui.',
     label: 'Processos & organização',
-    copy: 'Definimos etapas e responsabilidades para o trabalho não depender da memória de uma pessoa.',
+    copy: 'Etapas e responsáveis claros, sem depender da memória de uma pessoa.',
     received: 'Mapa do processo atual e do novo, papéis definidos e um guia simples pra equipe.',
     items: ['Papéis e etapas visíveis', 'Menos tarefas repetidas'],
     buttonText: 'Organizar minha rotina',
@@ -32,7 +32,7 @@ const services: ServiceItem[] = [
   {
     title: 'Projetos que avançam.',
     label: 'Gestão de projetos',
-    copy: 'Tornamos prioridades, responsáveis e o andamento visíveis — da ideia à entrega.',
+    copy: 'Prioridades, responsáveis e andamento visíveis — da ideia à entrega.',
     received: 'Quadro de projetos configurado na ferramenta que você já usa, com rotina de acompanhamento.',
     items: ['Prazos à vista', 'Equipe na mesma direção'],
     buttonText: 'Organizar meus projetos',
@@ -42,7 +42,7 @@ const services: ServiceItem[] = [
   {
     title: 'Ferramentas que conversam.',
     label: 'Automação & integração',
-    copy: 'Conectamos ferramentas para a informação seguir adiante sem copiar e colar a cada etapa.',
+    copy: 'Informação entre ferramentas, sem copiar e colar a cada etapa.',
     received: 'Integrações funcionando entre as ferramentas combinadas, testadas com a equipe.',
     items: ['Dados no lugar certo', 'Menos transferência manual'],
     buttonText: 'Conectar minhas ferramentas',
@@ -131,9 +131,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 </div>
 
                 <div className="service-content">
-                  <div>
+                  <div className="service-summary">
                     <h3>{s.title}</h3>
-                    <p>{s.copy}</p>
+                    <p className="service-description">{s.copy}</p>
 
                     <div className="service-deliverable-card">
                       <span className="deliverable-tag">O que você recebe:</span>

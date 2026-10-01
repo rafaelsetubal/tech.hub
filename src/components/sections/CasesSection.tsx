@@ -15,6 +15,8 @@ export const CasesSection: React.FC = () => (
             </span>
             <img
               src={mockup}
+              width={1024}
+              height={682}
               alt="Apresentação do projeto Four Prints em um tablet"
               loading="lazy"
               decoding="async"
@@ -75,3 +77,4 @@ export const CasesSection: React.FC = () => (
     </Container>
   </section>
 );
+

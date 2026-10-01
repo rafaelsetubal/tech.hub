@@ -31,7 +31,7 @@ describe('Etapa 2 - Home FAQ & Social Proof', () => {
 
   it('renders WhatsApp support link with duvida context in HomeFaq', () => {
     render(<HomeFaq />);
-    const link = screen.getByRole('link', { name: /Tirar dúvidas diretamente pelo WhatsApp/i });
+    const link = screen.getByRole('link', { name: /Falar direto no WhatsApp/i });
     expect(link).toBeTruthy();
     expect(link.getAttribute('href')).toContain('https://wa.me/5531986994675');
     expect(decodeURIComponent(link.getAttribute('href')!)).toContain('Fiquei com uma dúvida');
@@ -54,7 +54,7 @@ describe('Etapa 2 - Home FAQ & Social Proof', () => {
 
   it('preserves ordered sequence on Home: Services -> Cases (Four Prints) -> Process -> About -> FAQ -> CTA', () => {
     const { container } = render(<Home />);
-    const sections = Array.from(container.querySelectorAll('main > section'));
+    const sections = Array.from(container.querySelectorAll('main section[id]'));
     const sectionIds = sections.map((s) => s.id);
 
     // Verify servicos -> projetos -> conteudo -> sobre -> faq -> cta-diagnostico
@@ -73,3 +73,5 @@ describe('Etapa 2 - Home FAQ & Social Proof', () => {
     expect(ctaIdx).toBe(faqIdx + 1);
   });
 });
+
+

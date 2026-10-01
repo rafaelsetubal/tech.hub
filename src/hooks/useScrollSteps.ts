@@ -1,4 +1,6 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
+const useClientLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 export const stepAtProgress = (progress:number,count:number) =>
   Math.min(count-1,Math.max(0,Math.floor(progress*count)));
@@ -8,14 +10,14 @@ export function useScrollSteps(count: number, scrollClass: string, progressPrope
   const root = useRef<HTMLElement>(null);
   const [active,setActive] = useState(0);
   const [scrollEnabled,setScrollEnabled] = useState(false);
-  useLayoutEffect(()=>{
+  useClientLayoutEffect(()=>{
     const media=window.matchMedia('(min-height: 620px) and (prefers-reduced-motion: no-preference)');
     const update=()=>setScrollEnabled(media.matches);
     update();
     media.addEventListener('change',update);
     return()=>media.removeEventListener('change',update);
   },[]);
-  useLayoutEffect(()=>{
+  useClientLayoutEffect(()=>{
     const section=root.current;
     if(!section || !scrollEnabled) return;
     // One viewport of reading distance per step; independent of content height.
@@ -60,3 +62,4 @@ export function useScrollSteps(count: number, scrollClass: string, progressPrope
   };
   return {root,active,choose,scrollEnabled};
 }
+

@@ -40,7 +40,7 @@ import { fileURLToPath, URL } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Resend } from 'resend';
-var DEFAULT_KEY_B64 = 'cmVfY0w4ODJxOWhfNDdXeXJ1d3p1UEgxdlRKOG1KTHlvWWlh';
+import { partytownSnippet } from '@qwik.dev/partytown/integration';
 function resolveResendKey() {
     if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim()) {
         return process.env.RESEND_API_KEY.trim();
@@ -56,10 +56,6 @@ function resolveResendKey() {
         }
     }
     catch (_a) { }
-    try {
-        return Buffer.from(DEFAULT_KEY_B64, 'base64').toString('utf-8');
-    }
-    catch (_b) { }
     return '';
 }
 function apiDevPlugin() {
@@ -146,7 +142,9 @@ function apiDevPlugin() {
 }
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), apiDevPlugin()],
+    plugins: [react(), apiDevPlugin(), { name: 'analytics-worker', configurePreviewServer: function (server) { server.middlewares.use(function (req, _res, next) { var pathname = (req.url || '/').split('?')[0]; if (pathname !== '/' && !pathname.includes('.') && !pathname.startsWith('/api/'))
+                req.url = '/spa.html'; next(); }); }, transformIndexHtml: function (html) { return html.replace('<!-- analytics-worker -->', '<script>window.partytown = { forward: ["dataLayer.push"] };</script><script>' + partytownSnippet() + '</script>'); } }],
+    build: { manifest: true },
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
