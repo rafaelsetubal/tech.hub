@@ -39,7 +39,7 @@ export const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/40 pointer-events-none" />
       </div>
 
-      <Container size="wide" className="relative z-10 flex-grow flex items-end w-full h-full">
+      <Container className="relative z-10 flex-grow flex items-end w-full h-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-end w-full">
           {/* ================================================================
               LEFT COLUMN: Editorial Headline & Actions (Vertically Centered)
@@ -57,7 +57,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Headline em Fustat */}
             <div className="w-full">
-              <h1 className="font-display font-extrabold text-[2.75rem] sm:text-5xl md:text-[3.5rem] lg:text-[3.8rem] xl:text-[4.25rem] leading-[1.05] tracking-[-0.035em] text-[#081220]">
+              <h1 className="font-display font-extrabold text-[2.75rem] sm:text-5xl md:text-[3.25rem] lg:text-[3.4rem] xl:text-[3.9rem] leading-[1.05] tracking-[-0.035em] text-[#081220]">
                 Tecnologia<br />
                 não precisa<br />
                 parecer uma<br />
@@ -114,12 +114,12 @@ export const HeroSection: React.FC = () => {
               RIGHT COLUMN: Inside Container Grid + Layered Depth Cards
               ================================================================ */}
           <div className="lg:col-span-7 xl:col-span-7 relative flex items-end justify-center lg:justify-end self-end pt-4 lg:pt-0">
-            <div className="relative w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[740px] xl:max-w-[820px] flex items-end justify-center lg:justify-end">
+            <div className="relative w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[680px] xl:max-w-[740px] flex items-end justify-center lg:justify-end">
               {/* Subtle ambient lighting behind expert */}
               <div className="hidden sm:block absolute bottom-12 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-t from-blue-400/25 via-violet-400/15 to-transparent blur-3xl pointer-events-none z-0" />
 
               {/* Layer 1 (BEHIND): Floating Card 1 - Top Left: Processos mais claros */}
-              <div className="absolute top-[8%] -left-4 sm:-left-6 lg:-left-10 z-10 animate-ambient-float pointer-events-auto">
+              <div className="absolute top-[8%] -left-3 sm:-left-5 lg:-left-6 z-10 animate-ambient-float pointer-events-auto">
                 <div className="p-3 sm:p-3.5 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/90 shadow-[0_8px_24px_rgba(0,40,120,0.08)] flex items-center gap-3 group hover:scale-105 transition-transform duration-normal cursor-default">
                   <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#0052FF] shrink-0 shadow-inner">
                     <BarChart3 className="w-5 h-5" />
@@ -143,7 +143,7 @@ export const HeroSection: React.FC = () => {
 
               {/* Layer 1 (BEHIND): Floating Card 2 - Top Right: Projetos no controle */}
               <div
-                className="absolute top-[16%] -right-2 sm:-right-4 lg:-right-6 z-10 animate-ambient-float pointer-events-auto"
+                className="absolute top-[16%] -right-2 sm:-right-3 lg:-right-3 z-10 animate-ambient-float pointer-events-auto"
                 style={{ animationDelay: '-4s' }}
               >
                 <div className="p-3 sm:p-3.5 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/90 shadow-[0_8px_24px_rgba(100,50,200,0.08)] flex items-center gap-3 group hover:scale-105 transition-transform duration-normal cursor-default">
@@ -189,7 +189,7 @@ export const HeroSection: React.FC = () => {
 
               {/* Layer 3 (FRONT): Floating Card 3 - Bottom Right Checklist */}
               <div
-                className="absolute bottom-[6%] -right-2 sm:-right-4 lg:-right-4 z-30 animate-ambient-float pointer-events-auto"
+                className="absolute bottom-[6%] -right-2 sm:-right-3 lg:-right-2 z-30 animate-ambient-float pointer-events-auto"
                 style={{ animationDelay: '-8s' }}
               >
                 <div className="p-4 rounded-2xl bg-white/95 backdrop-blur-xl border border-white shadow-[0_12px_32px_rgba(0,40,120,0.14)] space-y-2.5 min-w-[170px] group hover:scale-105 transition-transform duration-normal cursor-default">

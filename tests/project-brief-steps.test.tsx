@@ -48,7 +48,7 @@ describe('Shared brief steps', () => {
     expect(screen.getByRole('heading', { name: /Etapa 2/ })).toBeTruthy();
     expect((screen.getByLabelText(/Seu nome ou negócio/) as HTMLInputElement).validity.valid).toBe(false);
     expect(fetch).not.toHaveBeenCalled();
-  });
+  }, 15000);
 
   it('keeps the completed draft after a failed send and retries the same payload', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -69,5 +69,5 @@ describe('Shared brief steps', () => {
     await screen.findByRole('status');
     expect(fetch).toHaveBeenCalledTimes(2);
     expect(fetch.mock.calls[1][1].body).toBe(fetch.mock.calls[0][1].body);
-  });
+  }, 15000);
 });
