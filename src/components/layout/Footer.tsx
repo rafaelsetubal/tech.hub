@@ -82,16 +82,22 @@ export const Footer: React.FC<{ page?: 'home' | 'sites' | 'privacy' }> = ({ page
             <a href="/brand">Brand & Assets</a>
             <a
               href="https://www.instagram.com/tech.hub.vision/"
+              className="footer-social-link"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram @tech.hub.vision (abre em nova aba)"
             >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
               Instagram @tech.hub.vision
             </a>
             <a
               href="https://www.linkedin.com/company/tech-hub-vision"
+              className="footer-social-link"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn Tech Hub (abre em nova aba)"
             >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10v7M11.5 17v-7m0 3a3 3 0 0 1 6 0v4"/><circle cx="7.5" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
               LinkedIn Tech Hub
             </a>
           </nav>

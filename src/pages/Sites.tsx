@@ -8,7 +8,6 @@ import '@/styles/sites-hero.css';
 import '@/styles/narrative-responsive.css';
 import '@/styles/layout-repairs.css';
 import { ArrowUpRight, Check, Plus, Smartphone, Layout, MousePointer2 } from 'lucide-react';
-import { BrandSymbol } from '@/components/ui/BrandSymbol';
 import { Container } from '@/components/layout/Container';
 import { SitesHero } from '@/components/sections/SitesHero';
 import { ProjectBrief } from '@/components/ui/ProjectBrief';
@@ -150,7 +149,16 @@ export const Sites: React.FC = () => {
       </section>
 
       <section className="studio-faq"><Container><div className="studio-section-heading"><h2>Sem dúvidas<br/><span>pelo caminho.</span></h2><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<Plus size={19}/></summary><p>{a}</p></details>)}</div></div></Container></section>
-      <section id="seu-projeto" className="studio-contact"><Container><div className="studio-contact-copy"><BrandSymbol/><h2>Vamos colocar<br/>sua ideia<br/><span>no mundo?</span></h2><p>Conte seu objetivo e começamos pelo que o seu negócio precisa.</p><div className="studio-agreement"><strong>Clareza antes de começar.</strong><p>Escopo, prazo, investimento e etapas de aprovação combinados de forma transparente antes de qualquer início.</p></div></div><ProjectBrief digital requestedGoal={requestedGoal} pagina="sites" /></Container></section>
+      <section id="seu-projeto" className="studio-contact contact-layout">
+        <Container>
+          <div className="contact-heading">
+            <h2>Vamos colocar sua ideia<br/><span>no mundo?</span></h2>
+            <p>Conte seu objetivo e começamos pelo que o seu negócio precisa.</p>
+            <p className="contact-agreement">Escopo, prazo, investimento e etapas de aprovação combinados antes de começar.</p>
+          </div>
+          <ProjectBrief digital requestedGoal={requestedGoal} pagina="sites" />
+        </Container>
+      </section>
     </main>
     <FloatingWhatsApp page="sites" />
     <Footer page="sites"/>

@@ -1,6 +1,12 @@
 /* Keep nested budget forms usable within the landing pages' columns. */
-.studio-contact>div { grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr); gap:6%; align-items:start; }
-.studio-contact-copy { padding-top:48px; }
+.contact-layout>div { display:block; }
+.contact-layout .contact-heading { max-width:800px; margin:0 auto 48px; text-align:center; }
+.contact-layout .contact-heading h2 { font-size:clamp(36px,4.5vw,64px); line-height:1.12; margin:0; }
+.contact-layout .contact-heading>p { max-width:560px; margin:24px auto 0; font-size:17px; line-height:1.75; text-align:center; }
+.visual-contact .contact-heading>p { color:#263e59; }
+.studio-contact .contact-heading>p { color:#fff; }
+.studio-contact .contact-heading h2 span { color:#e0eaff; }
+.contact-layout .contact-heading>.contact-agreement { font-size:14px; margin-top:12px; }
 .brief-section-wrapper { min-width:0; container-type:inline-size; }
 .brief-section-wrapper>.grid { grid-template-columns:minmax(0,1fr); }
 .brief-section-wrapper>.grid>div { grid-column:auto; min-width:0; }
@@ -233,7 +239,6 @@
 @media(max-width:1023px) {
   .studio-contact>div { grid-template-columns:minmax(0,1fr); gap:40px; }
   .studio-contact-copy { padding-top:0; max-width:650px; }
-  .studio-contact .brief-section-wrapper { max-width:760px; }
 }
 @media(max-width:767px) {
   .web-studio .studio-faq .studio-section-heading { grid-template-columns:minmax(0,1fr); gap:24px; }
