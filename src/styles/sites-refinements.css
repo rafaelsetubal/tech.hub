@@ -1,3 +1,10 @@
+/* Keep dashboard columns inside narrow mobile containers. */
+.insights-copy, .insights-dashboard, .insights-dashboard-bottom > div { min-width: 0; }
+.insights-copy .text-link > span { min-width: 0; }
+.insights-dashboard-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 360px) {
+  .insights-dashboard-bottom { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
 /* Keep the old studio grid from constraining the shared contact form. */
 .web-studio .studio-contact.contact-layout > .studio-contact-container {
   display: block;

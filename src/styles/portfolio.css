@@ -106,7 +106,7 @@
   .portfolio-project-info{display:flex;flex-direction:column;gap:10px;padding-top:16px}
   .portfolio-project h3{font-size:24px;line-height:1.2}
   .portfolio-project p{font-size:14.5px;line-height:1.6;margin-top:6px}
-  .portfolio-preview-link{align-self:flex-start;margin-top:6px;min-height:38px;padding:8px 16px;font-size:13px;border-radius:999px}
+  .portfolio-preview-link{align-self:flex-start;margin-top:6px;min-height:44px;padding:8px 16px;font-size:13px;border-radius:999px}
   .portfolio-preview-link span{display:inline}
   .portfolio-screen .interior-copy>span{font-size:6px}
   .portfolio-screen .interior-copy h3{margin:12px 0;font-size:25px}

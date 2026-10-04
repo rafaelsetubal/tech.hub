@@ -2,10 +2,20 @@
 @import './fonts.css';
 @import './motion.css';
 @import './navigation.css';
+@import './site-value-footer.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Shared by both landing pages, including direct visits to /sites. */
+.text-link { display:inline-flex; align-items:center; gap:12px; min-height:44px; max-width:100%; font-size:13px; font-weight:600; color:#3156d9; padding:12px 0; }
+.text-link svg { flex-shrink:0; transition:transform .25s; }
+.text-link:hover svg { transform:translate(3px,-3px); }
+@media (prefers-reduced-motion:reduce) {
+  .text-link svg { transition:none; }
+  .text-link:hover svg { transform:none; }
+}
 
 @layer base {
   *,

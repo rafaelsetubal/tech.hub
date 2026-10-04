@@ -30,9 +30,9 @@ export const CasesSection: React.FC = () => (
           <div className="case-copy">
             <span className="case-client">Na prática · experiência da fundadora</span>
             <h2 className="editorial-title">
-              Um projeto.<br />
+              Um projeto.{' '}<br />
               <span>
-                Todo mundo<br />
+                Todo mundo{' '}<br />
                 no mesmo rumo.
               </span>
             </h2>

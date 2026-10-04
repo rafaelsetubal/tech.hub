@@ -3,7 +3,6 @@ import { useInitialAnchor } from '@/hooks/useInitialAnchor';
 import '@/styles/sites-studio.css';
 import '@/styles/portfolio.css';
 import '@/styles/site-journey.css';
-import '@/styles/site-value-footer.css';
 import '@/styles/sites-hero.css';
 import '@/styles/narrative-responsive.css';
 import '@/styles/layout-repairs.css';

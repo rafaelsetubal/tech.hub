@@ -6,7 +6,6 @@ import '@/styles/visual-sections.css';
 import '@/styles/brand-assembly.css';
 import '@/styles/process-evolution.css';
 import '@/styles/narrative-responsive.css';
-import '@/styles/site-value-footer.css';
 import '@/styles/layout-repairs.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';

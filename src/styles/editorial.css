@@ -39,9 +39,8 @@ main > section { scroll-margin-top: 100px; }
 .section-heading > p { max-width:320px; flex-shrink:0; color:#64738a; font-size:16px; line-height:1.7; }
 .muted-title { color:#7e8da5; }
 .manifesto-accent { color:#4163e9; }
-.text-link { display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:600; color:#3156d9; padding:12px 0; }
-.text-link svg, .solid-link svg { flex-shrink:0; transition:transform .25s; }
-.text-link:hover svg, .solid-link:hover svg { transform:translate(3px,-3px); }
+.solid-link svg { flex-shrink:0; transition:transform .25s; }
+.solid-link:hover svg { transform:translate(3px,-3px); }
 .solid-link { display:inline-flex; align-items:center; justify-content:center; gap:18px; padding:16px 23px; border-radius:100px; background:#315be8; color:white; font-size:14px; font-weight:600; transition:background .25s,transform .25s; }
 .solid-link:hover { background:#2246c3; transform:translateY(-2px); }
 .manifesto-section { background:#f4f7fb; }
