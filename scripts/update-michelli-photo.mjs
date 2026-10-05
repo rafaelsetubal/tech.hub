@@ -2,7 +2,7 @@ import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const sourceImg = 'C:/Users/Rafael/.gemini/antigravity/brain/c8997738-3337-40e6-a770-1eefa9a00302/.user_uploaded/media_1790805371261.png';
+const sourceImg = 'C:/Users/Rafael/.gemini/antigravity/brain/c8997738-3337-40e6-a770-1eefa9a00302/.user_uploaded/media_1791234902566.png';
 
 async function updatePhotos() {
   console.log('Source:', sourceImg);

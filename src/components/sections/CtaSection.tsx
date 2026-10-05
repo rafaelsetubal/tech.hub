@@ -16,7 +16,7 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ requestedGoal }) => (
           <em className="not-italic text-blue-600">com uma conversa.</em>
         </h2>
         <p className="editorial-copy text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
-          Não precisa chegar com a solução pronta. Conte o que está difícil hoje — e o que você quer fazer melhor.
+          Não precisa chegar com a solução pronta. Conte o que está difícil hoje e o que você quer fazer melhor.
         </p>
       </div>
       <ProjectBrief pagina="home" requestedGoal={requestedGoal} />

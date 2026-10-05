@@ -18,7 +18,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: 'Quanto tempo dura uma consultoria ou projeto?',
     answer:
-      'Depende da complexidade e do diagnóstico inicial. Nossos diagnósticos rápidos e intervenções pontuais costumam gerar as primeiras melhorias práticas entre 2 e 3 semanas. Projetos completos de estruturação de processos e tecnologia levam, em média, de 4 a 8 semanas, sempre com entregas semanais graduais para que a equipe sinta os ganhos imediatamente.',
+      'Depende da complexidade e do que o diagnóstico inicial mostrar. Por isso, o prazo é definido junto com a proposta, antes de qualquer compromisso. As entregas acontecem aos poucos, para que a equipe sinta os ganhos desde o começo do projeto.',
   },
   {
     question: 'Minha equipe precisa parar de trabalhar durante a implantação?',
@@ -33,7 +33,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: 'Como funciona o investimento e a contratação?',
     answer:
-      'Trabalhamos com proposta de escopo fechado e total transparência. Após o alinhamento e o diagnóstico inicial, apresentamos um plano detalhado com objetivos, etapas, prazos e investimento fixo — sem surpresas, letras miúdas ou cobranças ocultas ao longo do caminho.',
+      'Trabalhamos com proposta de escopo fechado e total transparência. Após o alinhamento e o diagnóstico inicial, apresentamos um plano detalhado com objetivos, etapas, prazos e investimento fixo. Sem surpresas, letras miúdas ou cobranças ocultas ao longo do caminho.',
   },
 ];
 

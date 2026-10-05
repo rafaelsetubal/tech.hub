@@ -94,28 +94,28 @@ export const Brand: React.FC = () => {
 
   const figmaGradients = [
     {
-      name: '01 — ELECTRIC BLUE',
+      name: '01: ELECTRIC BLUE',
       gradient: 'linear-gradient(135deg, #071A45 0%, #0047FF 38%, #00BAFF 72%, #EAF2FF 100%)',
       stops: '0% #071A45 • 38% #0047FF • 72% #00BAFF • 100% #EAF2FF',
       cssVar: '--gradient-electric',
       desc: 'Gradiente principal elétrico para Hero, banners e elementos tridimensionais.',
     },
     {
-      name: '02 — BLUE LILAC',
+      name: '02: BLUE LILAC',
       gradient: 'linear-gradient(135deg, #0059FF 0%, #4169FF 42%, #8B7CFF 72%, #D8D3FF 100%)',
       stops: '0% #0059FF • 42% #4169FF • 72% #8B7CFF • 100% #D8D3FF',
       cssVar: '--gradient-blue-lilac',
       desc: 'Gradiente oficial aplicado no símbolo vetorial e identidades principais.',
     },
     {
-      name: '03 — AURORA FLUID',
+      name: '03: AURORA FLUID',
       gradient: 'linear-gradient(135deg, #00BAFF 0%, #2563EB 36%, #7C3AED 68%, #C4B5FD 100%)',
       stops: '0% #00BAFF • 36% #2563EB • 68% #7C3AED • 100% #C4B5FD',
       cssVar: '--gradient-aurora',
       desc: 'Gradiente fluido com transição ciano para violeta e lilás.',
     },
     {
-      name: '04 — GLASS LIGHT',
+      name: '04: GLASS LIGHT',
       gradient: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.72) 40%, rgba(221,231,255,0.78) 72%, rgba(0,186,255,0.35) 100%)',
       stops: '0% #FFFFFF (100%) • 40% #FFFFFF (72%) • 72% #DDE7FF (78%) • 100% #00BAFF (35%)',
       cssVar: '--gradient-glass',
@@ -124,14 +124,14 @@ export const Brand: React.FC = () => {
       border: true,
     },
     {
-      name: '05 — DEEP FLUID',
+      name: '05: DEEP FLUID',
       gradient: 'linear-gradient(135deg, #020B1C 0%, #061B4F 38%, #003DFF 68%, #151A8A 100%)',
       stops: '0% #020B1C • 38% #061B4F • 68% #003DFF • 100% #151A8A',
       cssVar: '--gradient-deep',
       desc: 'Gradiente de profundidade para seções noturnas densas e fundos imersivos.',
     },
     {
-      name: '07 — LIGHT LILAC',
+      name: '07: LIGHT LILAC',
       gradient: 'linear-gradient(135deg, #7F7FFC 0%, #9FA2FC 38%, #B8BDFC 68%, #D3DDFC 100%)',
       stops: '0% #7F7FFC • 38% #9FA2FC • 68% #B8BDFC • 100% #D3DDFC',
       cssVar: '--gradient-light-lilac',

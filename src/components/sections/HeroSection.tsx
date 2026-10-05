@@ -22,7 +22,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[92vh] lg:min-h-[760px] xl:min-h-[840px] pt-28 sm:pt-32 lg:pt-36 pb-0 overflow-hidden bg-white flex flex-col justify-between"
+      className="relative w-full min-h-[92vh] lg:min-h-[100svh] lg:max-h-[900px] pt-28 sm:pt-32 lg:pt-24 xl:pt-28 pb-0 overflow-hidden bg-white flex flex-col justify-between"
     >
       {/* Background Fluid Wave Image */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
@@ -44,7 +44,7 @@ export const HeroSection: React.FC = () => {
           {/* ================================================================
               LEFT COLUMN: Editorial Headline & Actions (Vertically Centered)
               ================================================================ */}
-          <div className="home-hero-copy lg:col-span-5 xl:col-span-5 space-y-7 self-center py-8 lg:py-16 z-20">
+          <div className="home-hero-copy lg:col-span-5 xl:col-span-5 space-y-7 lg:space-y-4 xl:space-y-5 self-center py-8 lg:py-2 xl:py-6 z-20">
             {/* Tag editorial */}
             <div className="w-full">
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
@@ -96,8 +96,9 @@ export const HeroSection: React.FC = () => {
                     <span>Conhecer os serviços</span>
                   </a>
                 </div>
-                <p className="hero-credibility text-xs text-slate-500 font-body">
-                  Mais de 8 anos em tecnologia, gestão e dados · Belo Horizonte, atendimento em todo o Brasil
+                <p className="hero-credibility text-xs sm:text-[13px] text-slate-600 font-body leading-relaxed flex items-center gap-2 pt-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" aria-hidden="true" />
+                  <span>Mais de 8 anos em tecnologia, gestão e dados · Belo Horizonte, atendimento em todo o Brasil</span>
                 </p>
               </div>
             </div>
@@ -179,8 +180,8 @@ export const HeroSection: React.FC = () => {
                 sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) 640px, 850px"
                 width={1024}
                 height={880}
-                alt="Michelli Bonatelli - Especialista Tech Hub"
-                className="relative z-20 w-full sm:w-[110%] lg:w-[118%] max-w-none h-auto object-contain object-bottom select-none block drop-shadow-none sm:drop-shadow-[0_16px_40px_rgba(0,25,80,0.14)] pointer-events-none"
+                alt="Michelli Bonatelli, fundadora da Tech Hub"
+                className="relative z-20 w-full sm:w-[110%] lg:w-auto lg:max-h-[min(540px,calc(100svh-140px))] xl:max-h-[min(660px,calc(100svh-140px))] max-w-none h-auto object-contain object-bottom select-none block drop-shadow-none sm:drop-shadow-[0_16px_40px_rgba(0,25,80,0.14)] pointer-events-none"
                 style={{ aspectRatio: '1024 / 880' }}
                 loading="eager"
                 decoding="async"

@@ -32,7 +32,7 @@ const services: ServiceItem[] = [
   {
     title: 'Projetos que avançam.',
     label: 'Gestão de projetos',
-    copy: 'Prioridades, responsáveis e andamento visíveis — da ideia à entrega.',
+    copy: 'Prioridades, responsáveis e andamento visíveis, da ideia à entrega.',
     received: 'Quadro de projetos configurado na ferramenta que você já usa, com rotina de acompanhamento.',
     items: ['Prazos à vista', 'Equipe na mesma direção'],
     buttonText: 'Organizar meus projetos',

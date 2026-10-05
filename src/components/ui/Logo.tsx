@@ -8,7 +8,7 @@ interface LogoProps {
 
 export const Logo: React.FC<LogoProps> = ({ className, variant = 'dark' }) => {
   return (
-    <a href="/" aria-label="Tech Hub — início" className={cn('inline-flex items-center gap-3 select-none group', className)}>
+    <a href="/" aria-label="Tech Hub, ir para o início" className={cn('inline-flex items-center gap-3 select-none group', className)}>
       {/* SVG Icon mark with official gradient */}
       <svg
         width="34"

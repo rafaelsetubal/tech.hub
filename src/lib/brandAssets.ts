@@ -157,7 +157,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   // 1. LOGO HORIZONTAL
   {
     id: 'logo-horizontal-color',
-    name: 'Logo Horizontal — Colorida',
+    name: 'Logo Horizontal : Colorida',
     category: 'horizontal',
     variant: 'color',
     variantLabel: 'Versão Oficial / Colorida',
@@ -177,7 +177,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'logo-horizontal-white',
-    name: 'Logo Horizontal — Branca',
+    name: 'Logo Horizontal : Branca',
     category: 'horizontal',
     variant: 'white',
     variantLabel: 'Versão Branca (Dark Mode)',
@@ -196,7 +196,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'logo-horizontal-black',
-    name: 'Logo Horizontal — Preta',
+    name: 'Logo Horizontal : Preta',
     category: 'horizontal',
     variant: 'black',
     variantLabel: 'Versão Monocromática Preta',
@@ -215,7 +215,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'logo-horizontal-gray',
-    name: 'Logo Horizontal — Cinza / Slate',
+    name: 'Logo Horizontal : Cinza / Slate',
     category: 'horizontal',
     variant: 'gray',
     variantLabel: 'Versão Neutra / Cinza',
@@ -236,7 +236,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   // 2. LOGO VERTICAL / EMPILHADA
   {
     id: 'logo-vertical-color',
-    name: 'Logo Vertical — Colorida',
+    name: 'Logo Vertical : Colorida',
     category: 'vertical',
     variant: 'color',
     variantLabel: 'Versão Oficial / Colorida',
@@ -256,7 +256,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'logo-vertical-white',
-    name: 'Logo Vertical — Branca',
+    name: 'Logo Vertical : Branca',
     category: 'vertical',
     variant: 'white',
     variantLabel: 'Versão Branca (Dark Mode)',
@@ -275,7 +275,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'logo-vertical-black',
-    name: 'Logo Vertical — Preta',
+    name: 'Logo Vertical : Preta',
     category: 'vertical',
     variant: 'black',
     variantLabel: 'Versão Monocromática Preta',
@@ -294,7 +294,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'logo-vertical-gray',
-    name: 'Logo Vertical — Cinza / Slate',
+    name: 'Logo Vertical : Cinza / Slate',
     category: 'vertical',
     variant: 'gray',
     variantLabel: 'Versão Neutra / Cinza',
@@ -315,7 +315,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   // 3. SÍMBOLO / ÍCONE
   {
     id: 'simbolo-gradient',
-    name: 'Símbolo — Gradiente Oficial',
+    name: 'Símbolo : Gradiente Oficial',
     category: 'symbol',
     variant: 'color',
     variantLabel: 'Gradiente Oficial Tech Hub',
@@ -333,7 +333,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'simbolo-white',
-    name: 'Símbolo — Branco',
+    name: 'Símbolo : Branco',
     category: 'symbol',
     variant: 'white',
     variantLabel: 'Silhueta Branca',
@@ -350,7 +350,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'simbolo-black',
-    name: 'Símbolo — Preto',
+    name: 'Símbolo : Preto',
     category: 'symbol',
     variant: 'black',
     variantLabel: 'Silhueta Preta',
@@ -367,7 +367,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'simbolo-blue',
-    name: 'Símbolo — Azul Tech',
+    name: 'Símbolo : Azul Tech',
     category: 'symbol',
     variant: 'color',
     variantLabel: 'Azul Sólido #2563EB',
@@ -386,7 +386,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   // 4. SOMENTE TEXTO / WORDMARK
   {
     id: 'wordmark-dark',
-    name: 'Wordmark — Escura',
+    name: 'Wordmark : Escura',
     category: 'wordmark',
     variant: 'black',
     variantLabel: 'Tipografia Escura (#081220)',
@@ -403,7 +403,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'wordmark-white',
-    name: 'Wordmark — Branca',
+    name: 'Wordmark : Branca',
     category: 'wordmark',
     variant: 'white',
     variantLabel: 'Tipografia Branca (#FFFFFF)',
@@ -420,7 +420,7 @@ export const BRAND_ASSETS: BrandAsset[] = [
   },
   {
     id: 'wordmark-gray',
-    name: 'Wordmark — Cinza',
+    name: 'Wordmark : Cinza',
     category: 'wordmark',
     variant: 'gray',
     variantLabel: 'Tipografia Cinza Neutro',
@@ -560,7 +560,7 @@ export async function downloadAllAssetsZip(onProgress?: (percent: number) => voi
   // Add Readme / Brand Guidelines info file
   zip.file(
     'LEIAME-GUIA-MARCA-TECH-HUB.txt',
-    `TECH HUB — GUIA DE IDENTIDADE VISUAL & ASSETS DE MARCA
+    `TECH HUB : GUIA DE IDENTIDADE VISUAL & ASSETS DE MARCA
 =====================================================
 
 1. CORES OFICIAIS:

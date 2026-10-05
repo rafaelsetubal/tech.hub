@@ -72,8 +72,49 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
+  const [whatsappConfirmacao, setWhatsappConfirmacao] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
   const stepHeading = useRef<HTMLHeadingElement>(null);
   const previousStep = useRef(step);
+
+  useEffect(() => {
+    if (step === 2 && turnstileContainerRef.current) {
+      const renderTurnstile = () => {
+        const turnstile = (window as any).turnstile;
+        if (turnstile && turnstileContainerRef.current && !turnstileWidgetId.current) {
+          try {
+            const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+            turnstileWidgetId.current = turnstile.render(turnstileContainerRef.current, {
+              sitekey,
+              callback: (token: string) => {
+                setCaptchaToken(token);
+              },
+              'error-callback': () => {
+                setCaptchaToken('');
+              },
+              'expired-callback': () => {
+                setCaptchaToken('');
+              },
+              theme: 'light',
+            });
+          } catch (e) {
+            console.error('Erro ao renderizar Turnstile:', e);
+          }
+        }
+      };
+
+      if ((window as any).turnstile) {
+        renderTurnstile();
+      } else {
+        const timer = setTimeout(() => {
+          if ((window as any).turnstile) renderTurnstile();
+        }, 500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [step]);
 
   useEffect(() => {
     if (previousStep.current !== step) stepHeading.current?.focus();
@@ -137,7 +178,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetch('/api/orcamento', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,22 +198,31 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
           contact: whatsappVal || emailVal,
           goal: servico,
           challenge: msgVal,
+          captchaToken,
+          whatsapp_confirmacao: whatsappConfirmacao,
         }),
       });
 
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.success) {
+        if (result.erro === 'captcha' || result.error === 'captcha') {
+          throw new Error('CAPTCHA_FAILED');
+        }
         throw new Error(result.error || `Servidor retornou status ${response.status}`);
       }
 
       setSubmitted(true);
     } catch (err: any) {
       console.error('Erro ao enviar contato:', err);
-      const detail = err?.message ? ` Detalhes: ${err.message}.` : '';
-      setSendError(
-        `Não conseguimos enviar agora.${detail} Tente de novo em instantes ou fale com a gente pelo WhatsApp.`
-      );
+      if (err?.message === 'CAPTCHA_FAILED') {
+        setSendError('Não conseguimos confirmar o envio. Atualize a página e tente de novo, ou fale com a gente pelo WhatsApp.');
+      } else {
+        const detail = err?.message ? ` Detalhes: ${err.message}.` : '';
+        setSendError(
+          `Não conseguimos enviar agora.${detail} Tente de novo em instantes ou fale com a gente pelo WhatsApp.`
+        );
+      }
     } finally {
       setSubmitting(false);
     }
@@ -402,7 +452,25 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
                 </div>
               </div>
 
-</fieldset>
+              {/* WhatsApp opt-in confirmation (Item 5.2) */}
+              <div className="brief-whatsapp-optin">
+                <label htmlFor="brief-whatsapp-confirmacao">
+                  <input
+                    type="checkbox"
+                    id="brief-whatsapp-confirmacao"
+                    name="whatsapp_confirmacao"
+                    checked={whatsappConfirmacao}
+                    onChange={(e) => setWhatsappConfirmacao(e.target.checked)}
+                  />
+                  <span>Quero receber a confirmação também pelo WhatsApp.</span>
+                </label>
+              </div>
+
+              {/* Cloudflare Turnstile Captcha Widget (Item 4) */}
+              <div className="pt-2 flex justify-center w-full">
+                <div ref={turnstileContainerRef} className="cf-turnstile-slot min-h-[65px]" />
+              </div>
+            </fieldset>
               {/* Error Alert */}
               {sendError && (
                 <div role="alert" className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs text-left space-y-1.5">
