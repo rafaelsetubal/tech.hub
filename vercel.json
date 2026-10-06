@@ -81,6 +81,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/orcamento",
+      "destination": "/api/send-email"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },
