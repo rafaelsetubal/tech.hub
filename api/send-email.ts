@@ -45,7 +45,7 @@ function resolveTurnstileSecret(): string {
       }
     }
   } catch {}
-  return '0x4AAAAAAFOySTiVcoXRrkfXt8DWjfrj8kM';
+  return '';
 }
 
 async function parseBody(req: any): Promise<any> {
@@ -98,17 +98,21 @@ export default async function handler(req: any, res: any) {
 
     // 2. Cloudflare Turnstile Captcha verification
     const captchaToken = body?.captchaToken || body?.['cf-turnstile-response'] || '';
-    const turnstileSecret = resolveTurnstileSecret();
-    const host = String(req.headers?.host || req.headers?.['x-forwarded-host'] || '');
-    const isLocal =
-      process.env.NODE_ENV !== 'test' &&
-      (host.includes('localhost') ||
-        host.includes('127.0.0.1') ||
-        process.env.NODE_ENV === 'development');
+    const isLocal = process.env.NODE_ENV === 'development';
+    const turnstileSecret = isLocal
+      ? '1x0000000000000000000000000000000AA'
+      : resolveTurnstileSecret();
+
+    if (!turnstileSecret) {
+      console.error('TURNSTILE_SECRET_KEY não configurada.');
+      return res.status(503).json({
+        ok: false, success: false, erro: 'captcha_config',
+        error: 'Verificação de segurança temporariamente indisponível. Fale com a gente pelo WhatsApp.',
+      });
+    }
 
     if (turnstileSecret && captchaToken) {
       try {
-        let verifySuccess = false;
         const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -116,26 +120,11 @@ export default async function handler(req: any, res: any) {
             secret: turnstileSecret,
             response: captchaToken,
           }),
+          signal: AbortSignal.timeout(10000),
         });
         const verifyData: any = await verifyRes.json().catch(() => ({}));
-        if (verifyData.success) {
-          verifySuccess = true;
-        } else if (isLocal) {
-          const testVerifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-              secret: '1x0000000000000000000000000000000AA',
-              response: captchaToken,
-            }),
-          });
-          const testVerifyData: any = await testVerifyRes.json().catch(() => ({}));
-          if (testVerifyData.success) {
-            verifySuccess = true;
-          }
-        }
-
-        if (!verifySuccess && !isLocal) {
+        if (!verifyRes.ok || !verifyData.success) {
+          console.error('Turnstile recusou a verificação:', verifyData['error-codes'] || [], 'HTTP', verifyRes.status);
           return res.status(400).json({
             ok: false,
             success: false,
@@ -145,8 +134,12 @@ export default async function handler(req: any, res: any) {
         }
       } catch (captchaErr) {
         console.error('Erro na validação do Turnstile:', captchaErr);
+        return res.status(503).json({
+          ok: false, success: false, erro: 'captcha',
+          error: 'Verificação de segurança temporariamente indisponível. Tente novamente em instantes.',
+        });
       }
-    } else if (turnstileSecret && !captchaToken && !isLocal && process.env.NODE_ENV !== 'test') {
+    } else {
       return res.status(400).json({
         ok: false,
         success: false,

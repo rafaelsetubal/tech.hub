@@ -74,16 +74,29 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
   const [step, setStep] = useState<1 | 2>(1);
   const [whatsappConfirmacao, setWhatsappConfirmacao] = useState(false);
   const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const captchaRequired = import.meta.env.MODE !== 'test';
   const turnstileContainerRef = useRef<HTMLDivElement>(null);
   const turnstileWidgetId = useRef<string | null>(null);
   const stepHeading = useRef<HTMLHeadingElement>(null);
   const previousStep = useRef(step);
 
   useEffect(() => {
-    if (step === 2 && turnstileContainerRef.current) {
+    if (step === 2 && !submitted && turnstileContainerRef.current) {
+      let disposed = false;
+      let timer: ReturnType<typeof setTimeout>;
+      const startedAt = Date.now();
+      setCaptchaToken('');
+      setCaptchaError(null);
       const renderTurnstile = () => {
+        if (disposed) return;
         const turnstile = (window as any).turnstile;
-        if (turnstile && turnstileContainerRef.current && !turnstileWidgetId.current) {
+        if (!turnstile) {
+          if (Date.now() - startedAt < 15000) timer = setTimeout(renderTurnstile, 250);
+          else setCaptchaError('Não foi possível carregar a verificação de segurança. Recarregue a página ou fale pelo WhatsApp.');
+          return;
+        }
+        if (turnstileContainerRef.current && turnstileWidgetId.current === null) {
           try {
             const isLocalhost =
               typeof window !== 'undefined' &&
@@ -98,33 +111,48 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
             turnstileWidgetId.current = turnstile.render(turnstileContainerRef.current, {
               sitekey,
               callback: (token: string) => {
+                if (disposed) return;
                 setCaptchaToken(token);
+                setCaptchaError(null);
               },
               'error-callback': (error?: any) => {
                 console.error('[Turnstile error-callback]', error);
+                if (disposed) return;
                 setCaptchaToken('');
+                setCaptchaError('A verificação de segurança falhou. Clique em refazer verificação para tentar novamente.');
               },
               'expired-callback': () => {
+                if (disposed) return;
                 setCaptchaToken('');
               },
               theme: 'light',
             });
           } catch (e) {
             console.error('Erro ao renderizar Turnstile:', e);
+            setCaptchaError('Não foi possível iniciar a verificação de segurança. Recarregue a página.');
           }
         }
       };
 
-      if ((window as any).turnstile) {
-        renderTurnstile();
-      } else {
-        const timer = setTimeout(() => {
-          if ((window as any).turnstile) renderTurnstile();
-        }, 500);
-        return () => clearTimeout(timer);
-      }
+      renderTurnstile();
+      return () => {
+        disposed = true;
+        clearTimeout(timer);
+        if (turnstileWidgetId.current !== null) {
+          (window as any).turnstile?.remove(turnstileWidgetId.current);
+          turnstileWidgetId.current = null;
+        }
+      };
     }
-  }, [step]);
+  }, [step, submitted]);
+
+  const resetCaptcha = () => {
+    setCaptchaToken('');
+    setCaptchaError(null);
+    if (turnstileWidgetId.current !== null) {
+      (window as any).turnstile?.reset(turnstileWidgetId.current);
+    }
+  };
 
   useEffect(() => {
     if (previousStep.current !== step) stepHeading.current?.focus();
@@ -185,6 +213,11 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
       return;
     }
 
+    if (captchaRequired && !captchaToken) {
+      setSendError(captchaError || 'Aguarde a verificação de segurança antes de enviar.');
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -238,7 +271,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     } catch (err: any) {
       console.error('Erro ao enviar contato:', err);
       if (err?.message === 'CAPTCHA_FAILED') {
-        setSendError('Não conseguimos confirmar o envio. Atualize a página e tente de novo, ou fale com a gente pelo WhatsApp.');
+        setSendError('A verificação de segurança precisa ser refeita. Aguarde a confirmação e tente enviar novamente.');
       } else {
         const detail = err?.message ? ` Detalhes: ${err.message}.` : '';
         setSendError(
@@ -246,6 +279,8 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
         );
       }
     } finally {
+      // Tokens are single-use, including when email delivery fails after verification.
+      resetCaptcha();
       setSubmitting(false);
     }
   };
@@ -489,8 +524,14 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               </div>
 
               {/* Cloudflare Turnstile Captcha Widget (Item 4) */}
-              <div className="pt-2 flex justify-center w-full">
+              <div className="pt-2 flex flex-col items-center gap-2 w-full">
                 <div ref={turnstileContainerRef} className="cf-turnstile-slot min-h-[65px]" />
+                {captchaError && (
+                  <div className="text-sm text-amber-800">
+                    <p>{captchaError}</p>
+                    <button type="button" onClick={resetCaptcha} className="font-semibold underline">Refazer verificação</button>
+                  </div>
+                )}
               </div>
             </fieldset>
               {/* Error Alert */}

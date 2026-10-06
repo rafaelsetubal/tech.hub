@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 const sendMock = vi.fn(async () => ({ data: { id: 'test-email-id' }, error: null }));
 vi.mock('resend', () => ({
@@ -9,11 +9,31 @@ vi.mock('resend', () => ({
 
 import handler from '../api/send-email';
 
-beforeAll(() => {
+beforeEach(() => {
   vi.stubEnv('RESEND_API_KEY', 're_test_placeholder');
+  vi.stubEnv('TURNSTILE_SECRET_KEY', 'test_secret_key');
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, status: 200, json: async () => ({ success: true }) })));
+  sendMock.mockClear();
 });
+afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
 describe('Resend API Handler (/api/send-email & /api/orcamento)', () => {
+  it.each(['missing-token', 'network-failure', 'duplicate-token'])('does not send email after %s', async failure => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    if (failure === 'network-failure') vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('Network unavailable')));
+    if (failure === 'duplicate-token') vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ success: false, 'error-codes': ['timeout-or-duplicate'] }) }));
+    let statusCode = 0;
+    let responseData: any;
+    const res = {
+      setHeader: () => {},
+      status: (code: number) => { statusCode = code; return res; },
+      json: (data: any) => { responseData = data; return res; },
+    };
+    await handler({ method: 'POST', body: { nome: 'Ana', email: 'ana@example.com', captchaToken: failure === 'missing-token' ? '' : 'token' } }, res);
+    expect(statusCode).toBe(failure === 'network-failure' ? 503 : 400);
+    expect(responseData.erro).toBe('captcha');
+    expect(sendMock).not.toHaveBeenCalled();
+  });
   it('should validate missing required fields', async () => {
     let statusCode = 0;
     let responseData: any = null;
@@ -131,6 +151,7 @@ describe('Resend API Handler (/api/send-email & /api/orcamento)', () => {
         goal: 'Organizar minha operação',
         challenge: 'Teste de integração contínua do formulário via Resend.',
         whatsapp_confirmacao: true,
+        captchaToken: 'valid-token',
       },
     };
 
