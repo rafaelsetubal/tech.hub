@@ -100,18 +100,8 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
               callback: (token: string) => {
                 setCaptchaToken(token);
               },
-              'error-callback': () => {
-                if (sitekey !== '1x00000000000000000000AA' && turnstileContainerRef.current) {
-                  try {
-                    turnstile.remove(turnstileWidgetId.current);
-                    turnstileWidgetId.current = turnstile.render(turnstileContainerRef.current, {
-                      sitekey: '1x00000000000000000000AA',
-                      callback: (token: string) => setCaptchaToken(token),
-                      theme: 'light',
-                    });
-                    return;
-                  } catch {}
-                }
+              'error-callback': (error?: any) => {
+                console.error('[Turnstile error-callback]', error);
                 setCaptchaToken('');
               },
               'expired-callback': () => {
