@@ -260,7 +260,7 @@ export default async function handler(req: any, res: any) {
     // 5. Enviar confirmação automática para o e-mail do solicitante
     if (email) {
       try {
-        const fromEmail = process.env.RESEND_FROM || 'Tech Hub <contato@techhubvision.com.br>';
+        const fromEmail = process.env.RESEND_FROM || 'Tech Hub <onboarding@resend.dev>';
         const confirmationSubject = `Recebemos seu pedido, ${nome}`;
         const servicoDesc = servico || 'seu projeto';
         const confirmationText = `Olá, ${nome}!\n\nRecebemos seu pedido de orçamento para ${servicoDesc} e já estamos olhando com carinho.\n\nA gente responde em até 2 horas, em horário comercial, pelo e-mail ou WhatsApp que você informou.\n\nSe quiser adiantar a conversa, é só chamar no WhatsApp: (31) 98699-4675.\n\nAté já,\nMichelli e Rafael\nTech Hub · Tecnologia que faz sentido.\ntechhubvision.com.br`;
