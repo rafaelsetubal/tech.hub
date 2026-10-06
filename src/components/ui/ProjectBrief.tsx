@@ -217,7 +217,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
         whatsapp_confirmacao: whatsappConfirmacao,
       };
 
-      let response = await fetch('/api/orcamento', {
+      let response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -225,8 +225,8 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
         body: JSON.stringify(payload),
       });
 
-      if (response.status === 404) {
-        response = await fetch('/api/send-email', {
+      if (!response.ok && response.status === 404) {
+        response = await fetch('/api/orcamento', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
