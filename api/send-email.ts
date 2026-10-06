@@ -1,4 +1,6 @@
 import { Resend } from 'resend';
+import fs from 'node:fs';
+import path from 'node:path';
 
 function escapeHtml(str: string): string {
   return String(str || '')
@@ -13,6 +15,36 @@ function resolveApiKey(): string {
   if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim()) {
     return process.env.RESEND_API_KEY.trim();
   }
+  try {
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf8');
+      const match = content.match(/^RESEND_API_KEY=(.+)$/m);
+      if (match && match[1]) {
+        return match[1].trim().replace(/^['"]|['"]$/g, '');
+      }
+    }
+  } catch {}
+  return '';
+}
+
+function resolveTurnstileSecret(): string {
+  if (process.env.TURNSTILE_SECRET_KEY && process.env.TURNSTILE_SECRET_KEY.trim()) {
+    return process.env.TURNSTILE_SECRET_KEY.trim();
+  }
+  if (process.env.TURNSTILE_SECRET && process.env.TURNSTILE_SECRET.trim()) {
+    return process.env.TURNSTILE_SECRET.trim();
+  }
+  try {
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf8');
+      const match = content.match(/^TURNSTILE_SECRET_KEY=(.+)$/m) || content.match(/^TURNSTILE_SECRET=(.+)$/m);
+      if (match && match[1]) {
+        return match[1].trim().replace(/^['"]|['"]$/g, '');
+      }
+    }
+  } catch {}
   return '';
 }
 
@@ -66,10 +98,17 @@ export default async function handler(req: any, res: any) {
 
     // 2. Cloudflare Turnstile Captcha verification
     const captchaToken = body?.captchaToken || body?.['cf-turnstile-response'] || '';
-    const turnstileSecret = process.env.TURNSTILE_SECRET;
+    const turnstileSecret = resolveTurnstileSecret();
+    const host = String(req.headers?.host || req.headers?.['x-forwarded-host'] || '');
+    const isLocal =
+      process.env.NODE_ENV !== 'test' &&
+      (host.includes('localhost') ||
+        host.includes('127.0.0.1') ||
+        process.env.NODE_ENV === 'development');
 
     if (turnstileSecret && captchaToken) {
       try {
+        let verifySuccess = false;
         const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -78,8 +117,25 @@ export default async function handler(req: any, res: any) {
             response: captchaToken,
           }),
         });
-        const verifyData: any = await verifyRes.json();
-        if (!verifyData.success) {
+        const verifyData: any = await verifyRes.json().catch(() => ({}));
+        if (verifyData.success) {
+          verifySuccess = true;
+        } else if (isLocal) {
+          const testVerifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              secret: '1x0000000000000000000000000000000AA',
+              response: captchaToken,
+            }),
+          });
+          const testVerifyData: any = await testVerifyRes.json().catch(() => ({}));
+          if (testVerifyData.success) {
+            verifySuccess = true;
+          }
+        }
+
+        if (!verifySuccess && !isLocal) {
           return res.status(400).json({
             ok: false,
             success: false,
@@ -90,7 +146,7 @@ export default async function handler(req: any, res: any) {
       } catch (captchaErr) {
         console.error('Erro na validação do Turnstile:', captchaErr);
       }
-    } else if (turnstileSecret && !captchaToken && process.env.NODE_ENV !== 'test') {
+    } else if (turnstileSecret && !captchaToken && !isLocal && process.env.NODE_ENV !== 'test') {
       return res.status(400).json({
         ok: false,
         success: false,

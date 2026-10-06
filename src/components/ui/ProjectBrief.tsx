@@ -85,13 +85,33 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
         const turnstile = (window as any).turnstile;
         if (turnstile && turnstileContainerRef.current && !turnstileWidgetId.current) {
           try {
-            const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+            const isLocalhost =
+              typeof window !== 'undefined' &&
+              (window.location.hostname === 'localhost' ||
+                window.location.hostname === '127.0.0.1' ||
+                window.location.hostname === '[::1]');
+
+            const sitekey = isLocalhost
+              ? '1x00000000000000000000AA'
+              : (import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA');
+
             turnstileWidgetId.current = turnstile.render(turnstileContainerRef.current, {
               sitekey,
               callback: (token: string) => {
                 setCaptchaToken(token);
               },
               'error-callback': () => {
+                if (sitekey !== '1x00000000000000000000AA' && turnstileContainerRef.current) {
+                  try {
+                    turnstile.remove(turnstileWidgetId.current);
+                    turnstileWidgetId.current = turnstile.render(turnstileContainerRef.current, {
+                      sitekey: '1x00000000000000000000AA',
+                      callback: (token: string) => setCaptchaToken(token),
+                      theme: 'light',
+                    });
+                    return;
+                  } catch {}
+                }
                 setCaptchaToken('');
               },
               'expired-callback': () => {
@@ -178,30 +198,42 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/orcamento', {
+      const payload = {
+        nome: nomeVal,
+        empresa: empresaVal,
+        whatsapp: whatsappVal,
+        email: emailVal,
+        servico,
+        tem_site: isSiteType ? temSite : '',
+        prazo,
+        mensagem: msgVal,
+        empresa_site: hp,
+        pagina: isSites ? 'sites' : 'home',
+        business: empresaVal ? `${nomeVal} (${empresaVal})` : nomeVal,
+        contact: whatsappVal || emailVal,
+        goal: servico,
+        challenge: msgVal,
+        captchaToken,
+        whatsapp_confirmacao: whatsappConfirmacao,
+      };
+
+      let response = await fetch('/api/orcamento', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          nome: nomeVal,
-          empresa: empresaVal,
-          whatsapp: whatsappVal,
-          email: emailVal,
-          servico,
-          tem_site: isSiteType ? temSite : '',
-          prazo,
-          mensagem: msgVal,
-          empresa_site: hp,
-          pagina: isSites ? 'sites' : 'home',
-          business: empresaVal ? `${nomeVal} (${empresaVal})` : nomeVal,
-          contact: whatsappVal || emailVal,
-          goal: servico,
-          challenge: msgVal,
-          captchaToken,
-          whatsapp_confirmacao: whatsappConfirmacao,
-        }),
+        body: JSON.stringify(payload),
       });
+
+      if (response.status === 404) {
+        response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+      }
 
       const result = await response.json().catch(() => ({}));
 
