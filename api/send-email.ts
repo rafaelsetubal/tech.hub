@@ -45,7 +45,7 @@ function resolveTurnstileSecret(): string {
       }
     }
   } catch {}
-  return '';
+  return '0x4AAAAAAFOySTiVcoXRrkfXt8DWjfrj8kM';
 }
 
 async function parseBody(req: any): Promise<any> {

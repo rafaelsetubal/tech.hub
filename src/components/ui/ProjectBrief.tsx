@@ -93,7 +93,7 @@ export const ProjectBrief: React.FC<ProjectBriefProps> = ({
 
             const sitekey = isLocalhost
               ? '1x00000000000000000000AA'
-              : (import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA');
+              : (import.meta.env.VITE_TURNSTILE_SITE_KEY || '0x4AAAAAAFOySVUsOG8yJN0u');
 
             turnstileWidgetId.current = turnstile.render(turnstileContainerRef.current, {
               sitekey,
