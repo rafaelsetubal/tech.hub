@@ -256,14 +256,14 @@ export default async function handler(req: any, res: any) {
         const fromEmail = process.env.RESEND_FROM || 'Tech Hub <onboarding@resend.dev>';
         const confirmationSubject = `Recebemos seu pedido, ${nome}`;
         const servicoDesc = servico || 'seu projeto';
-        const confirmationText = `Olá, ${nome}!\n\nRecebemos seu pedido de orçamento para ${servicoDesc} e já estamos olhando com carinho.\n\nA gente responde em até 2 horas, em horário comercial, pelo e-mail ou WhatsApp que você informou.\n\nSe quiser adiantar a conversa, é só chamar no WhatsApp: (31) 98699-4675.\n\nAté já,\nMichelli e Rafael\nTech Hub · Tecnologia que faz sentido.\ntechhubvision.com.br`;
+        const confirmationText = `Olá, ${nome}!\n\nRecebemos seu pedido de orçamento para ${servicoDesc} e já estamos olhando com carinho.\n\nA gente responde em até 2 horas, em horário comercial, pelo e-mail ou WhatsApp que você informou.\n\nSe quiser adiantar a conversa, é só chamar no WhatsApp: (31) 7130-6771.\n\nAté já,\nMichelli e Rafael\nTech Hub · Tecnologia que faz sentido.\ntechhubvision.com.br`;
 
         const confirmationHtml = `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 28px; background: #ffffff; color: #081220; line-height: 1.6; border: 1px solid #e2e8f0; border-radius: 12px;">
             <p style="font-size: 16px; margin-top: 0;">Olá, <strong>${escapeHtml(nome)}</strong>!</p>
             <p style="font-size: 15px;">Recebemos seu pedido de orçamento para <strong>${escapeHtml(servicoDesc)}</strong> e já estamos olhando com carinho.</p>
             <p style="font-size: 15px;">A gente responde em até 2 horas, em horário comercial, pelo e-mail ou WhatsApp que você informou.</p>
-            <p style="font-size: 15px;">Se quiser adiantar a conversa, é só chamar no WhatsApp: <a href="https://wa.me/5531986994675" style="color: #0052FF; font-weight: 600; text-decoration: none;">(31) 98699-4675</a>.</p>
+            <p style="font-size: 15px;">Se quiser adiantar a conversa, é só chamar no WhatsApp: <a href="https://wa.me/553171306771" style="color: #0052FF; font-weight: 600; text-decoration: none;">(31) 7130-6771</a>.</p>
             <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid #e2e8f0; font-size: 14px; color: #475569;">
               <p style="margin: 0 0 4px 0; font-weight: 600; color: #081220;">Até já,</p>
               <p style="margin: 0 0 10px 0; color: #081220;">Michelli e Rafael</p>

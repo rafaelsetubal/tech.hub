@@ -1,5 +1,5 @@
-export const WHATSAPP_NUMBER = '5531986994675';
-export const WHATSAPP_DISPLAY = '(31) 98699-4675';
+export const WHATSAPP_NUMBER = '553171306771';
+export const WHATSAPP_DISPLAY = '(31) 7130-6771';
 
 export type WhatsAppTopic =
   | 'geral'

@@ -33,7 +33,7 @@ describe('Etapa 2 - Home FAQ & Social Proof', () => {
     render(<HomeFaq />);
     const link = screen.getByRole('link', { name: /Falar direto no WhatsApp/i });
     expect(link).toBeTruthy();
-    expect(link.getAttribute('href')).toContain('https://wa.me/5531986994675');
+    expect(link.getAttribute('href')).toContain('https://wa.me/553171306771');
     expect(decodeURIComponent(link.getAttribute('href')!)).toContain('Fiquei com uma dúvida');
   });
 
